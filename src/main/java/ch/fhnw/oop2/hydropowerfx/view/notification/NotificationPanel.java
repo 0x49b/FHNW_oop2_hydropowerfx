@@ -3,7 +3,9 @@ package ch.fhnw.oop2.hydropowerfx.view.notification;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -21,28 +23,25 @@ public class NotificationPanel extends Pane {
 
     private final int NPHEIGHT = 35;
     private final int NPWIDTH = 120;
+    private final int NPPADDING = 10;
 
     private RootPanel rootPanel;
     private NotificationPanel np;
 
     public enum Type {SUCCESS, ERROR, INFO, WARNING}
 
-    public NotificationPanel(RootPanel rootPanel) {
+    private NotificationPanel() {
         this.np = this;
-        this.setRootPanel(rootPanel);
         this.getStylesheets().add(this.getClass().getResource("assets/NotificationPanelStyle.css").toExternalForm());
-        this.getStyleClass().add("notification");
-        this.registerResizeListener();
+        this.getStyleClass().add("notification-top");
     }
 
     public NotificationPanel(RootPanel rootPanel, String textLabel, Type type, int duration) {
-        this.np = this;
+        this();
         this.setRootPanel(rootPanel);
         this.setTextLabel(textLabel);
         this.setType(type);
         this.setShowDuration(duration);
-        this.getStylesheets().add(this.getClass().getResource("assets/NotificationPanelStyle.css").toExternalForm());
-        this.getStyleClass().add("notification-top");
         this.registerResizeListener();
     }
 
@@ -89,9 +88,10 @@ public class NotificationPanel extends Pane {
         this.textLabel.relocate(45, 8);
         this.textLabel.getStyleClass().add("text-label");
 
-        np.setHeight(this.NPHEIGHT);
-        np.setWidth(this.NPWIDTH);
-        np.setLayoutX(rootPanel.getWidth() - (this.NPWIDTH + 10));
+        np.setWidth(this.getContainerWidth());
+        np.setHeight(this.getContainerHeight());
+
+        np.setLayoutX(rootPanel.getWidth() - (this.getContainerWidth() + this.NPPADDING));
         np.setManaged(false);
         np.getChildren().addAll(this.icon, this.textLabel);
         rootPanel.getChildren().add(this);
@@ -107,11 +107,12 @@ public class NotificationPanel extends Pane {
         Timeline tick0 = new Timeline();
         tick0.setCycleCount(Timeline.INDEFINITE);
         tick0.getKeyFrames().add(
-                new KeyFrame(new Duration(2), new EventHandler<ActionEvent>() {
+                new KeyFrame(new Duration(1), new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent t) {
                         np.setLayoutY(np.getLayoutY() - 0.1);
-                        if (np.getLayoutY() < -50) {
+                        if (np.getLayoutY() < (np.getContainerHeight() * -1)) {
                             tick0.stop();
+                            np.removeNode();
                         }
                     }
                 }));
@@ -120,9 +121,39 @@ public class NotificationPanel extends Pane {
 
     private void registerResizeListener() {
         rootPanel.widthProperty().addListener((observable, oldValue, newValue) -> {
-            int npPos = newValue.intValue() - (this.NPWIDTH + 10);
+            int npPos = newValue.intValue() - (this.getContainerWidth() + 10);
             np.setLayoutX(npPos);
         });
+    }
+
+    //TODO Remove Node --> Memory Usage!!! (Garbage Collector?)
+    private void removeNode(){
+        rootPanel.getChildren().remove(np);
+        // Remove Listener first
+         // np = null;
+    }
+
+
+    private int getContainerWidth() {
+        int labelWidth = (this.textLabel.getText().length() * 3) + this.NPWIDTH;
+
+        if (labelWidth < this.NPWIDTH) {
+            return this.NPWIDTH;
+        } else {
+            return labelWidth;
+        }
+    }
+
+    private int getContainerHeight() {
+        String[] lines = this.textLabel.getText().split("\n");
+        int calcHeight = this.NPHEIGHT + (lines.length * 10);
+
+        if (lines.length > 1) {
+            return calcHeight;
+        } else {
+            return this.NPHEIGHT;
+        }
+
     }
 
 }

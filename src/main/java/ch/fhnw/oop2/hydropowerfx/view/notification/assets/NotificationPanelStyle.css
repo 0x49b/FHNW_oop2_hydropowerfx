@@ -18,7 +18,7 @@
 
 
 .text-label {
-    -fx-font-weight: bolder;
+    -fx-font-weight: 900;
 }
 .success {
     -fx-background-color: rgba(28, 148, 20, 0.2);
