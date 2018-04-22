@@ -4,8 +4,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class RootPM {
-    private final StringProperty applicationTitle = new SimpleStringProperty("HydroPowerFX");
-    private final StringProperty greeting         = new SimpleStringProperty("Hello World!");
+    private final StringProperty applicationTitle     = new SimpleStringProperty("HydroPowerFX");
+    private final StringProperty successButtonCaption = new SimpleStringProperty("success Notification");
+    private final StringProperty errorButtonCaption   = new SimpleStringProperty("error Notification");
+    private final StringProperty infoButtonCaption   = new SimpleStringProperty("info Notification");
+    private final StringProperty warningButtonCaption   = new SimpleStringProperty("warn Notification");
 
     // all getters and setters
     public String getApplicationTitle() {
@@ -20,15 +23,39 @@ public class RootPM {
         this.applicationTitle.set(applicationTitle);
     }
 
-    public String getGreeting() {
-        return greeting.get();
+    public String getSuccessButtonCaption() { return successButtonCaption.get(); }
+
+    public StringProperty successButtonCaptionProperty() { return successButtonCaption; }
+
+    public void setSuccessButtonCaption(String successButtonCaption) { this.successButtonCaption.set(successButtonCaption); }
+
+    public String getErrorButtonCaption() { return errorButtonCaption.get(); }
+
+    public StringProperty errorButtonCaptionProperty() { return errorButtonCaption; }
+
+    public void setErrorButtonCaption(String errorButtonCaption) { this.errorButtonCaption.set(errorButtonCaption); }
+
+    public String getInfoButtonCaption() {
+        return infoButtonCaption.get();
     }
 
-    public StringProperty greetingProperty() {
-        return greeting;
+    public StringProperty infoButtonCaptionProperty() {
+        return infoButtonCaption;
     }
 
-    public void setGreeting(String greeting) {
-        this.greeting.set(greeting);
+    public void setInfoButtonCaption(String infoButtonCaption) {
+        this.infoButtonCaption.set(infoButtonCaption);
+    }
+
+    public String getWarningButtonCaption() {
+        return warningButtonCaption.get();
+    }
+
+    public StringProperty warningButtonCaptionProperty() {
+        return warningButtonCaption;
+    }
+
+    public void setWarningButtonCaption(String warningButtonCaption) {
+        this.warningButtonCaption.set(warningButtonCaption);
     }
 }
