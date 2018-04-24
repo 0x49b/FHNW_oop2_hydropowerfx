@@ -7,21 +7,13 @@
     -fx-background-radius: 5 5 0 0;
 }
 
-.notification-left{
-    -fx-background-radius: 0 5 5 0;
-}
-
-.notification-right{
-    -fx-background-radius: 5 0 0 5;
-}
-
-
 
 .text-label {
-    -fx-font-weight: 900;
+    -fx-font-weight: bolder;
 }
 .success {
     -fx-background-color: rgba(28, 148, 20, 0.2);
+    -fx-border-width: 2px;
 }
 .success-label {
     -fx-text-fill: rgba(28, 148, 20, 1.0);
@@ -39,7 +31,7 @@
     -fx-text-fill: rgba(0, 35, 148, 1.0);
 }
 .warning {
-    -fx-background-color: rgba(255, 187, 0, 0.21);
+    -fx-background-color: rgba(255, 187, 0, 0.2);
 }
 .warning-label {
     -fx-text-fill: #da8b00;

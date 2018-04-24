@@ -27,6 +27,7 @@ public class NotificationPanel extends Pane {
     private NotificationPanel np;
 
     public enum Type {SUCCESS, ERROR, INFO, WARNING}
+    public enum Position {TOPLEFT, TOPCENTER, TOPRIGHT, BOTTOMRIGHT, BOTTOMCENTER, BOTTOMLEFT}
 
     private NotificationPanel() {
         this.np = this;
@@ -93,7 +94,6 @@ public class NotificationPanel extends Pane {
         np.setManaged(false);
         np.getChildren().addAll(this.icon, this.textLabel);
         rootPanel.getChildren().add(this);
-
 
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(showDuration),
