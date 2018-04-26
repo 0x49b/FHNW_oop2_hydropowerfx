@@ -17,6 +17,9 @@ public class Menubar extends VBox implements ViewMixin {
     private Button settings;
     private Label version;
 
+    public Menubar() {
+        init();
+    }
 
     @Override
     public void initializeSelf() {
@@ -27,17 +30,17 @@ public class Menubar extends VBox implements ViewMixin {
     public void initializeControls() {
         logo = new Image(this.getClass().getResource("../assets/hpfxlogo.png").toExternalForm());
         hpfxLogo = new ImageView(logo);
-        hpfxLogo.getStyleClass().addAll("menubar-item","logo");
+        hpfxLogo.getStyleClass().addAll("menubar-item", "logo");
         undo = new Button();
-        undo.getStyleClass().addAll("menubar-item","undo");
+        undo.getStyleClass().addAll("menubar-item", "menubar-button", "undo");
         redo = new Button();
-        redo.getStyleClass().addAll("menubar-item","redo");
+        redo.getStyleClass().addAll("menubar-item", "menubar-button", "redo");
         search = new Button();
-        search.getStyleClass().addAll("menubar-item","search");
+        search.getStyleClass().addAll("menubar-item", "menubar-button", "search");
         settings = new Button();
-        settings.getStyleClass().addAll("menubar-item","settings");
+        settings.getStyleClass().addAll("menubar-item", "menubar-button", "settings");
         version = new Label();
-        version.getStyleClass().addAll("menubar-item","version");
+        version.getStyleClass().addAll("menubar-item", "version");
         version.setText("V0.1");
     }
 
