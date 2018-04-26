@@ -1,6 +1,7 @@
 package ch.fhnw.oop2.hydropowerfx.view;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
+import ch.fhnw.oop2.hydropowerfx.view.menubar.Menubar;
 import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -20,6 +21,8 @@ public class RootPanel extends HBox implements ViewMixin {
 
     private WebView webview;
     private WebEngine webengine;
+
+    private Menubar menubar;
 
     public RootPanel(RootPM model) {
         this.rootPM = model;
@@ -48,11 +51,15 @@ public class RootPanel extends HBox implements ViewMixin {
                 "</embed>");
         webview.setMaxHeight(400);
         webview.setMaxWidth(400);
+
+        menubar = new Menubar();
+        menubar.init();
+
     }
 
     @Override
     public void layoutControls() {
-        getChildren().addAll(successButton, errorButton, infoButton, warningButton, webview);
+        getChildren().addAll(menubar,successButton, errorButton, infoButton, warningButton, webview);
     }
 
     @Override
