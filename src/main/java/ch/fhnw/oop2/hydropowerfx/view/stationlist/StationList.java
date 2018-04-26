@@ -1,11 +1,9 @@
 package ch.fhnw.oop2.hydropowerfx.view.stationlist;
 
-import javafx.scene.layout.Pane;
+import javafx.scene.control.ListView;
 
-import javax.swing.text.Element;
-import javax.swing.text.TableView;
 
-public class StationList extends Pane {
+public class StationList extends ListView {
 
     public StationList(){
         this.getStyleClass().add("stationlist");

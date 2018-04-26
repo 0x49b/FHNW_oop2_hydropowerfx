@@ -28,7 +28,7 @@ public class Menubar extends VBox implements ViewMixin {
 
     @Override
     public void initializeControls() {
-        logo = new Image(this.getClass().getResource("../assets/hpfxlogo.png").toExternalForm());
+        logo = new Image(this.getClass().getResource("../assets/images/hpfxlogo.png").toExternalForm());
         hpfxLogo = new ImageView(logo);
         hpfxLogo.getStyleClass().addAll("menubar-item", "logo");
         undo = new Button();
