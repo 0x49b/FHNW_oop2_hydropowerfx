@@ -57,7 +57,7 @@ public class Editor extends HBox implements ViewMixin {
 
     @Override
     public void layoutControls() {
-        getChildren().addAll(successButton, errorButton, infoButton, warningButton, webview);
+        getChildren().addAll(successButton, errorButton, infoButton, warningButton);
     }
 
     @Override

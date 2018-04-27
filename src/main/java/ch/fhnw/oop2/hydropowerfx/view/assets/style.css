@@ -44,7 +44,7 @@
     -fx-border-radius: 0,0,0,0;
 }
 .button:hover{
-    -fx-background-color: #35b1e6;
+    -fx-background-color: #91C9E8;
     -fx-background-radius: 0,0,0,0;
     -fx-border-radius: 0,0,0,0;
 }
@@ -52,7 +52,11 @@
 .version{
     -fx-text-alignment: center;
 }
-
+.search-panel{
+    -fx-background-color: #3399CC;
+    -fx-background-radius: 0 10 10 0;
+    -fx-padding: 10;
+}
 /***********************************************************************************************************************
     Editor
  **********************************************************************************************************************/

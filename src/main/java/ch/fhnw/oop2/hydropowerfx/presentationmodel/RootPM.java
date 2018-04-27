@@ -1,9 +1,6 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.scene.image.Image;
 
 public class RootPM {
@@ -16,12 +13,29 @@ public class RootPM {
     private final StringProperty infoButtonCaption   = new SimpleStringProperty("info Notification");
     private final StringProperty warningButtonCaption   = new SimpleStringProperty("warn Notification");
 
+    private final BooleanProperty searchpanelShown = new SimpleBooleanProperty(false);
+
 
     // Menubar properties setter & getter
     public String getVersionInformation() {  return versionInformation.get(); }
     public StringProperty versionInformationProperty() { return versionInformation; }
     public void setVersionInformation(String versionInformation) { this.versionInformation.set(versionInformation); }
 
+
+    // searchpanel
+
+
+    public boolean isSearchpanelShown() {
+        return searchpanelShown.get();
+    }
+
+    public BooleanProperty searchpanelShownProperty() {
+        return searchpanelShown;
+    }
+
+    public void setSearchpanelShown(boolean searchpanelShown) {
+        this.searchpanelShown.set(searchpanelShown);
+    }
 
     // all getters and setters for Notification TestButtons
     public String getApplicationTitle() { return applicationTitle.get(); }
