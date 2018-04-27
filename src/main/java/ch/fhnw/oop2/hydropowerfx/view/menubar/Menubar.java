@@ -4,6 +4,7 @@ import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -102,6 +103,7 @@ public class Menubar extends VBox implements ViewMixin {
         // version Label
         version = new Label();
         version.getStyleClass().addAll("menubar-item", "version");
+        version.setAlignment(Pos.CENTER);
     }
 
     @Override

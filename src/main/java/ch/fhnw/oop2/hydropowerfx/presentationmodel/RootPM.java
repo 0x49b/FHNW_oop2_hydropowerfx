@@ -1,22 +1,31 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
-import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
-import javafx.beans.property.*;
-import javafx.scene.image.Image;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class RootPM {
 
-    private final StringProperty applicationTitle     = new SimpleStringProperty("HydroPowerFX");
-
+    private final StringProperty applicationTitle     = new SimpleStringProperty("HydroPowerFX bingo");
     private final StringProperty versionInformation = new SimpleStringProperty("V0.1");
-
-    private final StringProperty successButtonCaption = new SimpleStringProperty("success Notification");
-    private final StringProperty errorButtonCaption   = new SimpleStringProperty("error Notification");
-    private final StringProperty infoButtonCaption   = new SimpleStringProperty("info Notification");
-    private final StringProperty warningButtonCaption   = new SimpleStringProperty("warn Notification");
-
     private final BooleanProperty searchpanelShown = new SimpleBooleanProperty(false);
 
+    private final StringProperty stationListTitleText = new SimpleStringProperty("Kraftwerke");
+    private final StringProperty currentMaxItemsText = new SimpleStringProperty("999/999");
+
+    private final StringProperty editorStationName = new SimpleStringProperty("STATIONNAME");
+
+    // general properties
+    public String getApplicationTitle() {
+        return applicationTitle.get();
+    }
+    public StringProperty applicationTitleProperty() {
+        return applicationTitle;
+    }
+    public void setApplicationTitle(String applicationTitle) {
+        this.applicationTitle.set(applicationTitle);
+    }
 
     // Menubar properties setter & getter
     public String getVersionInformation() {  return versionInformation.get(); }
@@ -28,29 +37,48 @@ public class RootPM {
     public boolean isSearchpanelShown() {
         return searchpanelShown.get();
     }
-
     public BooleanProperty searchpanelShownProperty() {
         return searchpanelShown;
     }
-
     public void setSearchpanelShown(boolean searchpanelShown) {
         this.searchpanelShown.set(searchpanelShown);
     }
 
-    // all getters and setters for Notification TestButtons
-    public String getApplicationTitle() { return applicationTitle.get(); }
-    public StringProperty applicationTitleProperty() { return applicationTitle; }
-    public void setApplicationTitle(String applicationTitle) { this.applicationTitle.set(applicationTitle); }
-    public String getSuccessButtonCaption() { return successButtonCaption.get(); }
-    public StringProperty successButtonCaptionProperty() { return successButtonCaption; }
-    public void setSuccessButtonCaption(String successButtonCaption) { this.successButtonCaption.set(successButtonCaption); }
-    public String getErrorButtonCaption() { return errorButtonCaption.get(); }
-    public StringProperty errorButtonCaptionProperty() { return errorButtonCaption; }
-    public void setErrorButtonCaption(String errorButtonCaption) { this.errorButtonCaption.set(errorButtonCaption); }
-    public String getInfoButtonCaption() { return infoButtonCaption.get(); }
-    public StringProperty infoButtonCaptionProperty() { return infoButtonCaption; }
-    public void setInfoButtonCaption(String infoButtonCaption) { this.infoButtonCaption.set(infoButtonCaption); }
-    public String getWarningButtonCaption() { return warningButtonCaption.get(); }
-    public StringProperty warningButtonCaptionProperty() { return warningButtonCaption; }
-    public void setWarningButtonCaption(String warningButtonCaption) { this.warningButtonCaption.set(warningButtonCaption); }
+    // stationlist
+    public String getStationListTitleText() {
+        return stationListTitleText.get();
+    }
+    public StringProperty stationListTitleTextProperty() {
+        return stationListTitleText;
+    }
+    public void setStationListTitleText(String stationListTitleText) {
+        this.stationListTitleText.set(stationListTitleText);
+    }
+
+    public String getCurrentMaxItemsText() {
+        return currentMaxItemsText.get();
+    }
+
+    public StringProperty currentMaxItemsTextProperty() {
+        return currentMaxItemsText;
+    }
+
+    public void setCurrentMaxItemsText(String currentMaxItemsText) {
+        this.currentMaxItemsText.set(currentMaxItemsText);
+    }
+
+    // editor
+
+
+    public String getEditorStationName() {
+        return editorStationName.get();
+    }
+
+    public StringProperty editorStationNameProperty() {
+        return editorStationName;
+    }
+
+    public void setEditorStationName(String editorStationName) {
+        this.editorStationName.set(editorStationName);
+    }
 }

@@ -46,7 +46,7 @@ public class RootPanel extends HBox implements ViewMixin {
 
         menubar = new Menubar(rootPM, rootPanel);
         editor = new Editor(rootPM, rootPanel);
-        stationList = new StationList();
+        stationList = new StationList(rootPM);
         footer = new Footer();
 
         innerSplitPane.getItems().addAll(stationList, editor);

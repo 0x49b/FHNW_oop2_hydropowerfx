@@ -3,15 +3,9 @@ package ch.fhnw.oop2.hydropowerfx.view.menubar;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
 
 
 public class SearchPanel extends StackPane implements ViewMixin {
@@ -38,10 +32,8 @@ public class SearchPanel extends StackPane implements ViewMixin {
     private void inits() {
         this.getStyleClass().add("search-panel");
         this.setManaged(false);
-        this.rootPanel.getChildren().add(this);
         this.setWidth(SPWIDTH);
         this.setHeight(SPHEIGHT);
-
     }
 
     @Override
@@ -56,78 +48,58 @@ public class SearchPanel extends StackPane implements ViewMixin {
 
     @Override
     public void setupEventHandlers() {
+        // close search when escape is pressed
         this.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                this.hide();
+            if (event.getCode() == KeyCode.ESCAPE) {
+                hide();
             }
         });
 
+        // close search input when lost focus
+        searchInput.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue){
+                hide();
+            }
+        });
     }
 
     @Override
     public void setupValueChangedListeners() {
-
     }
 
     @Override
     public void setupBindings() {
-
     }
 
     public void showhide() {
-        //Todo Remove that silly ....
-        System.out.println(this.rootPM.searchpanelShownProperty());
-
-        if (this.rootPM.searchpanelShownProperty().getValue()) {
-            this.hide();
+        if (this.rootPM.isSearchpanelShown()) {
+            hide();
         } else {
-            this.show();
+            show();
         }
     }
 
 
+    //get that search visible
     public void show() {
-        this.rootPM.setSearchpanelShown(true);
         this.setLayoutY(this.menubar.getSearch().getLayoutY());
         this.setLayoutX(50);
 
-        Timeline timeline = new Timeline();
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.getKeyFrames().add(
-                new KeyFrame(new Duration(1), new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        sp.setLayoutX(sp.getLayoutX() + 0.3);
-                        if (sp.getLayoutY() < (sp.SPWIDTH)) {
-                            timeline.stop();
-                        }
-                    }
-                })
-        );
+        searchInput.selectAll();
+        searchInput.requestFocus();
+        searchInput.isFocused();
+        searchInput.setText("");
 
+        rootPanel.getChildren().add(this);
+        rootPM.setSearchpanelShown(true);
     }
 
+    // empty that search and hide it
     public void hide() {
-        this.rootPM.setSearchpanelShown(false);
-        Timeline timeline = new Timeline();
-        timeline.setCycleCount(Timeline.INDEFINITE);
-
-        timeline.getKeyFrames().add(
-                new KeyFrame(new Duration(1), new EventHandler<ActionEvent>() {
-                    public void handle(ActionEvent t) {
-                        sp.setLayoutX(sp.getLayoutX() - 0.3);
-                        if (sp.getLayoutY() < (sp.SPWIDTH * -1)) {
-                            timeline.stop();
-                        }
-                    }
-                }));
-        timeline.play();
-    }
-
-    public Boolean isShown() {
-        return shown;
-    }
-    public void setShown(Boolean shown) {
-        this.shown = shown;
+        this.setLayoutY(this.menubar.getSearch().getLayoutY());
+        this.setLayoutX(-(this.SPWIDTH));
+        this.searchInput.setText("");
+        rootPM.setSearchpanelShown(false);
+        rootPanel.getChildren().remove(this);
     }
 }

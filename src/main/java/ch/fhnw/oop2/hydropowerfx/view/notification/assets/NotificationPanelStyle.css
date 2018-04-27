@@ -12,27 +12,27 @@
     -fx-font-weight: bolder;
 }
 .success {
-    -fx-background-color: rgba(28, 148, 20, 0.9);
+    -fx-background-color: rgba(28, 148, 20, 1.0);
     -fx-border-width: 2px;
 }
 .success-label {
-    -fx-text-fill: rgba(28, 148, 20, 1.0);
+    -fx-text-fill: #ffffff;
 }
 .error {
-    -fx-background-color: rgba(148, 0, 0, 0.2);
+    -fx-background-color: rgba(148, 0, 0, 1.0);
 }
 .error-label {
-    -fx-text-fill: rgba(148, 0, 0, 1.0);
+    -fx-text-fill: #ffffff;
 }
 .info {
-    -fx-background-color: rgba(0, 35, 148, 0.2);
+    -fx-background-color: rgba(0, 35, 148, 1.0);
 }
 .info-label {
-    -fx-text-fill: rgba(0, 35, 148, 1.0);
+    -fx-text-fill: #ffffff;
 }
 .warning {
-    -fx-background-color: rgba(255, 187, 0, 0.2);
+    -fx-background-color: rgba(255, 187, 0, 1.0);
 }
 .warning-label {
-    -fx-text-fill: #da8b00;
+    -fx-text-fill: #ffffff;
 }

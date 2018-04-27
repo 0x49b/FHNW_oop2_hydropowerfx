@@ -10,6 +10,11 @@
 .label{
     -fx-text-fill: #E8F8FF;
 }
+.label-sm{
+    -fx-text-fill: #E8F8FF;
+    -fx-padding: 2 2 2 2;
+    -fx-font-size: 10;
+}
 
 
 .split-pane-divider{
@@ -20,6 +25,10 @@
 }
 .horizontal-grabber{
     -fx-background-color: #E8F8FF;
+}
+.title{
+    -fx-padding: 10 0 10 10;
+    -fx-font-size: 25;
 }
 
 /***********************************************************************************************************************
@@ -49,7 +58,10 @@
     -fx-border-radius: 0,0,0,0;
 }
 
-
+.logo{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #E8F8FF;
+}
 
 .version{
     -fx-text-alignment: center;
@@ -72,6 +84,12 @@
 .stationlist{
     -fx-background-color: #67B8DE;
     -fx-border-color: #67B8DE;
+}
+
+.stationlist-listview{
+    -fx-background-color: #67B8DE;
+    -fx-border-color: #67B8DE;
+    -fx-padding: 1;
 }
 /***********************************************************************************************************************
     Footer
