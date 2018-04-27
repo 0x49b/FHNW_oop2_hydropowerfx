@@ -3,6 +3,7 @@ package ch.fhnw.oop2.hydropowerfx.view.menubar;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
+import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -33,6 +34,8 @@ public class Menubar extends VBox implements ViewMixin {
     private ImageView searchImage;
     private ImageView settingsImage;
     private SearchPanel searchpanel;
+
+
 
     public Menubar(RootPM rootPM, RootPanel rootPanel) {
         this.rootPM = rootPM;
@@ -121,6 +124,9 @@ public class Menubar extends VBox implements ViewMixin {
         version.textProperty().bind(rootPM.versionInformationProperty());
         search.setOnAction(event -> {
             searchpanel.showhide();
+        });
+        savestation.setOnAction(event -> {
+           new NotificationPanel(rootPanel, "gespeichert", NotificationPanel.Type.SUCCESS).show();
         });
 
     }

@@ -17,7 +17,7 @@ public class NotificationPanel extends Pane {
     private ImageView icon;
     private Image imageFile;
     private Label textLabel = new Label();
-    private int showDuration = 2500;
+    private int showDuration = 1000;
 
     private final int NPHEIGHT = 35;
     private final int NPWIDTH = 120;
@@ -33,6 +33,14 @@ public class NotificationPanel extends Pane {
         this.np = this;
         this.getStylesheets().add(this.getClass().getResource("assets/NotificationPanelStyle.css").toExternalForm());
         this.getStyleClass().add("notification-top");
+    }
+
+    public NotificationPanel(RootPanel rootPanel, String textLabel, Type type) {
+        this();
+        this.setRootPanel(rootPanel);
+        this.setTextLabel(textLabel);
+        this.setType(type);
+        this.registerResizeListener();
     }
 
     public NotificationPanel(RootPanel rootPanel, String textLabel, Type type, int duration) {

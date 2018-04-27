@@ -127,7 +127,6 @@ public class SearchPanel extends StackPane implements ViewMixin {
     public Boolean isShown() {
         return shown;
     }
-
     public void setShown(Boolean shown) {
         this.shown = shown;
     }

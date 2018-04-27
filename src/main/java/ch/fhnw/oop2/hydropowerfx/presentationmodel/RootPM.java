@@ -1,9 +1,11 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
+import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
 
 public class RootPM {
+
     private final StringProperty applicationTitle     = new SimpleStringProperty("HydroPowerFX");
 
     private final StringProperty versionInformation = new SimpleStringProperty("V0.1");
@@ -23,8 +25,6 @@ public class RootPM {
 
 
     // searchpanel
-
-
     public boolean isSearchpanelShown() {
         return searchpanelShown.get();
     }
