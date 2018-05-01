@@ -51,8 +51,7 @@ public class RootPanel extends HBox implements ViewMixin {
 
         innerSplitPane.getItems().addAll(stationList, editor);
         outerSplitPane.getItems().addAll(innerSplitPane, footer);
-
-        this.setHgrow(outerSplitPane, Priority.ALWAYS);
+        setHgrow(outerSplitPane, Priority.ALWAYS);
     }
 
     @Override
