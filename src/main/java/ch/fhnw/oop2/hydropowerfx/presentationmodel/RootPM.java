@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 
 public class RootPM {
 
-    private final StringProperty applicationTitle     = new SimpleStringProperty("HydroPowerFX bingo");
+    private final StringProperty applicationTitle     = new SimpleStringProperty("HydroPowerFX");
     private final StringProperty versionInformation = new SimpleStringProperty("V0.1");
     private final BooleanProperty searchpanelShown = new SimpleBooleanProperty(false);
     private final StringProperty stationListTitleText = new SimpleStringProperty("Kraftwerke");

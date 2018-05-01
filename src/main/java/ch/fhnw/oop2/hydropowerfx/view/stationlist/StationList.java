@@ -48,7 +48,6 @@ public class StationList extends VBox implements ViewMixin {
         stationList.getSelectionModel().select(0);
         stationList.getFocusModel().focus(0);
         stationList.scrollTo(0);
-
         setVgrow(stationList, Priority.ALWAYS);
 
         currentMaxItems = new Label();
