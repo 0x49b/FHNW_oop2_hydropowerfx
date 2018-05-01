@@ -6,12 +6,8 @@ import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
@@ -46,34 +42,12 @@ public class StationList extends VBox implements ViewMixin {
         stationList.setCellFactory(new Callback<ListView<CSVFields>, ListCell<CSVFields>>() {
             @Override
             public ListCell<CSVFields> call(ListView<CSVFields> param) {
-
-                return new ListCell<CSVFields>() {
-                    @Override
-                    protected void updateItem(CSVFields field, boolean bln) {
-                        super.updateItem(field, bln);
-                        if (field != null) {
-                            VBox vBox = new VBox(new Text(field.getName()), new Text(field.getLastOperation()));
-
-                            String canton;
-
-                            if( !field.getCanton().isEmpty() ){
-                                canton = String.format("../assets/cantons/%s.png", field.getCanton());
-                            } else {
-                                canton = "../assets/cantons/empty.png";
-                            }
-
-                            Image cantonImage = new Image(getClass().getResource(canton).toExternalForm());
-                            ImageView cantonView = new ImageView(cantonImage);
-                            cantonView.setFitWidth(20);
-                            cantonView.setFitHeight(25);
-                            HBox hBox = new HBox(cantonView, vBox);
-                            hBox.setSpacing(10);
-                            setGraphic(hBox);
-                        }
-                    }
-                };
+                return new StationListCell();
             }
         });
+        stationList.getSelectionModel().select(0);
+        stationList.getFocusModel().focus(0);
+        stationList.scrollTo(0);
 
         setVgrow(stationList, Priority.ALWAYS);
 
@@ -89,7 +63,9 @@ public class StationList extends VBox implements ViewMixin {
 
     @Override
     public void setupEventHandlers() {
-
+        stationList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            rootPM.setEditorStationName(newValue.getName());
+        });
     }
 
     @Override
