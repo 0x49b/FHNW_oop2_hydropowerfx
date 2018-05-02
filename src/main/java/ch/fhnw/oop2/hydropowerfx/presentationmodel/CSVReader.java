@@ -15,7 +15,7 @@ public class CSVReader {
     private int counter = 0;
 
     public ObservableList<CSVFields> readCSV() {
-        String csvFile = "/Users/florian/Programmieren/FHNW/hydropowerfx-fs18-rkreienbuehl/src/main/resources/data/HYDRO_POWERSTATION.csv";
+        String csvFile = "src/main/resources/data/HYDRO_POWERSTATION.csv";
         String delimiter = ";";
         BufferedReader br;
 
