@@ -13,7 +13,13 @@ public class StationListCell extends ListCell<CSVFields> {
     protected void updateItem(CSVFields field, boolean bln) {
         super.updateItem(field, bln);
         if (field != null) {
-            VBox vBox = new VBox(new Text(field.getName()), new Text(field.getLastOperation()));
+
+            Text stationName = new Text(field.getName());
+            stationName.getStyleClass().add("station-cell-name");
+            Text maxPower = new Text(field.getMaxPower() + "kWh");
+            maxPower.getStyleClass().add("station-cell-maxpower");
+
+            VBox vBox = new VBox(stationName,maxPower);
 
             String canton;
 
@@ -25,8 +31,8 @@ public class StationListCell extends ListCell<CSVFields> {
 
             Image cantonImage = new Image(getClass().getResource(canton).toExternalForm());
             ImageView cantonView = new ImageView(cantonImage);
-            cantonView.setFitWidth(20);
-            cantonView.setFitHeight(25);
+            cantonView.setFitWidth(30);
+            cantonView.setFitHeight(30);
             HBox hBox = new HBox(cantonView, vBox);
             hBox.setSpacing(10);
             setGraphic(hBox);

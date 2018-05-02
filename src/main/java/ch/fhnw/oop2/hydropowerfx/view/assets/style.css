@@ -30,6 +30,9 @@
     -fx-padding: 10 0 10 10;
     -fx-font-size: 25;
 }
+.scroll-bar{
+    -fx-background-color: #91C9E8;
+}
 
 /***********************************************************************************************************************
     MenuBar implemented in a VBox
@@ -100,6 +103,9 @@
     -fx-background-color: #91C9E8;
     -fx-text-fill: #E8F8FF;
     -fx-padding: 5;
+}
+.station-cell-name{
+    -fx-text-fill: #E8F8FF;
 }
 /***********************************************************************************************************************
     Footer
