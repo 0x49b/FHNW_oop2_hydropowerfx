@@ -5,23 +5,28 @@ apply plugin: 'java'
 
 buildscript {
     repositories {
+        mavenLocal()
         mavenCentral()
     }
     dependencies {
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.3'
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
     }
 }
 
 apply plugin: 'org.junit.platform.gradle.plugin'
 
+
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 sourceSets {
     main {
         resources {
-            srcDirs = ["src/main/java", "src/main/resources"]
+            //srcDirs = ["src/main/java", "src/main/resources"]
+            srcDirs = ["src/main/java"]
         }
     }
 }
@@ -53,4 +58,15 @@ junitPlatform {
     // enableStandardTestTask true
     // reportsDir file('build/test-results/junit-platform') // this is the default
     logManager 'org.apache.logging.log4j.jul.LogManager'
+}
+
+apply plugin: 'javafx-gradle-plugin'
+
+
+jfx {
+    // minimal requirement for jfxJar-task
+    mainClass = 'full.qualified.nameOf.TheMainClass'
+
+    // minimal requirement for jfxNative-task
+    vendor = 'YourName'
 }

@@ -1,32 +1,35 @@
 /***********************************************************************************************************************
     Root Styles
  **********************************************************************************************************************/
-.split-pane{
+.split-pane {
     -fx-border-width: 0;
     -fx-border-color: transparent;
     -fx-padding: 0;
 }
 
-.label{
+.label {
     -fx-text-fill: #E8F8FF;
 }
-.label-sm{
+
+.label-sm {
     -fx-text-fill: #E8F8FF;
     -fx-padding: 2 2 2 2;
     -fx-font-size: 10;
 }
 
-
-.split-pane-divider{
+.split-pane-divider {
     -fx-background-color: #3399CC;
 }
-.vertical-grabber{
+
+.vertical-grabber {
     -fx-background-color: #E8F8FF;
 }
-.horizontal-grabber{
+
+.horizontal-grabber {
     -fx-background-color: #E8F8FF;
 }
-.title{
+
+.title {
     -fx-padding: 10 0 10 10;
     -fx-font-size: 25;
 }
@@ -49,62 +52,129 @@
 
 .button {
     -fx-background-color: #3399CC;
-    -fx-background-radius: 0,0,0,0;
-    -fx-border-radius: 0,0,0,0;
-}
-.button:hover{
-    -fx-background-color: #91C9E8;
-    -fx-background-radius: 0,0,0,0;
-    -fx-border-radius: 0,0,0,0;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-border-radius: 0, 0, 0, 0;
 }
 
-.logo{
+.button:hover {
+    -fx-background-color: #91C9E8;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-border-radius: 0, 0, 0, 0;
+}
+
+.logo {
     -fx-border-width: 0 0 1 0;
     -fx-border-color: #E8F8FF;
 }
 
-.version{
+.version {
     -fx-text-alignment: center;
 }
-.search-panel{
+
+.search-panel {
     -fx-background-color: #3399CC;
     -fx-background-radius: 0 10 10 0;
     -fx-padding: 10;
 }
+
+/*
+.scroll-bar{
+    -fx-background-color: #91C9E8;
+    -fx-background-radius: 10;
+    -fx-background-insets: 2, 0, 0;
+}
+.thumb{
+    -fx-background-color: #3399CC;
+    -fx-background-radius: 10;
+}
+.increment-button, .decrement-button, .increment-button:hover, .decrement-button:hover{
+    -fx-background-radius: 10;
+}
+.increment-button:hover, .decrement-button:hover{
+    -fx-background-color: #3399CC;
+    -fx-min-height: 15;
+}*/
+/* The main scrollbar **track** CSS class  */
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: #3399CC;
+    -fx-border-color: transparent;
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color: #3399CC;
+    -fx-background-radius: 2em;
+    -fx-padding: 0 0 10 0;
+
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: #3399CC;
+    -fx-background-radius: 2em;
+    -fx-padding: 0 10 0 0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #91C9E8;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+
 /***********************************************************************************************************************
     Editor
  **********************************************************************************************************************/
-.editor{
-    -fx-background-color: #67B8DE;
-    -fx-border-color: #67B8DE;
-}
-/***********************************************************************************************************************
-    StationList
- **********************************************************************************************************************/
-.stationlist{
+.editor {
     -fx-background-color: #67B8DE;
     -fx-border-color: #67B8DE;
 }
 
-.stationlist-listview{
+/***********************************************************************************************************************
+    StationList
+ **********************************************************************************************************************/
+.stationlist {
+    -fx-background-color: #67B8DE;
+    -fx-border-color: #67B8DE;
+}
+
+.stationlist-listview {
     -fx-background-color: #67B8DE;
     -fx-border-color: #67B8DE;
     -fx-padding: 1;
 }
-.list-cell{
+
+.list-cell {
     -fx-background-color: #67B8DE;
     -fx-text-fill: #E8F8FF;
     -fx-padding: 5;
 }
-.list-cell:selected{
+
+.list-cell:selected {
     -fx-background-color: #91C9E8;
     -fx-text-fill: #E8F8FF;
     -fx-padding: 5;
 }
+
 /***********************************************************************************************************************
     Footer
  **********************************************************************************************************************/
-.footer .tree-cell{
+.footer .tree-cell {
     -fx-background-color: #67B8DE;
     -fx-border-color: #67B8DE;
 }

@@ -3,14 +3,8 @@ package ch.fhnw.oop2.hydropowerfx.view.editor;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
-import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-
-import static ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel.Type.*;
 
 public class Editor extends HBox implements ViewMixin {
 

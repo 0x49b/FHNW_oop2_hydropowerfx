@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: ch.fhnw.oop2.hydropowerfx.HydroPowerApp
+
