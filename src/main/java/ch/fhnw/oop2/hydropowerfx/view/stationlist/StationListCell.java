@@ -9,6 +9,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class StationListCell extends ListCell<CSVFields> {
+
+    private String canton;
+    private Image cantonImage;
+
     @Override
     protected void updateItem(CSVFields field, boolean bln) {
         super.updateItem(field, bln);
@@ -19,17 +23,16 @@ public class StationListCell extends ListCell<CSVFields> {
             Text maxPower = new Text(field.getMaxPower() + "kWh");
             maxPower.getStyleClass().add("station-cell-maxpower");
 
-            VBox vBox = new VBox(stationName,maxPower);
+            VBox vBox = new VBox(stationName, maxPower);
 
-            String canton;
-
-            if (!field.getCanton().isEmpty()) {
+            // ToDo Very Bad Code..... Must be changed
+            try {
                 canton = String.format("../assets/cantons/%s.png", field.getCanton());
-            } else {
-                canton = "../assets/cantons/empty.png";
+                cantonImage = new Image(getClass().getResource(canton).toExternalForm());
+            } catch(Exception e) {
+                canton = "../assets/cantons/ZZ.png";
+                cantonImage = new Image(getClass().getResource(canton).toExternalForm());
             }
-
-            Image cantonImage = new Image(getClass().getResource(canton).toExternalForm());
             ImageView cantonView = new ImageView(cantonImage);
             cantonView.setFitWidth(30);
             cantonView.setFitHeight(30);

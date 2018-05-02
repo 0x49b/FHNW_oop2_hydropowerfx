@@ -9,12 +9,14 @@
 
 .label {
     -fx-text-fill: #E8F8FF;
+    -fx-font-family: Rubik;
 }
 
 .label-sm {
     -fx-text-fill: #E8F8FF;
     -fx-padding: 2 2 2 2;
     -fx-font-size: 10;
+    -fx-font-family: Rubik;
 }
 
 .split-pane-divider {
@@ -32,6 +34,7 @@
 .title {
     -fx-padding: 10 0 10 10;
     -fx-font-size: 25;
+    -fx-font-family: Montserrat;
 }
 
 /***********************************************************************************************************************
@@ -77,24 +80,7 @@
     -fx-padding: 10;
 }
 
-/*
-.scroll-bar{
-    -fx-background-color: #91C9E8;
-    -fx-background-radius: 10;
-    -fx-background-insets: 2, 0, 0;
-}
-.thumb{
-    -fx-background-color: #3399CC;
-    -fx-background-radius: 10;
-}
-.increment-button, .decrement-button, .increment-button:hover, .decrement-button:hover{
-    -fx-background-radius: 10;
-}
-.increment-button:hover, .decrement-button:hover{
-    -fx-background-color: #3399CC;
-    -fx-min-height: 15;
-}*/
-/* The main scrollbar **track** CSS class  */
+/* Main Scroll Bar */
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track {
     -fx-background-color: #3399CC;
@@ -159,15 +145,18 @@
     -fx-padding: 1;
 }
 
+
 .list-cell {
     -fx-background-color: #67B8DE;
     -fx-text-fill: #E8F8FF;
+    -fx-font-family: Rubik;
     -fx-padding: 5;
 }
 
 .list-cell:selected {
     -fx-background-color: #91C9E8;
     -fx-text-fill: #E8F8FF;
+    -fx-font-family: Rubik;
     -fx-padding: 5;
 }
 

@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Comparator;
 
 public class CSVReader {
 
@@ -27,6 +28,9 @@ public class CSVReader {
 
                 if (counter >= START_LINE) {
                     String[] fields = line.split(delimiter, -1);
+                    if (fields[4].equals("")) {
+                        fields[4] = "ZZ";
+                    }
                     CSVFields fieldLine = new CSVFields(fields[0], fields[1], fields[2], fields[3], fields[4], fields[5], fields[6], fields[7], fields[8], fields[9], fields[10], fields[11], fields[12], fields[13]);
                     dataList.add(fieldLine);
                 }
@@ -39,6 +43,10 @@ public class CSVReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        Comparator<CSVFields> comparator = Comparator.comparing(CSVFields::getCanton);
+        FXCollections.sort(dataList, comparator);
 
         return dataList;
 

@@ -7,7 +7,6 @@
     -fx-background-radius: 5 5 0 0;
 }
 
-
 .text-label {
     -fx-font-weight: bolder;
 }
@@ -17,22 +16,26 @@
 }
 .success-label {
     -fx-text-fill: #ffffff;
+    -fx-font-family: Rubik;
 }
 .error {
     -fx-background-color: rgba(148, 0, 0, 1.0);
 }
 .error-label {
     -fx-text-fill: #ffffff;
+    -fx-font-family: Rubik;
 }
 .info {
     -fx-background-color: rgba(0, 35, 148, 1.0);
 }
 .info-label {
     -fx-text-fill: #ffffff;
+    -fx-font-family: Rubik;
 }
 .warning {
     -fx-background-color: rgba(255, 187, 0, 1.0);
 }
 .warning-label {
     -fx-text-fill: #ffffff;
+    -fx-font-family: Rubik;
 }

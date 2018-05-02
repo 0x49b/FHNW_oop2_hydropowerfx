@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -31,6 +32,10 @@ public class HydroPowerApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+        Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Montserrat-Bold.ttf").toExternalForm(), 10);
+        Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Rubik-Regular.ttf").toExternalForm(), 10);
+
         splashStage = new Stage();
         showSplash(splashStage);
         FadeTransition fadeSplash = new FadeTransition(Duration.seconds(2.0), splashLayout);
@@ -69,10 +74,9 @@ public class HydroPowerApp extends Application {
         Parent rootPanel = new RootPanel(rootPM);
         Scene scene = new Scene(rootPanel);
         primaryStage.titleProperty().bind(rootPM.applicationTitleProperty());
-        //primaryStage.initStyle(StageStyle.DECORATED);
         primaryStage.setScene(scene);
 
-        //Todo Width & Height has to be deleted when Application is Full Implemented
+        //Todo Width & Height has to be deleted when Application is fully Implemented
         primaryStage.setWidth(1000);
         primaryStage.setHeight(800);
         primaryStage.show();
