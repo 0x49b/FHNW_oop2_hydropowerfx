@@ -13,6 +13,10 @@ public class StationListCell extends ListCell<CSVFields> {
     private String canton;
     private Image cantonImage;
 
+    public StationListCell(){
+        getStyleClass().add("stationlist-cell");
+    }
+
     @Override
     protected void updateItem(CSVFields field, boolean bln) {
         super.updateItem(field, bln);
@@ -41,5 +45,4 @@ public class StationListCell extends ListCell<CSVFields> {
             setGraphic(hBox);
         }
     }
-
 }

@@ -7,6 +7,11 @@
     -fx-padding: 0;
 }
 
+.text {
+    -fx-text-fill: #E8F8FF;
+    -fx-font-family: Rubik;
+}
+
 .label {
     -fx-text-fill: #E8F8FF;
     -fx-font-family: Rubik;
@@ -14,9 +19,9 @@
 
 .label-sm {
     -fx-text-fill: #E8F8FF;
+    -fx-font-family: Rubik;
     -fx-padding: 2 2 2 2;
     -fx-font-size: 10;
-    -fx-font-family: Rubik;
 }
 
 .split-pane-divider {
@@ -37,11 +42,35 @@
     -fx-font-family: Montserrat;
 }
 
+/* The increment and decrement button CSS class of scrollbar */
+.increment-button, .decrement-button {
+    /*-fx-background-color: transparent;*/
+    -fx-background-radius: 1em;
+}
+
+/* The main scrollbar **track** CSS class  */
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: derive(gray, 80%);
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: derive(black, 90%);
+    -fx-background-insets: 1, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+
 /***********************************************************************************************************************
     MenuBar implemented in a VBox
  **********************************************************************************************************************/
 .menubar {
-    -fx-background-color: #3399CC;
+    -fx-background-color: #2D5373;
     -fx-min-width: 50;
     -fx-max-width: 50;
 }
@@ -54,7 +83,7 @@
 }
 
 .button {
-    -fx-background-color: #3399CC;
+    -fx-background-color: #2D5373;
     -fx-background-radius: 0, 0, 0, 0;
     -fx-border-radius: 0, 0, 0, 0;
 }
@@ -80,49 +109,6 @@
     -fx-padding: 10;
 }
 
-/* Main Scroll Bar */
-.scroll-bar:horizontal .track,
-.scroll-bar:vertical .track {
-    -fx-background-color: #3399CC;
-    -fx-border-color: transparent;
-    -fx-background-radius: 2em;
-    -fx-border-radius: 2em;
-}
-
-/* The increment and decrement button CSS class of scrollbar */
-.scroll-bar:horizontal .increment-button,
-.scroll-bar:horizontal .decrement-button {
-    -fx-background-color: #3399CC;
-    -fx-background-radius: 2em;
-    -fx-padding: 0 0 10 0;
-
-}
-
-/* The increment and decrement button CSS class of scrollbar */
-
-.scroll-bar:vertical .increment-button,
-.scroll-bar:vertical .decrement-button {
-    -fx-background-color: #3399CC;
-    -fx-background-radius: 2em;
-    -fx-padding: 0 10 0 0;
-
-}
-
-.scroll-bar .increment-arrow,
-.scroll-bar .decrement-arrow {
-    -fx-shape: " ";
-    -fx-padding: 0;
-}
-
-/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
-.scroll-bar:horizontal .thumb,
-.scroll-bar:vertical .thumb {
-    -fx-background-color: #91C9E8;
-    -fx-background-insets: 2, 0, 0;
-    -fx-background-radius: 2em;
-
-}
-
 /***********************************************************************************************************************
     Editor
  **********************************************************************************************************************/
@@ -145,19 +131,26 @@
     -fx-padding: 1;
 }
 
+.stationlist-cell {
+    -fx-text-fill: #E8F8FF;
+    -fx-font-family: Rubik;
+}
 
 .list-cell {
     -fx-background-color: #67B8DE;
-    -fx-text-fill: #E8F8FF;
     -fx-font-family: Rubik;
     -fx-padding: 5;
 }
 
 .list-cell:selected {
     -fx-background-color: #91C9E8;
-    -fx-text-fill: #E8F8FF;
     -fx-font-family: Rubik;
     -fx-padding: 5;
+}
+
+.station-cell-name {
+    -fx-text-fill: #E8F8FF;
+    -fx-font-family: Rubik;
 }
 
 /***********************************************************************************************************************

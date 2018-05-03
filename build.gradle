@@ -59,14 +59,3 @@ junitPlatform {
     // reportsDir file('build/test-results/junit-platform') // this is the default
     logManager 'org.apache.logging.log4j.jul.LogManager'
 }
-
-apply plugin: 'javafx-gradle-plugin'
-
-
-jfx {
-    // minimal requirement for jfxJar-task
-    mainClass = 'full.qualified.nameOf.TheMainClass'
-
-    // minimal requirement for jfxNative-task
-    vendor = 'YourName'
-}
