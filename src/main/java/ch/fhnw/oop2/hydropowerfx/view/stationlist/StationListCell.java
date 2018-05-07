@@ -1,19 +1,18 @@
 package ch.fhnw.oop2.hydropowerfx.view.stationlist;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.CSVFields;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class StationListCell extends ListCell<CSVFields> {
 
     private String canton;
-    private Image cantonImage;
 
-    public StationListCell(){
+    public StationListCell() {
         getStyleClass().add("stationlist-cell");
     }
 
@@ -22,21 +21,23 @@ public class StationListCell extends ListCell<CSVFields> {
         super.updateItem(field, bln);
         if (field != null) {
 
-            Text stationName = new Text(field.getName());
-            stationName.getStyleClass().add("station-cell-name");
-            Text maxPower = new Text(field.getMaxPower() + "kWh");
-            maxPower.getStyleClass().add("station-cell-maxpower");
+            Label stationName = new Label(field.getName());
+            stationName.getStyleClass().add("station-cell-title");
+            Label maxPower = new Label(field.getMaxPower() + "kWh");
+            maxPower.getStyleClass().addAll("station-cell-subline", "station-cell-maxpower");
+            Label firstRun = new Label(field.getStartOperation() + "\t");
+            firstRun.getStyleClass().addAll("station-cell-subline", "station-cell-firstrun");
 
-            VBox vBox = new VBox(stationName, maxPower);
+            HBox hbox = new HBox(firstRun, maxPower);
+            VBox vBox = new VBox(stationName, hbox);
 
             // ToDo Very Bad Code..... Must be changed
             try {
                 canton = String.format("../assets/cantons/%s.png", field.getCanton());
-                cantonImage = new Image(getClass().getResource(canton).toExternalForm());
-            } catch(Exception e) {
+            } catch (Exception e) {
                 canton = "../assets/cantons/ZZ.png";
-                cantonImage = new Image(getClass().getResource(canton).toExternalForm());
             }
+            Image cantonImage = new Image(getClass().getResource(canton).toExternalForm());
             ImageView cantonView = new ImageView(cantonImage);
             cantonView.setFitWidth(30);
             cantonView.setFitHeight(30);
