@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -32,7 +33,9 @@ public class RootPM {
     private final StringProperty currentMaxItemsText = new SimpleStringProperty("999/999");
     private final StringProperty editorStationName = new SimpleStringProperty("STATIONNAME");
     private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList();
+    private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);;
     IntegerBinding totalPowerStations = Bindings.size(powerStationList);
+    IntegerBinding actualPowerStations = Bindings.size(powerStationFilterList);
     private final ObservableList<Canton> cantons = FXCollections.observableArrayList();
 
     public RootPM() {
@@ -77,18 +80,32 @@ public class RootPM {
         }
     }
 
-    public ObservableList<PowerStation> getPowerStationList() {
-        return powerStationList;
-    }
-
     /************************************************ Helper functions ************************************************/
 
     public void setupBindings() {
         currentMaxItemsTextProperty().bind(
-                totalPowerStationsProperty().asString().concat("/").concat(totalPowerStationsProperty()));
+
+                actualPowerStationsProperty().asString().concat("/").concat(totalPowerStationsProperty()));
+    }
+
+    public void searchPowerStations(String search) {
+        if(search == null || search.length() == 0) {
+            powerStationFilterList.setPredicate(s -> true);
+        }
+        else {
+            powerStationFilterList.setPredicate(s -> s.getCanton().contains(search) || s.getName().contains(search));
+        }
     }
 
     /************************************************ Property Methods ************************************************/
+
+    public ObservableList<PowerStation> getPowerStationList() {
+        return powerStationList;
+    }
+
+    public FilteredList<PowerStation> getPowerStationFilterList() {
+        return powerStationFilterList;
+    }
 
     // general properties
     public String getApplicationTitle() {
@@ -151,5 +168,13 @@ public class RootPM {
 
     public IntegerBinding totalPowerStationsProperty() {
         return totalPowerStations;
+    }
+
+    public Number getActualPowerStations() {
+        return actualPowerStations.get();
+    }
+
+    public IntegerBinding actualPowerStationsProperty() {
+        return actualPowerStations;
     }
 }

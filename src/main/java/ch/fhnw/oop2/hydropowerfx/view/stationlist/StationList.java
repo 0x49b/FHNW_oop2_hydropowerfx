@@ -38,13 +38,8 @@ public class StationList extends VBox implements ViewMixin {
 
         stationList = new ListView<>();
         stationList.getStyleClass().add("stationlist-listview");
-        stationList.setItems(rootPM.getPowerStationList());
-        stationList.setCellFactory(new Callback<ListView<PowerStation>, ListCell<PowerStation>>() {
-            @Override
-            public ListCell<PowerStation> call(ListView<PowerStation> param) {
-                return new StationListCell();
-            }
-        });
+        stationList.setItems(rootPM.getPowerStationFilterList());
+        stationList.setCellFactory(param -> new StationListCell());
         stationList.getSelectionModel().select(0);
         stationList.getFocusModel().focus(0);
         stationList.scrollTo(0);
@@ -64,6 +59,7 @@ public class StationList extends VBox implements ViewMixin {
     @Override
     public void setupEventHandlers() {
         stationList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // TODO: fix NullPointerException on Search
             rootPM.setEditorStationName(newValue.getName());
         });
     }
