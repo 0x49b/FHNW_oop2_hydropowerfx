@@ -21,7 +21,8 @@ import java.util.stream.Stream;
 
 public class RootPM {
 
-    private static final String FILE_NAME = "/data/HYDRO_POWERSTATION.csv";
+    private static final String POWERSTATIONS_FILE = "/data/HYDRO_POWERSTATION.csv";
+    private static final String CANTONS_FILE = "/data/cantons.csv";
     private static final String DELIMITER = ";";
 
     private final StringProperty applicationTitle     = new SimpleStringProperty("HydroPowerFX");
@@ -32,18 +33,27 @@ public class RootPM {
     private final StringProperty editorStationName = new SimpleStringProperty("STATIONNAME");
     private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList();
     IntegerBinding totalPowerStations = Bindings.size(powerStationList);
+    private final ObservableList<Canton> cantons = FXCollections.observableArrayList();
 
     public RootPM() {
-        powerStationList.addAll(readFromFile(FILE_NAME));
+        powerStationList.addAll(readPowerStations());
+        cantons.addAll(readCantons());
         setupBindings();
     }
 
     /************************************************ File reading and writing ************************************************/
 
-    private List<PowerStation> readFromFile(String fileName) {
-        try (Stream<String> stream = getStreamOfLines(fileName)) {
+    private List<PowerStation> readPowerStations() {
+        try (Stream<String> stream = getStreamOfLines(POWERSTATIONS_FILE)) {
             return stream.skip(1)
                     .map(line -> new PowerStation(line.split(DELIMITER, 22))).collect(Collectors.toList());
+        }
+    }
+
+    private List<Canton> readCantons() {
+        try (Stream<String> stream = getStreamOfLines(CANTONS_FILE)) {
+            return stream.skip(1)
+                    .map(line -> new Canton(line.split(DELIMITER, 22))).collect(Collectors.toList());
         }
     }
 
