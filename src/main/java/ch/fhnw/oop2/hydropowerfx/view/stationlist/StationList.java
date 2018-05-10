@@ -59,8 +59,9 @@ public class StationList extends VBox implements ViewMixin {
     @Override
     public void setupEventHandlers() {
         stationList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            // TODO: fix NullPointerException on Search
-            rootPM.setEditorStationName(newValue.getName());
+            if (newValue != null) {
+                rootPM.setEditorStationName(newValue.getName());
+            }
         });
     }
 
