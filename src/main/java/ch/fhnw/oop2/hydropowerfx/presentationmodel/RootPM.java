@@ -3,7 +3,9 @@ package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -31,7 +33,7 @@ public class RootPM {
     private final BooleanProperty searchpanelShown = new SimpleBooleanProperty(false);
     private final StringProperty stationListTitleText = new SimpleStringProperty("Kraftwerke");
     private final StringProperty currentMaxItemsText = new SimpleStringProperty("999/999");
-    private final StringProperty editorStationName = new SimpleStringProperty("STATIONNAME");
+    private final ObjectProperty<PowerStation> actualPowerStation = new SimpleObjectProperty();
     private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList();
     private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);;
     IntegerBinding totalPowerStations = Bindings.size(powerStationList);
@@ -41,6 +43,7 @@ public class RootPM {
     public RootPM() {
         powerStationList.addAll(readPowerStations());
         cantons.addAll(readCantons());
+        setActualPowerStation(powerStationList.get(0));
         setupBindings();
     }
 
@@ -151,17 +154,6 @@ public class RootPM {
     }
     public void setCurrentMaxItemsText(String currentMaxItemsText) {this.currentMaxItemsText.set(currentMaxItemsText); }
 
-    // editor
-    public String getEditorStationName() {
-        return editorStationName.get();
-    }
-    public StringProperty editorStationNameProperty() {
-        return editorStationName;
-    }
-    public void setEditorStationName(String editorStationName) {
-        this.editorStationName.set(editorStationName);
-    }
-
     public Number getTotalPowerStations() {
         return totalPowerStations.get();
     }
@@ -176,5 +168,17 @@ public class RootPM {
 
     public IntegerBinding actualPowerStationsProperty() {
         return actualPowerStations;
+    }
+
+    public PowerStation getActualPowerStation() {
+        return actualPowerStation.get();
+    }
+
+    public ObjectProperty actualPowerStationProperty() {
+        return actualPowerStation;
+    }
+
+    public void setActualPowerStation(PowerStation actualPowerStation) {
+        this.actualPowerStation.set(actualPowerStation);
     }
 }

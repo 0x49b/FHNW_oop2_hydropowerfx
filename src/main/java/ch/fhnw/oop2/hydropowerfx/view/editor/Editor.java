@@ -37,10 +37,13 @@ public class Editor extends HBox implements ViewMixin {
 
     @Override
     public void setupBindings() {
-        editorStationName.textProperty().bind(rootPM.editorStationNameProperty());
+        editorStationName.textProperty().bind(rootPM.getActualPowerStation().nameProperty());
     }
 
     @Override
     public void setupEventHandlers() {
+        rootPM.actualPowerStationProperty().addListener(event -> {
+            setupBindings();
+        });
     }
 }
