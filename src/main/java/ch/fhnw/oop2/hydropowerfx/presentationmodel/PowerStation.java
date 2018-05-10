@@ -3,7 +3,7 @@ package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class CSVFields {
+public class PowerStation {
     private StringProperty entitiyID = new SimpleStringProperty();
     private StringProperty name = new SimpleStringProperty();
     private StringProperty type = new SimpleStringProperty();
@@ -19,7 +19,7 @@ public class CSVFields {
     private StringProperty waterbodies = new SimpleStringProperty();
     private StringProperty imgUrl = new SimpleStringProperty();
 
-    public CSVFields(String entitiyID,
+    public PowerStation(String entitiyID,
                      String name,
                      String type,
                      String site,
@@ -49,6 +49,23 @@ public class CSVFields {
         setWaterbodies(waterbodies);
         setImgUrl(imgUrl);
 
+    }
+
+    public PowerStation(String[] fields) {
+        setEntitiyID(fields[0]);
+        setName(fields[1]);
+        setType(fields[2]);
+        setSite(fields[3]);
+        setCanton(fields[4]);
+        setMaxWater(fields[5]);
+        setMaxPower(fields[6]);
+        setStartOperation(fields[7]);
+        setLastOperation(fields[8]);
+        setLatitude(fields[9]);
+        setLongitude(fields[10]);
+        setStatus(fields[11]);
+        setWaterbodies(fields[12]);
+        setImgUrl(fields[13]);
     }
 
     public String getEntitiyID() {

@@ -1,6 +1,6 @@
 package ch.fhnw.oop2.hydropowerfx.view.stationlist;
 
-import ch.fhnw.oop2.hydropowerfx.presentationmodel.CSVFields;
+import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import javafx.scene.control.Label;
@@ -16,7 +16,7 @@ public class StationList extends VBox implements ViewMixin {
 
     private RootPM rootPM;
     private Label stationListTitle;
-    private ListView<CSVFields> stationList;
+    private ListView<PowerStation> stationList;
     private Label currentMaxItems;
 
     public StationList(RootPM rootPM) {
@@ -38,10 +38,10 @@ public class StationList extends VBox implements ViewMixin {
 
         stationList = new ListView<>();
         stationList.getStyleClass().add("stationlist-listview");
-        stationList.setItems(rootPM.getDataList());
-        stationList.setCellFactory(new Callback<ListView<CSVFields>, ListCell<CSVFields>>() {
+        stationList.setItems(rootPM.getPowerStationList());
+        stationList.setCellFactory(new Callback<ListView<PowerStation>, ListCell<PowerStation>>() {
             @Override
-            public ListCell<CSVFields> call(ListView<CSVFields> param) {
+            public ListCell<PowerStation> call(ListView<PowerStation> param) {
                 return new StationListCell();
             }
         });
