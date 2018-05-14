@@ -32,7 +32,7 @@ public class RootPM {
     private final StringProperty versionInformation = new SimpleStringProperty("V0.1");
     private final BooleanProperty searchpanelShown = new SimpleBooleanProperty(false);
     private final StringProperty stationListTitleText = new SimpleStringProperty("Kraftwerke");
-    private final StringProperty currentMaxItemsText = new SimpleStringProperty("999/999");
+    private final StringProperty currentMaxItemsText = new SimpleStringProperty("");
     private final ObjectProperty<PowerStation> actualPowerStation = new SimpleObjectProperty();
     private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList();
     private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);;
