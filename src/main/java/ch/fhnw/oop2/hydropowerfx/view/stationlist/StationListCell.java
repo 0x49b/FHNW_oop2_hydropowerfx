@@ -18,31 +18,35 @@ public class StationListCell extends ListCell<PowerStation> {
     }
 
     @Override
-    protected void updateItem(PowerStation field, boolean bln) {
-        super.updateItem(field, bln);
-        if (field != null) {
+    protected void updateItem(PowerStation field, boolean empty) {
+        super.updateItem(field, empty);
+        if (empty) {
+            setGraphic(null);
+        } else {
+            if (field != null) {
 
-            Text stationName = new Text(field.getName());
-            stationName.getStyleClass().add("station-cell-name");
-            Text maxPower = new Text(field.getMaxPower() + "kWh");
-            maxPower.getStyleClass().add("station-cell-maxpower");
+                Text stationName = new Text(field.getName());
+                stationName.getStyleClass().add("station-cell-name");
+                Text maxPower = new Text(field.getMaxPower() + "kWh");
+                maxPower.getStyleClass().add("station-cell-maxpower");
 
-            VBox vBox = new VBox(stationName, maxPower);
+                VBox vBox = new VBox(stationName, maxPower);
 
-            // ToDo Very Bad Code..... Must be changed
-            try {
-                canton = String.format("../assets/cantons/%s.png", field.getCanton());
-                cantonImage = new Image(getClass().getResource(canton).toExternalForm());
-            } catch(Exception e) {
-                canton = "../assets/cantons/ZZ.png";
-                cantonImage = new Image(getClass().getResource(canton).toExternalForm());
+                // ToDo Very Bad Code..... Must be changed
+                try {
+                    canton = String.format("../assets/cantons/%s.png", field.getCanton());
+                    cantonImage = new Image(getClass().getResource(canton).toExternalForm());
+                } catch (Exception e) {
+                    canton = "../assets/cantons/ZZ.png";
+                    cantonImage = new Image(getClass().getResource(canton).toExternalForm());
+                }
+                ImageView cantonView = new ImageView(cantonImage);
+                cantonView.setFitWidth(30);
+                cantonView.setFitHeight(30);
+                HBox hBox = new HBox(cantonView, vBox);
+                hBox.setSpacing(10);
+                setGraphic(hBox);
             }
-            ImageView cantonView = new ImageView(cantonImage);
-            cantonView.setFitWidth(30);
-            cantonView.setFitHeight(30);
-            HBox hBox = new HBox(cantonView, vBox);
-            hBox.setSpacing(10);
-            setGraphic(hBox);
         }
     }
 }
