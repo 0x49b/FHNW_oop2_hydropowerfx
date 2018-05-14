@@ -84,3 +84,7 @@ classes/
 # NetBeans
 .nb-gradle/
 nbproject/
+
+HydroPowerFX-Master.iml
+HydroPowerFX-Master.ipr
+HydroPowerFX-Master.iws
