@@ -80,6 +80,7 @@
     -fx-max-width: 50;
     -fx-min-height: 50;
     -fx-max-height: 50;
+    -fx-padding: 10;
 }
 
 .button {
@@ -136,6 +137,11 @@
     -fx-font-family: Rubik;
 }
 
+.station-cell-name {
+    -fx-text-fill: #E8F8FF;
+    -fx-font-family: Rubik;
+}
+
 .list-cell {
     -fx-background-color: #67B8DE;
     -fx-font-family: Rubik;
@@ -151,10 +157,10 @@
 .station-cell-title {
     -fx-font-size: 14;
 }
-.station-cell-subline{
+
+.station-cell-subline {
     -fx-font-size: 12;
 }
-
 
 /***********************************************************************************************************************
     Footer

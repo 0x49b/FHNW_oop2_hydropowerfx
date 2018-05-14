@@ -8,12 +8,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class StationListCell extends ListCell<PowerStation> {
+public class StationListCellFactory extends ListCell<PowerStation> {
 
     private String canton;
     private Image cantonImage;
 
-    public StationListCell(){
+    public StationListCellFactory(){
         getStyleClass().add("stationlist-cell");
     }
 

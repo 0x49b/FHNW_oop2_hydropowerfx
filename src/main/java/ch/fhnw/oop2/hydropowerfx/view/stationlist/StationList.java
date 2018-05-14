@@ -4,12 +4,10 @@ import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
-import javafx.util.Callback;
 
 
 public class StationList extends VBox implements ViewMixin {
@@ -39,7 +37,7 @@ public class StationList extends VBox implements ViewMixin {
         stationList = new ListView<>();
         stationList.getStyleClass().add("stationlist-listview");
         stationList.setItems(rootPM.getPowerStationFilterList());
-        stationList.setCellFactory(param -> new StationListCell());
+        stationList.setCellFactory(param -> new StationListCellFactory());
         stationList.getSelectionModel().select(0);
         stationList.getFocusModel().focus(0);
         stationList.scrollTo(0);
