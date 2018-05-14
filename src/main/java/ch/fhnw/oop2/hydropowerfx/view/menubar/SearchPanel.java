@@ -3,6 +3,7 @@ package ch.fhnw.oop2.hydropowerfx.view.menubar;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
+import javafx.application.Platform;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
@@ -48,16 +49,17 @@ public class SearchPanel extends StackPane implements ViewMixin {
 
     @Override
     public void setupEventHandlers() {
+
         // close search when escape is pressed
         this.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
+            if (event.getCode() == KeyCode.ESCAPE || event.getCode() == KeyCode.ENTER) {
                 hide();
             }
         });
 
         // close search input when lost focus
         searchInput.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if(!newValue){
+            if (!newValue) {
                 hide();
             }
         });
@@ -88,10 +90,12 @@ public class SearchPanel extends StackPane implements ViewMixin {
         this.setLayoutY(this.menubar.getSearch().getLayoutY());
         this.setLayoutX(50);
 
-        searchInput.selectAll();
-        searchInput.requestFocus();
-        searchInput.isFocused();
-        // searchInput.setText("");
+        Platform.runLater(() -> {
+            searchInput.selectAll();
+            searchInput.requestFocus();
+            searchInput.isFocused();
+            searchInput.setText("");
+        });
 
         rootPanel.getChildren().add(this);
         rootPM.setSearchpanelShown(true);
@@ -101,7 +105,7 @@ public class SearchPanel extends StackPane implements ViewMixin {
     public void hide() {
         this.setLayoutY(this.menubar.getSearch().getLayoutY());
         this.setLayoutX(-(this.SPWIDTH));
-        // this.searchInput.setText("");
+        //this.searchInput.setText("");
         rootPM.setSearchpanelShown(false);
         rootPanel.getChildren().remove(this);
     }
