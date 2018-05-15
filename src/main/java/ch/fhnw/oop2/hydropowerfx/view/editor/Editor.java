@@ -251,7 +251,7 @@ public class Editor extends VBox implements ViewMixin {
     }
 
     @Override
-    public void setupEventHandlers() {
+    public void setupValueChangedListeners() {
         rootPM.actualPowerStationProperty().addListener(((observable, oldValue, newValue) -> {
             unsetBindings((PowerStation) oldValue);
             setFieldValues();
