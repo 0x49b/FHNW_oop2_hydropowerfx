@@ -1,5 +1,6 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.BooleanProperty;
@@ -34,10 +35,10 @@ public class RootPM {
     private final StringProperty stationListTitleText = new SimpleStringProperty("Kraftwerke");
     private final StringProperty currentMaxItemsText = new SimpleStringProperty("");
     private final ObjectProperty<PowerStation> actualPowerStation = new SimpleObjectProperty();
-    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList();
-    private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);;
-    IntegerBinding totalPowerStations = Bindings.size(powerStationList);
-    IntegerBinding actualPowerStations = Bindings.size(powerStationFilterList);
+    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(station -> new Observable[] { station.maxPowerProperty() });
+    private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);
+    private final IntegerBinding totalPowerStations = Bindings.size(powerStationList);
+    private final IntegerBinding actualPowerStations = Bindings.size(powerStationFilterList);
     private final ObservableList<Canton> cantons = FXCollections.observableArrayList();
 
     public RootPM() {
@@ -59,7 +60,7 @@ public class RootPM {
     private List<Canton> readCantons() {
         try (Stream<String> stream = getStreamOfLines(CANTONS_FILE)) {
             return stream.skip(1)
-                    .map(line -> new Canton(line.split(DELIMITER, 22))).collect(Collectors.toList());
+                    .map(line -> new Canton(line.split(DELIMITER, 22), powerStationList)).collect(Collectors.toList());
         }
     }
 
