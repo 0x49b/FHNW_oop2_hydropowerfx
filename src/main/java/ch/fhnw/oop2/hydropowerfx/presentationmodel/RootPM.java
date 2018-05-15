@@ -35,7 +35,21 @@ public class RootPM {
     private final StringProperty stationListTitleText = new SimpleStringProperty("Kraftwerke");
     private final StringProperty currentMaxItemsText = new SimpleStringProperty("");
     private final ObjectProperty<PowerStation> actualPowerStation = new SimpleObjectProperty();
-    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(station -> new Observable[] { station.maxPowerProperty() });
+    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(station -> new Observable[] {
+            station.nameProperty(),
+            station.typeProperty(),
+            station.siteProperty(),
+            station.cantonProperty(),
+            station.maxWaterProperty(),
+            station.maxPowerProperty(),
+            station.startOperationProperty(),
+            station.lastOperationProperty(),
+            station.latitudeProperty(),
+            station.longitudeProperty(),
+            station.statusProperty(),
+            station.waterbodiesProperty(),
+            station.imgUrlProperty()
+    });
     private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);
     private final IntegerBinding totalPowerStations = Bindings.size(powerStationList);
     private final IntegerBinding actualPowerStations = Bindings.size(powerStationFilterList);
