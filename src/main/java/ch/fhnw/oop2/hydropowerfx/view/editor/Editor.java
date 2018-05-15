@@ -1,5 +1,6 @@
 package ch.fhnw.oop2.hydropowerfx.view.editor;
 
+import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
@@ -17,7 +18,7 @@ import javafx.scene.layout.VBox;
 public class Editor extends VBox implements ViewMixin {
 
     private RootPM rootPM;
-    private RootPanel rootPanel;
+    private PowerStation actualPowerstation;
 
 
     private HBox editorHead;
@@ -62,10 +63,11 @@ public class Editor extends VBox implements ViewMixin {
     private TextField latitude;
 
 
-    public Editor(RootPM rootPM, RootPanel rootPanel) {
+    public Editor(RootPM rootPM) {
         this.rootPM = rootPM;
-        this.rootPanel = rootPanel;
         this.init();
+
+        actualPowerstation = rootPM.getActualPowerStation();
     }
 
 
@@ -174,12 +176,6 @@ public class Editor extends VBox implements ViewMixin {
 
     @Override
     public void setupBindings() {
-        titleStationName.textProperty().bind(rootPM.getActualPowerStation().nameProperty());
-        titlestationSite.textProperty().bind(rootPM.getActualPowerStation().siteProperty());
-        titleStationCanton.textProperty().bind(rootPM.getActualPowerStation().cantonProperty());
-        titleStationPowerOutput.textProperty().bind(rootPM.getActualPowerStation().maxPowerProperty());
-        titleStationStartOperation.textProperty().bind(rootPM.getActualPowerStation().startOperationProperty());
-
 
         /*********************************** Label Bindings ***********************************/
         labelName.textProperty().bind(rootPM.labelNameProperty());
@@ -196,6 +192,17 @@ public class Editor extends VBox implements ViewMixin {
         labelLastOperation.textProperty().bind(rootPM.labelLastOperationProperty());
         labelLatitude.textProperty().bind(rootPM.labelLatitudeProperty());
 
+        setActualBindings();
+
+    }
+
+    public void setActualBindings() {
+        titleStationName.textProperty().bind(rootPM.getActualPowerStation().nameProperty());
+        titlestationSite.textProperty().bind(rootPM.getActualPowerStation().siteProperty());
+        titleStationCanton.textProperty().bind(rootPM.getActualPowerStation().cantonProperty());
+        titleStationPowerOutput.textProperty().bind(rootPM.getActualPowerStation().maxPowerProperty());
+        titleStationStartOperation.textProperty().bind(rootPM.getActualPowerStation().startOperationProperty());
+
         /*********************************** TextField Bindings ***********************************/
         stationName.textProperty().bindBidirectional(rootPM.getActualPowerStation().nameProperty());
         stationSite.textProperty().bindBidirectional(rootPM.getActualPowerStation().siteProperty());
@@ -205,17 +212,53 @@ public class Editor extends VBox implements ViewMixin {
         status.textProperty().bindBidirectional(rootPM.getActualPowerStation().statusProperty());
         waterbodies.textProperty().bindBidirectional(rootPM.getActualPowerStation().waterbodiesProperty());
         imageURL.textProperty().bindBidirectional(rootPM.getActualPowerStation().imgUrlProperty());
-        powerOutput.textProperty().bindBidirectional(rootPM.getActualPowerStation().maxWaterProperty());
+        powerOutput.textProperty().bindBidirectional(rootPM.getActualPowerStation().maxPowerProperty());
         lastOperation.textProperty().bindBidirectional(rootPM.getActualPowerStation().lastOperationProperty());
         latitude.textProperty().bindBidirectional(rootPM.getActualPowerStation().latitudeProperty());
+    }
 
+    public void unsetBindings() {
+        titleStationName.textProperty().unbind();
+        titlestationSite.textProperty().unbind();
+        titleStationCanton.textProperty().unbind();
+        titleStationPowerOutput.textProperty().unbind();
+        titleStationStartOperation.textProperty().unbind();
 
+        /*********************************** TextField Bindings release ***********************************/
+        stationName.textProperty().unbindBidirectional(actualPowerstation.nameProperty());
+        stationSite.textProperty().unbindBidirectional(actualPowerstation.siteProperty());
+        stationWaterflow.textProperty().unbindBidirectional(actualPowerstation.maxWaterProperty());
+        startOperation.textProperty().unbindBidirectional(actualPowerstation.startOperationProperty());
+        longitude.textProperty().unbindBidirectional(actualPowerstation.longitudeProperty());
+        status.textProperty().unbindBidirectional(actualPowerstation.statusProperty());
+        waterbodies.textProperty().unbindBidirectional(actualPowerstation.waterbodiesProperty());
+        imageURL.textProperty().unbindBidirectional(actualPowerstation.imgUrlProperty());
+        powerOutput.textProperty().unbindBidirectional(actualPowerstation.maxPowerProperty());
+        lastOperation.textProperty().unbindBidirectional(actualPowerstation.lastOperationProperty());
+        latitude.textProperty().unbindBidirectional(actualPowerstation.latitudeProperty());
+    }
+
+    public void setFieldValues() {
+        stationName.setText(rootPM.getActualPowerStation().getName());
+        stationSite.setText(rootPM.getActualPowerStation().getSite());
+        stationWaterflow.setText(rootPM.getActualPowerStation().getMaxWater());
+        startOperation.setText(rootPM.getActualPowerStation().getStartOperation());
+        longitude.setText(rootPM.getActualPowerStation().getLongitude());
+        status.setText(rootPM.getActualPowerStation().getStatus());
+        waterbodies.setText(rootPM.getActualPowerStation().getWaterbodies());
+        imageURL.setText(rootPM.getActualPowerStation().getImgUrl());
+        powerOutput.setText(rootPM.getActualPowerStation().getMaxWater());
+        lastOperation.setText(rootPM.getActualPowerStation().getLastOperation());
+        latitude.setText(rootPM.getActualPowerStation().getLatitude());
     }
 
     @Override
     public void setupEventHandlers() {
         rootPM.actualPowerStationProperty().addListener(event -> {
-            setupBindings();
+            unsetBindings();
+            setFieldValues();
+            actualPowerstation = rootPM.getActualPowerStation();
+            setActualBindings();
         });
     }
 }
