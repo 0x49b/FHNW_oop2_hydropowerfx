@@ -4,6 +4,7 @@ import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -18,7 +19,6 @@ import javafx.scene.layout.VBox;
 public class Editor extends VBox implements ViewMixin {
 
     private RootPM rootPM;
-    private PowerStation actualPowerstation;
 
 
     private HBox editorHead;
@@ -66,8 +66,6 @@ public class Editor extends VBox implements ViewMixin {
     public Editor(RootPM rootPM) {
         this.rootPM = rootPM;
         this.init();
-
-        actualPowerstation = rootPM.getActualPowerStation();
     }
 
 
@@ -217,7 +215,7 @@ public class Editor extends VBox implements ViewMixin {
         latitude.textProperty().bindBidirectional(rootPM.getActualPowerStation().latitudeProperty());
     }
 
-    public void unsetBindings() {
+    public void unsetBindings(PowerStation oldValue) {
         titleStationName.textProperty().unbind();
         titlestationSite.textProperty().unbind();
         titleStationCanton.textProperty().unbind();
@@ -225,17 +223,17 @@ public class Editor extends VBox implements ViewMixin {
         titleStationStartOperation.textProperty().unbind();
 
         /*********************************** TextField Bindings release ***********************************/
-        stationName.textProperty().unbindBidirectional(actualPowerstation.nameProperty());
-        stationSite.textProperty().unbindBidirectional(actualPowerstation.siteProperty());
-        stationWaterflow.textProperty().unbindBidirectional(actualPowerstation.maxWaterProperty());
-        startOperation.textProperty().unbindBidirectional(actualPowerstation.startOperationProperty());
-        longitude.textProperty().unbindBidirectional(actualPowerstation.longitudeProperty());
-        status.textProperty().unbindBidirectional(actualPowerstation.statusProperty());
-        waterbodies.textProperty().unbindBidirectional(actualPowerstation.waterbodiesProperty());
-        imageURL.textProperty().unbindBidirectional(actualPowerstation.imgUrlProperty());
-        powerOutput.textProperty().unbindBidirectional(actualPowerstation.maxPowerProperty());
-        lastOperation.textProperty().unbindBidirectional(actualPowerstation.lastOperationProperty());
-        latitude.textProperty().unbindBidirectional(actualPowerstation.latitudeProperty());
+        stationName.textProperty().unbindBidirectional(oldValue.nameProperty());
+        stationSite.textProperty().unbindBidirectional(oldValue.siteProperty());
+        stationWaterflow.textProperty().unbindBidirectional(oldValue.maxWaterProperty());
+        startOperation.textProperty().unbindBidirectional(oldValue.startOperationProperty());
+        longitude.textProperty().unbindBidirectional(oldValue.longitudeProperty());
+        status.textProperty().unbindBidirectional(oldValue.statusProperty());
+        waterbodies.textProperty().unbindBidirectional(oldValue.waterbodiesProperty());
+        imageURL.textProperty().unbindBidirectional(oldValue.imgUrlProperty());
+        powerOutput.textProperty().unbindBidirectional(oldValue.maxPowerProperty());
+        lastOperation.textProperty().unbindBidirectional(oldValue.lastOperationProperty());
+        latitude.textProperty().unbindBidirectional(oldValue.latitudeProperty());
     }
 
     public void setFieldValues() {
@@ -254,11 +252,10 @@ public class Editor extends VBox implements ViewMixin {
 
     @Override
     public void setupEventHandlers() {
-        rootPM.actualPowerStationProperty().addListener(event -> {
-            unsetBindings();
+        rootPM.actualPowerStationProperty().addListener(((observable, oldValue, newValue) -> {
+            unsetBindings((PowerStation) oldValue);
             setFieldValues();
-            actualPowerstation = rootPM.getActualPowerStation();
             setActualBindings();
-        });
+        }));
     }
 }
