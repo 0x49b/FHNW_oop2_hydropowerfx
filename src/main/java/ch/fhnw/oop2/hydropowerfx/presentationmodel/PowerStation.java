@@ -19,38 +19,6 @@ public class PowerStation {
     private StringProperty waterbodies = new SimpleStringProperty();
     private StringProperty imgUrl = new SimpleStringProperty();
 
-    public PowerStation(String entitiyID,
-                     String name,
-                     String type,
-                     String site,
-                     String canton,
-                     String maxWater,
-                     String maxPower,
-                     String startOperation,
-                     String lastOperation,
-                     String latitude,
-                     String longitude,
-                     String status,
-                     String waterbodies,
-                     String imgUrl) {
-
-        setEntitiyID(entitiyID);
-        setName(name);
-        setType(type);
-        setSite(site);
-        setCanton(canton);
-        setMaxWater(maxWater);
-        setMaxPower(maxPower);
-        setStartOperation(startOperation);
-        setLastOperation(lastOperation);
-        setLatitude(latitude);
-        setLongitude(longitude);
-        setStatus(status);
-        setWaterbodies(waterbodies);
-        setImgUrl(imgUrl);
-
-    }
-
     public PowerStation(String[] fields) {
         setEntitiyID(fields[0]);
         setName(fields[1]);

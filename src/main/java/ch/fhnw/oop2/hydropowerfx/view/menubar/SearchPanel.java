@@ -68,9 +68,7 @@ public class SearchPanel extends StackPane implements ViewMixin {
     @Override
     public void setupValueChangedListeners() {
         searchInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
-                rootPM.searchPowerStations(searchInput.getText());
-            }
+            rootPM.searchPowerStations(searchInput.getText());
         });
     }
 
@@ -96,7 +94,6 @@ public class SearchPanel extends StackPane implements ViewMixin {
             searchInput.selectAll();
             searchInput.requestFocus();
             searchInput.isFocused();
-            searchInput.setText("");
         });
 
         rootPanel.getChildren().add(this);
@@ -107,7 +104,6 @@ public class SearchPanel extends StackPane implements ViewMixin {
     public void hide() {
         this.setLayoutY(this.menubar.getSearch().getLayoutY());
         this.setLayoutX(-(this.SPWIDTH));
-        //this.searchInput.setText("");
         rootPM.setSearchpanelShown(false);
         rootPanel.getChildren().remove(this);
     }
