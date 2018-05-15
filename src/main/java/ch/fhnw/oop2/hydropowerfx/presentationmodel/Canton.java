@@ -1,7 +1,13 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
+import java.util.stream.Collectors;
 
 public class Canton {
 
@@ -18,7 +24,11 @@ public class Canton {
     private StringProperty villages = new SimpleStringProperty();
     private StringProperty language = new SimpleStringProperty();
 
-    public Canton(String[] fields) {
+    private FilteredList<PowerStation> cantonStationsList;
+    private DoubleBinding totalPower;
+
+
+    public Canton(String[] fields, ObservableList<PowerStation> list) {
         setCantonName(fields[0]);
         setShortName(fields[1]);
         setNumber(fields[2]);
@@ -31,6 +41,15 @@ public class Canton {
         setInhabitantDensity(fields[9]);
         setVillages(fields[10]);
         setLanguage(fields[11]);
+
+        cantonStationsList = new FilteredList<>(list);
+        cantonStationsList.setPredicate(s -> s.getCanton().equals(shortName.get()));
+
+        totalPower = Bindings.createDoubleBinding(
+                () -> cantonStationsList.stream()
+                        .map(PowerStation::getMaxPower)
+                        .collect(Collectors.summingDouble(Double::parseDouble)), cantonStationsList
+        );
     }
 
     public String getCantonName() {
@@ -175,5 +194,13 @@ public class Canton {
 
     public void setLanguage(String language) {
         this.language.set(language);
+    }
+
+    public Number getTotalPower() {
+        return totalPower.get();
+    }
+
+    public DoubleBinding totalPowerProperty() {
+        return totalPower;
     }
 }
