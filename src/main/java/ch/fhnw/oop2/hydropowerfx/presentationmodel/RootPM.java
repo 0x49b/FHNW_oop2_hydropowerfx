@@ -40,6 +40,30 @@ public class RootPM {
     IntegerBinding actualPowerStations = Bindings.size(powerStationFilterList);
     private final ObservableList<Canton> cantons = FXCollections.observableArrayList();
 
+    /************************************************ Editor Head Title ********************************************/
+
+    /*editorTitleStationName;
+    editorTitleStationPlace;
+    editorTitleStationCanton;
+    editorTitleStationPowerOutput;
+    editorTitleStationFirstOperation;*/
+
+    /************************************************ Editor Labels ************************************************/
+
+    private final StringProperty labelName= new SimpleStringProperty("Name");
+    private final StringProperty labelPlace= new SimpleStringProperty("Standort");
+    private final StringProperty labelWaterflow= new SimpleStringProperty("Wassermenge");
+    private final StringProperty labelFirstOperation= new SimpleStringProperty("1. Inbetriebnahme");
+    private final StringProperty labelLongitude= new SimpleStringProperty("Breitengrad");
+    private final StringProperty labelStatus= new SimpleStringProperty("Status");
+    private final StringProperty labelUsedFlows= new SimpleStringProperty("Genutzte Gewässer");
+    private final StringProperty labelImageURL= new SimpleStringProperty("Bild");
+    private final StringProperty labelType= new SimpleStringProperty("Typ");
+    private final StringProperty labelCanton= new SimpleStringProperty("Kanton");
+    private final StringProperty labelPowerOutput= new SimpleStringProperty("Leistung (MW)");
+    private final StringProperty labelLastOperation= new SimpleStringProperty("Sanierung");
+    private final StringProperty labelLatitude= new SimpleStringProperty("Längengrad");
+
     public RootPM() {
         powerStationList.addAll(readPowerStations());
         cantons.addAll(readCantons());
@@ -180,5 +204,162 @@ public class RootPM {
 
     public void setActualPowerStation(PowerStation actualPowerStation) {
         this.actualPowerStation.set(actualPowerStation);
+    }
+
+    /************************************************ Editor Label Property Functions ************************************************/
+    public String getLabelName() {
+        return labelName.get();
+    }
+
+    public StringProperty labelNameProperty() {
+        return labelName;
+    }
+
+    public void setLabelName(String labelName) {
+        this.labelName.set(labelName);
+    }
+
+    public String getLabelPlace() {
+        return labelPlace.get();
+    }
+
+    public StringProperty labelPlaceProperty() {
+        return labelPlace;
+    }
+
+    public void setLabelPlace(String labelPlace) {
+        this.labelPlace.set(labelPlace);
+    }
+
+    public String getLabelWaterflow() {
+        return labelWaterflow.get();
+    }
+
+    public StringProperty labelWaterflowProperty() {
+        return labelWaterflow;
+    }
+
+    public void setLabelWaterflow(String labelWaterflow) {
+        this.labelWaterflow.set(labelWaterflow);
+    }
+
+    public String getLabelFirstOperation() {
+        return labelFirstOperation.get();
+    }
+
+    public StringProperty labelFirstOperationProperty() {
+        return labelFirstOperation;
+    }
+
+    public void setLabelFirstOperation(String labelFirstOperation) {
+        this.labelFirstOperation.set(labelFirstOperation);
+    }
+
+    public String getLabelLongitude() {
+        return labelLongitude.get();
+    }
+
+    public StringProperty labelLongitudeProperty() {
+        return labelLongitude;
+    }
+
+    public void setLabelLongitude(String labelLongitude) {
+        this.labelLongitude.set(labelLongitude);
+    }
+
+    public String getLabelStatus() {
+        return labelStatus.get();
+    }
+
+    public StringProperty labelStatusProperty() {
+        return labelStatus;
+    }
+
+    public void setLabelStatus(String labelStatus) {
+        this.labelStatus.set(labelStatus);
+    }
+
+    public String getLabelUsedFlows() {
+        return labelUsedFlows.get();
+    }
+
+    public StringProperty labelUsedFlowsProperty() {
+        return labelUsedFlows;
+    }
+
+    public void setLabelUsedFlows(String labelUsedFlows) {
+        this.labelUsedFlows.set(labelUsedFlows);
+    }
+
+    public String getLabelImageURL() {
+        return labelImageURL.get();
+    }
+
+    public StringProperty labelImageURLProperty() {
+        return labelImageURL;
+    }
+
+    public void setLabelImageURL(String labelImageURL) {
+        this.labelImageURL.set(labelImageURL);
+    }
+
+    public String getLabelType() {
+        return labelType.get();
+    }
+
+    public StringProperty labelTypeProperty() {
+        return labelType;
+    }
+
+    public void setLabelType(String labelType) {
+        this.labelType.set(labelType);
+    }
+
+    public String getLabelCanton() {
+        return labelCanton.get();
+    }
+
+    public StringProperty labelCantonProperty() {
+        return labelCanton;
+    }
+
+    public void setLabelCanton(String labelCanton) {
+        this.labelCanton.set(labelCanton);
+    }
+
+    public String getLabelPowerOutput() {
+        return labelPowerOutput.get();
+    }
+
+    public StringProperty labelPowerOutputProperty() {
+        return labelPowerOutput;
+    }
+
+    public void setLabelPowerOutput(String labelPowerOutput) {
+        this.labelPowerOutput.set(labelPowerOutput);
+    }
+
+    public String getLabelLastOperation() {
+        return labelLastOperation.get();
+    }
+
+    public StringProperty labelLastOperationProperty() {
+        return labelLastOperation;
+    }
+
+    public void setLabelLastOperation(String labelLastOperation) {
+        this.labelLastOperation.set(labelLastOperation);
+    }
+
+    public String getLabelLatitude() {
+        return labelLatitude.get();
+    }
+
+    public StringProperty labelLatitudeProperty() {
+        return labelLatitude;
+    }
+
+    public void setLabelLatitude(String labelLatitude) {
+        this.labelLatitude.set(labelLatitude);
     }
 }

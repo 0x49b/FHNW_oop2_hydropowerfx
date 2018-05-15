@@ -15,6 +15,7 @@
 .label {
     -fx-text-fill: #E8F8FF;
     -fx-font-family: Rubik;
+    -fx-font-size: 14;
 }
 
 .label-sm {
