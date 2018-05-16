@@ -2,7 +2,6 @@ package ch.fhnw.oop2.hydropowerfx.view.editor;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
-import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
@@ -10,9 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class Editor extends VBox implements ViewMixin {
@@ -21,7 +19,7 @@ public class Editor extends VBox implements ViewMixin {
     private PowerStation actualPowerstation;
 
 
-    private HBox editorHead;
+    private BorderPane editorHead;
     private VBox title;
     private GridPane editor;
 
@@ -78,21 +76,23 @@ public class Editor extends VBox implements ViewMixin {
 
     @Override
     public void initializeControls() {
-        editorHead = new HBox();
+        editorHead = new BorderPane();
         title = new VBox();
         editor = new GridPane();
 
         titleStationName = new Label();
-        titleStationName.getStyleClass().addAll("editor-stationname", "title");
+        titleStationName.getStyleClass().addAll("editor-stationname-title");
 
         titlestationSite = new Label();
         titleStationCanton = new Label();
         titleStationPowerOutput = new Label();
         titleStationStartOperation = new Label();
 
-        stationImage = new ImageView(new Image("https://via.placeholder.com/250x150"));
-        stationImage.setFitHeight(150);
-        stationImage.setFitWidth(250);
+
+        stationImage = new ImageView(new Image("https://i.stack.imgur.com/v1Yy8.png"));
+        stationImage.getStyleClass().addAll("editor-stationimage");
+        stationImage.setFitHeight(200);
+        stationImage.setFitWidth(350);
 
         labelName = new Label();
         labelPlace = new Label();
@@ -125,17 +125,15 @@ public class Editor extends VBox implements ViewMixin {
 
     @Override
     public void layoutControls() {
-
-        editorHead.setHgrow(stationName, Priority.ALWAYS);
-        //title = new VBox();
-
-        editor.setHgap(10); //horizontal gap in pixels => that's what you are asking for
-        editor.setVgap(10); //vertical gap in pixels
-        editor.setPadding(new Insets(10, 10, 10, 10)); //margins around the whole grid
-        //(top/right/bottom/left)
-
+        editor.setHgap(25);
+        editor.setVgap(25);
+        editor.setPadding(new Insets(10, 10, 10, 10));
         title.getChildren().addAll(titleStationName, titlestationSite, titleStationCanton, titleStationPowerOutput, titleStationStartOperation);
-        editorHead.getChildren().addAll(title, stationImage);
+
+        editorHead.setCenter(title);
+        editorHead.setRight(stationImage);
+        editorHead.setMargin(title, new Insets(10, 10, 25, 10));
+        editorHead.setMargin(stationImage, new Insets(10, 10, 25, 10));
 
         editor.add(labelName, 0, 0);
         editor.add(stationName, 1, 0);
@@ -181,7 +179,7 @@ public class Editor extends VBox implements ViewMixin {
         labelName.textProperty().bind(rootPM.labelNameProperty());
         labelPlace.textProperty().bind(rootPM.labelPlaceProperty());
         labelWaterflow.textProperty().bind(rootPM.labelWaterflowProperty());
-        labelstartOperation.textProperty().bind(rootPM.labelLastOperationProperty());
+        labelstartOperation.textProperty().bind(rootPM.labelFirstOperationProperty());
         labelLongitude.textProperty().bind(rootPM.labelLongitudeProperty());
         labelStatus.textProperty().bind(rootPM.labelStatusProperty());
         labelwaterbodies.textProperty().bind(rootPM.labelUsedFlowsProperty());

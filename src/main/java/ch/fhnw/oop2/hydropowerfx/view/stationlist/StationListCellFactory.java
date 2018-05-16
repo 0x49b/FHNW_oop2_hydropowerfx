@@ -27,7 +27,7 @@ public class StationListCellFactory extends ListCell<PowerStation> {
 
                 Text stationName = new Text(field.getName());
                 stationName.getStyleClass().add("station-cell-name");
-                Text maxPower = new Text(field.getMaxPower() + "kWh");
+                Text maxPower = new Text(field.getMaxPower() + " MW");
                 maxPower.getStyleClass().add("station-cell-maxpower");
 
                 VBox vBox = new VBox(stationName, maxPower);

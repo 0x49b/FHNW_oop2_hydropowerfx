@@ -42,7 +42,7 @@ public class RootPanel extends HBox implements ViewMixin {
         innerSplitPane.setOrientation(Orientation.HORIZONTAL);
 
         outerSplitPane.setDividerPosition(0, 0.8);
-        innerSplitPane.setDividerPosition(0, 0.25);
+        innerSplitPane.setDividerPosition(0, 0.265);
 
         menubar = new Menubar(rootPM, rootPanel);
         editor = new Editor(rootPM);

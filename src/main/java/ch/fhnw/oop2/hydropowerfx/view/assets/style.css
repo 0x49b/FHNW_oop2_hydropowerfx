@@ -15,8 +15,9 @@
 .label {
     -fx-text-fill: #E8F8FF;
     -fx-font-family: Rubik;
-    -fx-font-size: 14;
+    -fx-font-size: 16;
 }
+
 
 .label-sm {
     -fx-text-fill: #E8F8FF;
@@ -39,7 +40,7 @@
 
 .title {
     -fx-padding: 10 0 10 10;
-    -fx-font-size: 25;
+    -fx-font-size: 30;
     -fx-font-family: Montserrat;
 }
 
@@ -117,6 +118,27 @@
 .editor {
     -fx-background-color: #67B8DE;
     -fx-border-color: #67B8DE;
+}
+
+.editor-stationname-title {
+    -fx-font-size: 30;
+    -fx-font-family: Montserrat;
+}
+
+.editor-stationimage {
+    -fx-padding: 10 10 10 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-background-radius: 5;
+}
+
+.text-field{
+    -fx-font-size: 16;
+    -fx-font-family: Rubik;
+    -fx-text-fill: #E8F8FF;
+    -fx-background-color: #67B8DE;
+    -fx-border-insets: 0;
+    -fx-border-width: 2px;
+    -fx-border-color:  #67B8DE  #67B8DE #3399CC  #67B8DE;
 }
 
 /***********************************************************************************************************************

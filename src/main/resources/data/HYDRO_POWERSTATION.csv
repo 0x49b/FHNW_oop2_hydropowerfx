@@ -1,6 +1,6 @@
 ENTITY_ID;NAME;TYPE;SITE;CANTON;MAX_WATER_VOLUME_M3_S;MAX_POWER_MW;START_OF_OPERATION_FIRST;START_OF_OPERATION_LAST;LATITUDE;LONGITUDE;STATUS;WATERBODIES;IMAGE_URL
 100100;Val Giuf;L;Rueras;GR;0.43;1.42;1979;1979;46.67133138;8.75072906;im Normalbetrieb;Aua da Milez, Aua da Val Giuf;
-100150;Val Strem;L;Sedrun;GR;1.0;2.0;1945;2009;46.67477489;8.76414486;stillgelegt;Strem;
+100150;Val Strem;L;Sedrun;GR;1.0;2.0;1945;2009;46.67477489;8.76414486;stillgelegt;Strem;http://www.energia-alpina.ch/fileadmin/_processed_/5/e/csm__FRY0208_8d6b5298fb.jpg
 100200;Sedrun 1;S;Sedrun;GR;30.0;147.0;1968;2011;46.67004463;8.76860311;im Normalbetrieb;Froda, Rein da Curnera, Rein da Nalps, Rein da Tuma, Stausee Curnera, Stausee Nalps;
 100250;Sedrun 2;L;Sedrun;GR;3.0;0.7;1968;1968;46.67004463;8.76860311;im Normalbetrieb;Vorderrhein;
 100300;Tavanasa (KVR);S;Tavanasa;GR;46.0;176.4;1962;1962;46.75103278;9.04692337;im Normalbetrieb;Rein da Medel, Rein da Nalps, Rein da Sumvitg, Vorderrhein;
