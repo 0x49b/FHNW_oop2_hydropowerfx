@@ -52,7 +52,7 @@ public class RootPM {
     });
     private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);
     private final IntegerBinding totalPowerStations = Bindings.size(powerStationList);
-    private final IntegerBinding actualPowerStations = Bindings.size(powerStationFilterList);
+    private final IntegerBinding numberOfPowerStations = Bindings.size(powerStationFilterList);
     private final ObservableList<Canton> cantons = FXCollections.observableArrayList();
 
     /************************************************ Editor Head Title ********************************************/
@@ -127,7 +127,7 @@ public class RootPM {
     public void setupBindings() {
         currentMaxItemsTextProperty().bind(
 
-                actualPowerStationsProperty().asString().concat("/").concat(totalPowerStationsProperty()));
+                numberOfPowerStationsProperty().asString().concat("/").concat(totalPowerStationsProperty()));
     }
 
     public void searchPowerStations(String search) {
@@ -201,12 +201,12 @@ public class RootPM {
         return totalPowerStations;
     }
 
-    public Number getActualPowerStations() {
-        return actualPowerStations.get();
+    public Number getNumberOfPowerStations() {
+        return numberOfPowerStations.get();
     }
 
-    public IntegerBinding actualPowerStationsProperty() {
-        return actualPowerStations;
+    public IntegerBinding numberOfPowerStationsProperty() {
+        return numberOfPowerStations;
     }
 
     public PowerStation getActualPowerStation() {
