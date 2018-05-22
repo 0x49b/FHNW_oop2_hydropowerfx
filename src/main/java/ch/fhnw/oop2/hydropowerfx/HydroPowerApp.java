@@ -25,6 +25,7 @@ public class HydroPowerApp extends Application {
     private Stage splashStage;
     private int splash_width;
     private int splash_height;
+    private RootPM rootPM;
 
     public static void main(String[] args) {
         launch(args);
@@ -70,7 +71,7 @@ public class HydroPowerApp extends Application {
     }
 
     private void showMainStage(Stage primaryStage) {
-        RootPM rootPM = new RootPM();
+        rootPM = new RootPM();
         Parent rootPanel = new RootPanel(rootPM);
         Scene scene = new Scene(rootPanel);
         primaryStage.titleProperty().bind(rootPM.applicationTitleProperty());
@@ -80,5 +81,11 @@ public class HydroPowerApp extends Application {
         primaryStage.setWidth(1000);
         primaryStage.setHeight(800);
         primaryStage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        rootPM.close();
+        super.stop();
     }
 }
