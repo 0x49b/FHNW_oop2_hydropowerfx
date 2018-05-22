@@ -58,7 +58,7 @@ public class StationList extends VBox implements ViewMixin {
     public void setupEventHandlers() {
         stationList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                rootPM.setActualPowerStation(newValue);
+                rootPM.setActualPowerStation((PowerStation) newValue);
             }
         });
     }

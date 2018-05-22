@@ -189,57 +189,24 @@ public class Editor extends VBox implements ViewMixin {
         labelLastOperation.textProperty().bind(rootPM.labelLastOperationProperty());
         labelLatitude.textProperty().bind(rootPM.labelLatitudeProperty());
 
-        setActualBindings();
-
-    }
-
-    public void setActualBindings() {
-        titleStationName.textProperty().bind(rootPM.getActualPowerStation().nameProperty());
-        titlestationSite.textProperty().bind(rootPM.getActualPowerStation().siteProperty());
-        titleStationCanton.textProperty().bind(rootPM.getActualPowerStation().cantonProperty());
-        titleStationPowerOutput.textProperty().bind(rootPM.getActualPowerStation().maxPowerProperty().asString());
-        titleStationStartOperation.textProperty().bind(rootPM.getActualPowerStation().startOperationProperty().asString());
+        titleStationName.textProperty().bind(rootPM.getPowerStationProxy().nameProperty());
+        titlestationSite.textProperty().bind(rootPM.getPowerStationProxy().siteProperty());
+        titleStationCanton.textProperty().bind(rootPM.getPowerStationProxy().cantonProperty());
+        titleStationPowerOutput.textProperty().bind(rootPM.getPowerStationProxy().maxPowerProperty().asString());
+        titleStationStartOperation.textProperty().bind(rootPM.getPowerStationProxy().startOperationProperty().asString());
 
         /*********************************** TextField Bindings ***********************************/
-        stationName.textProperty().bindBidirectional(rootPM.getActualPowerStation().nameProperty());
-        stationSite.textProperty().bindBidirectional(rootPM.getActualPowerStation().siteProperty());
-        stationWaterflow.textProperty().bindBidirectional(rootPM.getActualPowerStation().maxWaterProperty(), new NumberStringConverter());
-        startOperation.textProperty().bindBidirectional(rootPM.getActualPowerStation().startOperationProperty(), new NumberStringConverter());
-        longitude.textProperty().bindBidirectional(rootPM.getActualPowerStation().longitudeProperty(), new NumberStringConverter());
-        status.textProperty().bindBidirectional(rootPM.getActualPowerStation().statusProperty());
-        waterbodies.textProperty().bindBidirectional(rootPM.getActualPowerStation().waterbodiesProperty());
-        imageURL.textProperty().bindBidirectional(rootPM.getActualPowerStation().imgUrlProperty());
-        powerOutput.textProperty().bindBidirectional(rootPM.getActualPowerStation().maxPowerProperty(), new NumberStringConverter());
-        lastOperation.textProperty().bindBidirectional(rootPM.getActualPowerStation().lastOperationProperty(), new NumberStringConverter());
-        latitude.textProperty().bindBidirectional(rootPM.getActualPowerStation().latitudeProperty(), new NumberStringConverter());
-    }
+        stationName.textProperty().bindBidirectional(rootPM.getPowerStationProxy().nameProperty());
+        stationSite.textProperty().bindBidirectional(rootPM.getPowerStationProxy().siteProperty());
+        stationWaterflow.textProperty().bindBidirectional(rootPM.getPowerStationProxy().maxWaterProperty(), new NumberStringConverter());
+        startOperation.textProperty().bindBidirectional(rootPM.getPowerStationProxy().startOperationProperty(), new NumberStringConverter());
+        longitude.textProperty().bindBidirectional(rootPM.getPowerStationProxy().longitudeProperty(), new NumberStringConverter());
+        status.textProperty().bindBidirectional(rootPM.getPowerStationProxy().statusProperty());
+        waterbodies.textProperty().bindBidirectional(rootPM.getPowerStationProxy().waterbodiesProperty());
+        imageURL.textProperty().bindBidirectional(rootPM.getPowerStationProxy().imgUrlProperty());
+        powerOutput.textProperty().bindBidirectional(rootPM.getPowerStationProxy().maxPowerProperty(), new NumberStringConverter());
+        lastOperation.textProperty().bindBidirectional(rootPM.getPowerStationProxy().lastOperationProperty(), new NumberStringConverter());
+        latitude.textProperty().bindBidirectional(rootPM.getPowerStationProxy().latitudeProperty(), new NumberStringConverter());
 
-    public void unsetBindings(PowerStation oldValue) {
-        titleStationName.textProperty().unbind();
-        titlestationSite.textProperty().unbind();
-        titleStationCanton.textProperty().unbind();
-        titleStationPowerOutput.textProperty().unbind();
-        titleStationStartOperation.textProperty().unbind();
-
-        /*********************************** TextField Bindings release ***********************************/
-        stationName.textProperty().unbindBidirectional(oldValue.nameProperty());
-        stationSite.textProperty().unbindBidirectional(oldValue.siteProperty());
-        stationWaterflow.textProperty().unbindBidirectional(oldValue.maxWaterProperty());
-        startOperation.textProperty().unbindBidirectional(oldValue.startOperationProperty());
-        longitude.textProperty().unbindBidirectional(oldValue.longitudeProperty());
-        status.textProperty().unbindBidirectional(oldValue.statusProperty());
-        waterbodies.textProperty().unbindBidirectional(oldValue.waterbodiesProperty());
-        imageURL.textProperty().unbindBidirectional(oldValue.imgUrlProperty());
-        powerOutput.textProperty().unbindBidirectional(oldValue.maxPowerProperty());
-        lastOperation.textProperty().unbindBidirectional(oldValue.lastOperationProperty());
-        latitude.textProperty().unbindBidirectional(oldValue.latitudeProperty());
-    }
-
-    @Override
-    public void setupValueChangedListeners() {
-        rootPM.actualPowerStationProperty().addListener(((observable, oldValue, newValue) -> {
-            unsetBindings((PowerStation) oldValue);
-            setActualBindings();
-        }));
     }
 }
