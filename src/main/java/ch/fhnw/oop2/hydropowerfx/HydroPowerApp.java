@@ -73,6 +73,7 @@ public class HydroPowerApp extends Application {
     private void showMainStage(Stage primaryStage) {
         rootPM = new RootPM();
         Parent rootPanel = new RootPanel(rootPM);
+        rootPM.setPrimaryStage(primaryStage);
         Scene scene = new Scene(rootPanel);
         primaryStage.titleProperty().bind(rootPM.applicationTitleProperty());
         primaryStage.setScene(scene);

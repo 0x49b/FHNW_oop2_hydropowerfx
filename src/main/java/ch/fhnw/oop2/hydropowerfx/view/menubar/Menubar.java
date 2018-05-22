@@ -1,5 +1,6 @@
 package ch.fhnw.oop2.hydropowerfx.view.menubar;
 
+import ch.fhnw.oop2.hydropowerfx.export.PDFWriter;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
@@ -7,6 +8,7 @@ import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -24,6 +26,7 @@ public class Menubar extends VBox implements ViewMixin {
     private Button deletestation;
     private Button savestation;
     private Button search;
+    private Button topdf;
     private Button settings;
     private Label version;
 
@@ -33,9 +36,11 @@ public class Menubar extends VBox implements ViewMixin {
     private ImageView deletestationImage;
     private ImageView savestationImage;
     private ImageView searchImage;
+    private ImageView topdfImage;
     private ImageView settingsImage;
     private SearchPanel searchpanel;
 
+    private Tooltip toPDFTooltip;
 
 
     public Menubar(RootPM rootPM, RootPanel rootPanel) {
@@ -94,6 +99,14 @@ public class Menubar extends VBox implements ViewMixin {
         search.setGraphic(searchImage);
         searchpanel = new SearchPanel(rootPanel, rootPM, menubar);
 
+        topdfImage = new ImageView(new Image(this.getClass().getResource("../assets/images/topdf.png").toExternalForm()));
+        topdf = new Button();
+        topdf.getStyleClass().addAll("menubar-item", "menubar-button", "topdf");
+        topdf.setGraphic(topdfImage);
+        toPDFTooltip = new Tooltip();
+        toPDFTooltip.setText("Station als PDF speichern");
+        topdf.setTooltip(toPDFTooltip);
+
         // settings Button
         settingsImage = new ImageView(new Image(this.getClass().getResource("../assets/images/settings.png").toExternalForm()));
         settings = new Button();
@@ -108,7 +121,7 @@ public class Menubar extends VBox implements ViewMixin {
 
     @Override
     public void layoutControls() {
-        this.getChildren().addAll(hpfxLogo, undo, redo, newstation, savestation, deletestation, search, settings, version);
+        this.getChildren().addAll(hpfxLogo, undo, redo, newstation, savestation, deletestation, search, topdf, settings, version);
     }
 
     @Override
@@ -128,7 +141,12 @@ public class Menubar extends VBox implements ViewMixin {
             searchpanel.showhide();
         });
         savestation.setOnAction(event -> {
-           new NotificationPanel(rootPanel, "gespeichert", NotificationPanel.Type.SUCCESS).show();
+            new NotificationPanel(rootPanel, "gespeichert", NotificationPanel.Type.SUCCESS).show();
+        });
+
+        topdf.setOnAction(event -> {
+            PDFWriter pdfwriter = new PDFWriter(rootPM.getActualPowerStation(), rootPM);
+            new NotificationPanel(rootPanel, "PDF wird erstellt", NotificationPanel.Type.INFO).show();
         });
 
     }

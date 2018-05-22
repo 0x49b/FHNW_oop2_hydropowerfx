@@ -14,6 +14,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -32,6 +33,8 @@ public class RootPM {
     private static final String DELIMITER = ";";
 
     private Database database;
+
+    private Stage primaryStage;
 
     private final StringProperty applicationTitle     = new SimpleStringProperty("HydroPowerFX");
     private final StringProperty versionInformation = new SimpleStringProperty("V0.1");
@@ -98,6 +101,15 @@ public class RootPM {
         if (database != null) {
             database.close();
         }
+    }
+
+    /************************************************ Primary Stage ***********************************************************/
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 
     /************************************************ File reading and writing ************************************************/

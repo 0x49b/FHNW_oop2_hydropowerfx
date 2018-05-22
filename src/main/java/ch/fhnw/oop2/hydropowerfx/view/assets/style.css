@@ -98,7 +98,7 @@
 }
 
 .logo {
-    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10;
     -fx-border-color: #E8F8FF;
 }
 

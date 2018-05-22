@@ -41,9 +41,11 @@ dependencies {
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.3")
     compile group: 'com.sothawo', name: 'mapjfx', version: '1.8.0'
     compile 'org.neo4j:neo4j-ogm-core:3.1.0'
-    // runtime 'org.neo4j:neo4j-ogm-embedded-driver:3.1.0'
+    //runtime 'org.neo4j:neo4j-ogm-embedded-driver:3.1.0'
     runtime 'org.neo4j:neo4j-ogm-bolt-driver:3.1.0'
     runtime 'org.slf4j:slf4j-simple:1.7.25'
+
+    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
 }
 
 junitPlatform {
