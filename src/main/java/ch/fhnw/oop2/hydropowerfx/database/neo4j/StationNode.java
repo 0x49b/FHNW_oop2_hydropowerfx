@@ -9,7 +9,7 @@ import org.neo4j.ogm.annotation.Relationship;
 public class StationNode {
 
     @Id
-    int entitiyID;
+    Long entityID;
     String name;
     String type;
     String site;
@@ -31,7 +31,7 @@ public class StationNode {
     }
 
     public StationNode(PowerStation station) {
-        setEntitiyID(station.getEntitiyID());
+        setEntityID(Long.valueOf(station.getEntitiyID()));
         setName(station.getName());
         setType(station.getType());
         setSite(station.getSite());
@@ -50,7 +50,7 @@ public class StationNode {
     public PowerStation asPowerStation() {
         PowerStation station = new PowerStation();
 
-        station.setEntitiyID(getEntitiyID());
+        station.setEntitiyID(getEntityID().intValue());
         station.setName(getName());
         station.setType(getType());
         station.setSite(getSite());
@@ -68,12 +68,12 @@ public class StationNode {
         return station;
     }
 
-    public int getEntitiyID() {
-        return entitiyID;
+    public Long getEntityID() {
+        return entityID;
     }
 
-    public void setEntitiyID(int entitiyID) {
-        this.entitiyID = entitiyID;
+    public void setEntityID(Long entityID) {
+        this.entityID = entityID;
     }
 
     public String getName() {

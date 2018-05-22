@@ -2,6 +2,7 @@ package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
 import ch.fhnw.oop2.hydropowerfx.database.Database;
 import ch.fhnw.oop2.hydropowerfx.database.neo4j.Neo4j;
+import ch.fhnw.oop2.hydropowerfx.view.preferences.PreferencesPanel;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
@@ -16,6 +17,8 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -156,6 +159,16 @@ public class RootPM {
     }
 
     /************************************************ Helper functions ************************************************/
+
+    public void openPreferences() {
+        Parent rootPanel = new PreferencesPanel(this);
+        Scene scene = new Scene(rootPanel);
+        Stage preferences = new Stage();
+        preferences.setScene(scene);
+        preferences.setWidth(800);
+        preferences.setHeight(500);
+        preferences.show();
+    }
 
     private void setupBindings() {
         currentMaxItemsTextProperty().bind(

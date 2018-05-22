@@ -99,11 +99,10 @@ public class Neo4j extends Database {
     protected void updateStation(PowerStation station) {
         Session session = sessionFactory.openSession();
 
-        StationNode sn = session.load(StationNode.class, station.getEntitiyID());
+        StationNode sn = session.load(StationNode.class, Long.valueOf(station.getEntitiyID()));
 
         if (sn == null) {
             sn = new StationNode(station);
-            sn.setEntitiyID(station.getEntitiyID());
         }
 
         if (!station.getCanton().equals(sn.getCanton())) {
