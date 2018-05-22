@@ -1,5 +1,7 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
+import ch.fhnw.oop2.hydropowerfx.database.Database;
+import ch.fhnw.oop2.hydropowerfx.database.neo4j.Neo4j;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
@@ -28,6 +30,8 @@ public class RootPM {
     private static final String POWERSTATIONS_FILE = "/data/HYDRO_POWERSTATION.csv";
     private static final String CANTONS_FILE = "/data/cantons.csv";
     private static final String DELIMITER = ";";
+
+    private Database database;
 
     private final StringProperty applicationTitle     = new SimpleStringProperty("HydroPowerFX");
     private final StringProperty versionInformation = new SimpleStringProperty("V0.1");
@@ -80,10 +84,20 @@ public class RootPM {
     private final StringProperty labelLatitude= new SimpleStringProperty("Längengrad");
 
     public RootPM() {
-        powerStationList.addAll(readPowerStations());
         cantons.addAll(readCantons());
+        powerStationList.addAll(readPowerStations());
+
+        // TODO before activating database setup preferences panel
+        // database = new Neo4j(cantons, powerStationList);
+
         setActualPowerStation(powerStationList.get(0));
         setupBindings();
+    }
+
+    public void close() {
+        if (database != null) {
+            database.close();
+        }
     }
 
     /************************************************ File reading and writing ************************************************/
