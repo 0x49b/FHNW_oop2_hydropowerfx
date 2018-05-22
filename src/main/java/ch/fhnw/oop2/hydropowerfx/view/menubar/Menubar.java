@@ -149,6 +149,9 @@ public class Menubar extends VBox implements ViewMixin {
             new NotificationPanel(rootPanel, "PDF wird erstellt", NotificationPanel.Type.INFO).show();
         });
 
+        settings.setOnAction(event -> {
+            rootPM.openPreferences();
+        });
     }
 
     //getter for searchbutton
