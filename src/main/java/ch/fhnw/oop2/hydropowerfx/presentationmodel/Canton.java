@@ -27,6 +27,16 @@ public class Canton {
     private FilteredList<PowerStation> cantonStationsList;
     private DoubleBinding totalPower;
 
+    public Canton(ObservableList<PowerStation> stationList) {
+        cantonStationsList = new FilteredList<>(stationList);
+        cantonStationsList.setPredicate(s -> s.getCanton().equals(shortName.get()));
+
+        totalPower = Bindings.createDoubleBinding(
+                () -> cantonStationsList.stream()
+                        .map(PowerStation::getMaxPower)
+                        .collect(Collectors.summingDouble(Double::parseDouble)), cantonStationsList
+        );
+    }
 
     public Canton(String[] fields, ObservableList<PowerStation> list) {
         setCantonName(fields[0]);
