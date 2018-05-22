@@ -103,7 +103,6 @@ public class Neo4j extends Database {
 
         if (sn == null) {
             sn = new StationNode(station);
-            sn.setEntityID(Long.valueOf(station.getEntitiyID()));
         }
 
         if (!station.getCanton().equals(sn.getCanton())) {
