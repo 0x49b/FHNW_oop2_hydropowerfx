@@ -5,8 +5,6 @@ import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-import java.util.List;
-
 public class PreferencesPanel extends VBox implements ViewMixin {
 
     private RootPM rootPM;
