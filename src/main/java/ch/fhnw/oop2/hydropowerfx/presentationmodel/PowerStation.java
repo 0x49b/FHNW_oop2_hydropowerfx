@@ -19,6 +19,10 @@ public class PowerStation {
     private StringProperty waterbodies = new SimpleStringProperty();
     private StringProperty imgUrl = new SimpleStringProperty();
 
+    public PowerStation() {
+
+    }
+
     public PowerStation(String[] fields) {
         setEntitiyID(fields[0]);
         setName(fields[1]);
