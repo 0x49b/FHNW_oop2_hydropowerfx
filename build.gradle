@@ -40,6 +40,7 @@ dependencies {
     testCompile("org.junit.jupiter:junit-jupiter-api:5.0.3")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.3")
     compile group: 'com.sothawo', name: 'mapjfx', version: '1.8.0'
+    compile 'org.xerial:sqlite-jdbc:3.21.0.1'
     compile 'org.neo4j:neo4j-ogm-core:3.1.0'
     // runtime 'org.neo4j:neo4j-ogm-embedded-driver:3.1.0'
     runtime 'org.neo4j:neo4j-ogm-bolt-driver:3.1.0'
