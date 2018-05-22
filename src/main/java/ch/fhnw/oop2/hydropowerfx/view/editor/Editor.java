@@ -235,25 +235,10 @@ public class Editor extends VBox implements ViewMixin {
         latitude.textProperty().unbindBidirectional(oldValue.latitudeProperty());
     }
 
-    public void setFieldValues() {
-        stationName.setText(rootPM.getActualPowerStation().getName());
-        stationSite.setText(rootPM.getActualPowerStation().getSite());
-        stationWaterflow.setText(String.valueOf(rootPM.getActualPowerStation().getMaxWater()));
-        startOperation.setText(String.valueOf(rootPM.getActualPowerStation().getStartOperation()));
-        longitude.setText(String.valueOf(rootPM.getActualPowerStation().getLongitude()));
-        status.setText(rootPM.getActualPowerStation().getStatus());
-        waterbodies.setText(rootPM.getActualPowerStation().getWaterbodies());
-        imageURL.setText(rootPM.getActualPowerStation().getImgUrl());
-        powerOutput.setText(String.valueOf(rootPM.getActualPowerStation().getMaxWater()));
-        lastOperation.setText(String.valueOf(rootPM.getActualPowerStation().getLastOperation()));
-        latitude.setText(String.valueOf(rootPM.getActualPowerStation().getLatitude()));
-    }
-
     @Override
     public void setupValueChangedListeners() {
         rootPM.actualPowerStationProperty().addListener(((observable, oldValue, newValue) -> {
             unsetBindings((PowerStation) oldValue);
-            setFieldValues();
             setActualBindings();
         }));
     }
