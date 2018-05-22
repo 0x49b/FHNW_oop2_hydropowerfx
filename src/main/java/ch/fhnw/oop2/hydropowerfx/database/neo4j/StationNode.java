@@ -9,17 +9,17 @@ import org.neo4j.ogm.annotation.Relationship;
 public class StationNode {
 
     @Id
-    String entitiyID;
+    int entitiyID;
     String name;
     String type;
     String site;
     String canton;
-    String maxWater;
-    String maxPower;
-    String startOperation;
-    String lastOperation;
-    String latitude;
-    String longitude;
+    double maxWater;
+    double maxPower;
+    int startOperation;
+    int lastOperation;
+    double latitude;
+    double longitude;
     String status;
     String waterbodies;
     String imgUrl;
@@ -47,23 +47,6 @@ public class StationNode {
         setImgUrl(station.getImgUrl());
     }
 
-    public StationNode(String[] fields) {
-        setEntitiyID(fields[0]);
-        setName(fields[1]);
-        setType(fields[2]);
-        setSite(fields[3]);
-        setCanton(fields[4]);
-        setMaxWater(fields[5]);
-        setMaxPower(fields[6]);
-        setStartOperation(fields[7]);
-        setLastOperation(fields[8]);
-        setLatitude(fields[9]);
-        setLongitude(fields[10]);
-        setStatus(fields[11]);
-        setWaterbodies(fields[12]);
-        setImgUrl(fields[13]);
-    }
-
     public PowerStation asPowerStation() {
         PowerStation station = new PowerStation();
 
@@ -85,11 +68,11 @@ public class StationNode {
         return station;
     }
 
-    public String getEntitiyID() {
+    public int getEntitiyID() {
         return entitiyID;
     }
 
-    public void setEntitiyID(String entitiyID) {
+    public void setEntitiyID(int entitiyID) {
         this.entitiyID = entitiyID;
     }
 
@@ -125,51 +108,51 @@ public class StationNode {
         this.canton = canton;
     }
 
-    public String getMaxWater() {
+    public double getMaxWater() {
         return maxWater;
     }
 
-    public void setMaxWater(String maxWater) {
+    public void setMaxWater(double maxWater) {
         this.maxWater = maxWater;
     }
 
-    public String getMaxPower() {
+    public double getMaxPower() {
         return maxPower;
     }
 
-    public void setMaxPower(String maxPower) {
+    public void setMaxPower(double maxPower) {
         this.maxPower = maxPower;
     }
 
-    public String getStartOperation() {
+    public int getStartOperation() {
         return startOperation;
     }
 
-    public void setStartOperation(String startOperation) {
+    public void setStartOperation(int startOperation) {
         this.startOperation = startOperation;
     }
 
-    public String getLastOperation() {
+    public int getLastOperation() {
         return lastOperation;
     }
 
-    public void setLastOperation(String lastOperation) {
+    public void setLastOperation(int lastOperation) {
         this.lastOperation = lastOperation;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

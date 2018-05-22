@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.NumberStringConverter;
 
 public class Editor extends VBox implements ViewMixin {
 
@@ -196,21 +197,21 @@ public class Editor extends VBox implements ViewMixin {
         titleStationName.textProperty().bind(rootPM.getActualPowerStation().nameProperty());
         titlestationSite.textProperty().bind(rootPM.getActualPowerStation().siteProperty());
         titleStationCanton.textProperty().bind(rootPM.getActualPowerStation().cantonProperty());
-        titleStationPowerOutput.textProperty().bind(rootPM.getActualPowerStation().maxPowerProperty());
-        titleStationStartOperation.textProperty().bind(rootPM.getActualPowerStation().startOperationProperty());
+        titleStationPowerOutput.textProperty().bind(rootPM.getActualPowerStation().maxPowerProperty().asString());
+        titleStationStartOperation.textProperty().bind(rootPM.getActualPowerStation().startOperationProperty().asString());
 
         /*********************************** TextField Bindings ***********************************/
         stationName.textProperty().bindBidirectional(rootPM.getActualPowerStation().nameProperty());
         stationSite.textProperty().bindBidirectional(rootPM.getActualPowerStation().siteProperty());
-        stationWaterflow.textProperty().bindBidirectional(rootPM.getActualPowerStation().maxWaterProperty());
-        startOperation.textProperty().bindBidirectional(rootPM.getActualPowerStation().startOperationProperty());
-        longitude.textProperty().bindBidirectional(rootPM.getActualPowerStation().longitudeProperty());
+        stationWaterflow.textProperty().bindBidirectional(rootPM.getActualPowerStation().maxWaterProperty(), new NumberStringConverter());
+        startOperation.textProperty().bindBidirectional(rootPM.getActualPowerStation().startOperationProperty(), new NumberStringConverter());
+        longitude.textProperty().bindBidirectional(rootPM.getActualPowerStation().longitudeProperty(), new NumberStringConverter());
         status.textProperty().bindBidirectional(rootPM.getActualPowerStation().statusProperty());
         waterbodies.textProperty().bindBidirectional(rootPM.getActualPowerStation().waterbodiesProperty());
         imageURL.textProperty().bindBidirectional(rootPM.getActualPowerStation().imgUrlProperty());
-        powerOutput.textProperty().bindBidirectional(rootPM.getActualPowerStation().maxPowerProperty());
-        lastOperation.textProperty().bindBidirectional(rootPM.getActualPowerStation().lastOperationProperty());
-        latitude.textProperty().bindBidirectional(rootPM.getActualPowerStation().latitudeProperty());
+        powerOutput.textProperty().bindBidirectional(rootPM.getActualPowerStation().maxPowerProperty(), new NumberStringConverter());
+        lastOperation.textProperty().bindBidirectional(rootPM.getActualPowerStation().lastOperationProperty(), new NumberStringConverter());
+        latitude.textProperty().bindBidirectional(rootPM.getActualPowerStation().latitudeProperty(), new NumberStringConverter());
     }
 
     public void unsetBindings(PowerStation oldValue) {
@@ -237,15 +238,15 @@ public class Editor extends VBox implements ViewMixin {
     public void setFieldValues() {
         stationName.setText(rootPM.getActualPowerStation().getName());
         stationSite.setText(rootPM.getActualPowerStation().getSite());
-        stationWaterflow.setText(rootPM.getActualPowerStation().getMaxWater());
-        startOperation.setText(rootPM.getActualPowerStation().getStartOperation());
-        longitude.setText(rootPM.getActualPowerStation().getLongitude());
+        stationWaterflow.setText(String.valueOf(rootPM.getActualPowerStation().getMaxWater()));
+        startOperation.setText(String.valueOf(rootPM.getActualPowerStation().getStartOperation()));
+        longitude.setText(String.valueOf(rootPM.getActualPowerStation().getLongitude()));
         status.setText(rootPM.getActualPowerStation().getStatus());
         waterbodies.setText(rootPM.getActualPowerStation().getWaterbodies());
         imageURL.setText(rootPM.getActualPowerStation().getImgUrl());
-        powerOutput.setText(rootPM.getActualPowerStation().getMaxWater());
-        lastOperation.setText(rootPM.getActualPowerStation().getLastOperation());
-        latitude.setText(rootPM.getActualPowerStation().getLatitude());
+        powerOutput.setText(String.valueOf(rootPM.getActualPowerStation().getMaxWater()));
+        lastOperation.setText(String.valueOf(rootPM.getActualPowerStation().getLastOperation()));
+        latitude.setText(String.valueOf(rootPM.getActualPowerStation().getLatitude()));
     }
 
     @Override
