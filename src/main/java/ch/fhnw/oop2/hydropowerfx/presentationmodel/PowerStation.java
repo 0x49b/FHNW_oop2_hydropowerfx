@@ -1,20 +1,24 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class PowerStation {
-    private StringProperty entitiyID = new SimpleStringProperty();
+    private IntegerProperty entitiyID = new SimpleIntegerProperty();
     private StringProperty name = new SimpleStringProperty();
     private StringProperty type = new SimpleStringProperty();
     private StringProperty site = new SimpleStringProperty();
     private StringProperty canton = new SimpleStringProperty();
-    private StringProperty maxWater = new SimpleStringProperty();
-    private StringProperty maxPower = new SimpleStringProperty();
-    private StringProperty startOperation = new SimpleStringProperty();
-    private StringProperty lastOperation = new SimpleStringProperty();
-    private StringProperty latitude = new SimpleStringProperty();
-    private StringProperty longitude = new SimpleStringProperty();
+    private DoubleProperty maxWater = new SimpleDoubleProperty();
+    private DoubleProperty maxPower = new SimpleDoubleProperty();
+    private IntegerProperty startOperation = new SimpleIntegerProperty();
+    private IntegerProperty lastOperation = new SimpleIntegerProperty();
+    private DoubleProperty latitude = new SimpleDoubleProperty();
+    private DoubleProperty longitude = new SimpleDoubleProperty();
     private StringProperty status = new SimpleStringProperty();
     private StringProperty waterbodies = new SimpleStringProperty();
     private StringProperty imgUrl = new SimpleStringProperty();
@@ -24,31 +28,31 @@ public class PowerStation {
     }
 
     public PowerStation(String[] fields) {
-        setEntitiyID(fields[0]);
+        setEntitiyID(Integer.valueOf(fields[0].replaceAll("'", "")));
         setName(fields[1]);
         setType(fields[2]);
         setSite(fields[3]);
         setCanton(fields[4]);
-        setMaxWater(fields[5]);
-        setMaxPower(fields[6]);
-        setStartOperation(fields[7]);
-        setLastOperation(fields[8]);
-        setLatitude(fields[9]);
-        setLongitude(fields[10]);
+        setMaxWater(Double.parseDouble(fields[5].replaceAll("'", "")));
+        setMaxPower(Double.parseDouble(fields[6].replaceAll("'", "")));
+        setStartOperation(Integer.parseInt(fields[7].replaceAll("'", "")));
+        setLastOperation(Integer.parseInt(fields[8].replaceAll("'", "")));
+        setLatitude(Double.parseDouble(fields[9].replaceAll("'", "")));
+        setLongitude(Double.parseDouble(fields[10].replaceAll("'", "")));
         setStatus(fields[11]);
         setWaterbodies(fields[12]);
         setImgUrl(fields[13]);
     }
 
-    public String getEntitiyID() {
+    public int getEntitiyID() {
         return entitiyID.get();
     }
 
-    public StringProperty entitiyIDProperty() {
+    public IntegerProperty entitiyIDProperty() {
         return entitiyID;
     }
 
-    public void setEntitiyID(String entitiyID) {
+    public void setEntitiyID(int entitiyID) {
         this.entitiyID.set(entitiyID);
     }
 
@@ -100,75 +104,75 @@ public class PowerStation {
         this.canton.set(canton);
     }
 
-    public String getMaxWater() {
+    public double getMaxWater() {
         return maxWater.get();
     }
 
-    public StringProperty maxWaterProperty() {
+    public DoubleProperty maxWaterProperty() {
         return maxWater;
     }
 
-    public void setMaxWater(String maxWater) {
+    public void setMaxWater(double maxWater) {
         this.maxWater.set(maxWater);
     }
 
-    public String getMaxPower() {
+    public double getMaxPower() {
         return maxPower.get();
     }
 
-    public StringProperty maxPowerProperty() {
+    public DoubleProperty maxPowerProperty() {
         return maxPower;
     }
 
-    public void setMaxPower(String maxPower) {
+    public void setMaxPower(double maxPower) {
         this.maxPower.set(maxPower);
     }
 
-    public String getStartOperation() {
+    public int getStartOperation() {
         return startOperation.get();
     }
 
-    public StringProperty startOperationProperty() {
+    public IntegerProperty startOperationProperty() {
         return startOperation;
     }
 
-    public void setStartOperation(String startOperation) {
+    public void setStartOperation(int startOperation) {
         this.startOperation.set(startOperation);
     }
 
-    public String getLastOperation() {
+    public int getLastOperation() {
         return lastOperation.get();
     }
 
-    public StringProperty lastOperationProperty() {
+    public IntegerProperty lastOperationProperty() {
         return lastOperation;
     }
 
-    public void setLastOperation(String lastOperation) {
+    public void setLastOperation(int lastOperation) {
         this.lastOperation.set(lastOperation);
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude.get();
     }
 
-    public StringProperty latitudeProperty() {
+    public DoubleProperty latitudeProperty() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude.set(latitude);
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude.get();
     }
 
-    public StringProperty longitudeProperty() {
+    public DoubleProperty longitudeProperty() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude.set(longitude);
     }
 

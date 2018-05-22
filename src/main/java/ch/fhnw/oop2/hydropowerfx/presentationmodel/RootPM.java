@@ -6,8 +6,10 @@ import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -31,6 +33,8 @@ public class RootPM {
     private static final String POWERSTATIONS_FILE = "/data/HYDRO_POWERSTATION.csv";
     private static final String CANTONS_FILE = "/data/cantons.csv";
     private static final String DELIMITER = ";";
+
+    private final PowerStation powerStationProxy = new PowerStation();
 
     private Database database;
 
@@ -95,6 +99,9 @@ public class RootPM {
 
         setActualPowerStation(powerStationList.get(0));
         setupBindings();
+        setupListeners();
+
+        bindToProxy(powerStationList.get(0));
     }
 
     public void close() {
@@ -150,10 +157,58 @@ public class RootPM {
 
     /************************************************ Helper functions ************************************************/
 
-    public void setupBindings() {
+    private void setupBindings() {
         currentMaxItemsTextProperty().bind(
-
                 numberOfPowerStationsProperty().asString().concat("/").concat(totalPowerStationsProperty()));
+
+
+    }
+
+    private void unbindFromProxy(PowerStation station) {
+        powerStationProxy.entitiyIDProperty().unbindBidirectional(station.entitiyIDProperty());
+        powerStationProxy.nameProperty().unbindBidirectional(station.nameProperty());
+        powerStationProxy.typeProperty().unbindBidirectional(station.typeProperty());
+        powerStationProxy.siteProperty().unbindBidirectional(station.siteProperty());
+        powerStationProxy.cantonProperty().unbindBidirectional(station.cantonProperty());
+        powerStationProxy.maxWaterProperty().unbindBidirectional(station.maxWaterProperty());
+        powerStationProxy.maxPowerProperty().unbindBidirectional(station.maxPowerProperty());
+        powerStationProxy.startOperationProperty().unbindBidirectional(station.startOperationProperty());
+        powerStationProxy.lastOperationProperty().unbindBidirectional(station.lastOperationProperty());
+        powerStationProxy.latitudeProperty().unbindBidirectional(station.latitudeProperty());
+        powerStationProxy.longitudeProperty().unbindBidirectional(station.longitudeProperty());
+        powerStationProxy.statusProperty().unbindBidirectional(station.statusProperty());
+        powerStationProxy.waterbodiesProperty().unbindBidirectional(station.waterbodiesProperty());
+        powerStationProxy.imgUrlProperty().unbindBidirectional(station.imgUrlProperty());
+    }
+
+    private void bindToProxy(PowerStation station) {
+        powerStationProxy.entitiyIDProperty().bindBidirectional(station.entitiyIDProperty());
+        powerStationProxy.nameProperty().bindBidirectional(station.nameProperty());
+        powerStationProxy.typeProperty().bindBidirectional(station.typeProperty());
+        powerStationProxy.siteProperty().bindBidirectional(station.siteProperty());
+        powerStationProxy.cantonProperty().bindBidirectional(station.cantonProperty());
+        powerStationProxy.maxWaterProperty().bindBidirectional(station.maxWaterProperty());
+        powerStationProxy.maxPowerProperty().bindBidirectional(station.maxPowerProperty());
+        powerStationProxy.startOperationProperty().bindBidirectional(station.startOperationProperty());
+        powerStationProxy.lastOperationProperty().bindBidirectional(station.lastOperationProperty());
+        powerStationProxy.latitudeProperty().bindBidirectional(station.latitudeProperty());
+        powerStationProxy.longitudeProperty().bindBidirectional(station.longitudeProperty());
+        powerStationProxy.statusProperty().bindBidirectional(station.statusProperty());
+        powerStationProxy.waterbodiesProperty().bindBidirectional(station.waterbodiesProperty());
+        powerStationProxy.imgUrlProperty().bindBidirectional(station.imgUrlProperty());
+    }
+
+    private void setupListeners() {
+        actualPowerStationProperty().addListener(((observable, oldValue, newValue) -> {
+
+            if (oldValue != null) {
+                unbindFromProxy((PowerStation) oldValue);
+            }
+
+            if (newValue != null) {
+                bindToProxy((PowerStation) newValue);
+            }
+        }));
     }
 
     public void searchPowerStations(String search) {
@@ -166,6 +221,10 @@ public class RootPM {
     }
 
     /************************************************ Property Methods ************************************************/
+
+    public PowerStation getPowerStationProxy() {
+        return powerStationProxy;
+    }
 
     public ObservableList<PowerStation> getPowerStationList() {
         return powerStationList;

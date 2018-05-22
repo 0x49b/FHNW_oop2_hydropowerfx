@@ -2,6 +2,10 @@ package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
@@ -14,14 +18,14 @@ public class Canton {
     private StringProperty cantonName = new SimpleStringProperty();
     private StringProperty shortName = new SimpleStringProperty();
     private StringProperty number = new SimpleStringProperty();
-    private StringProperty civilVote = new SimpleStringProperty();
-    private StringProperty accession = new SimpleStringProperty();
+    private DoubleProperty civilVote = new SimpleDoubleProperty();
+    private IntegerProperty accession = new SimpleIntegerProperty();
     private StringProperty mainVillage = new SimpleStringProperty();
-    private StringProperty population = new SimpleStringProperty();
-    private StringProperty foreigners = new SimpleStringProperty();
-    private StringProperty area = new SimpleStringProperty();
-    private StringProperty inhabitantDensity = new SimpleStringProperty();
-    private StringProperty villages = new SimpleStringProperty();
+    private IntegerProperty population = new SimpleIntegerProperty();
+    private DoubleProperty foreigners = new SimpleDoubleProperty();
+    private IntegerProperty area = new SimpleIntegerProperty();
+    private IntegerProperty inhabitantDensity = new SimpleIntegerProperty();
+    private IntegerProperty villages = new SimpleIntegerProperty();
     private StringProperty language = new SimpleStringProperty();
 
     private FilteredList<PowerStation> cantonStationsList;
@@ -31,34 +35,33 @@ public class Canton {
         cantonStationsList = new FilteredList<>(stationList);
         cantonStationsList.setPredicate(s -> s.getCanton().equals(shortName.get()));
 
-        totalPower = Bindings.createDoubleBinding(
-                () -> cantonStationsList.stream()
-                        .map(PowerStation::getMaxPower)
-                        .collect(Collectors.summingDouble(Double::parseDouble)), cantonStationsList
-        );
+        setupBinding();
     }
 
     public Canton(String[] fields, ObservableList<PowerStation> list) {
         setCantonName(fields[0]);
         setShortName(fields[1]);
         setNumber(fields[2]);
-        setCivilVote(fields[3]);
-        setAccession(fields[4]);
+        setCivilVote(Double.parseDouble(fields[3].replaceAll("'", "")));
+        setAccession(Integer.parseInt(fields[4].replaceAll("'", "")));
         setMainVillage(fields[5]);
-        setPopulation(fields[6]);
-        setForeigners(fields[7]);
-        setArea(fields[8]);
-        setInhabitantDensity(fields[9]);
-        setVillages(fields[10]);
+        setPopulation(Integer.parseInt(fields[6].replaceAll("'", "")));
+        setForeigners(Double.parseDouble(fields[7].replaceAll("'", "")));
+        setArea(Integer.parseInt(fields[8].replaceAll("'", "")));
+        setInhabitantDensity(Integer.parseInt(fields[9].replaceAll("'", "")));
+        setVillages(Integer.parseInt(fields[10].replaceAll("'", "")));
         setLanguage(fields[11]);
 
         cantonStationsList = new FilteredList<>(list);
         cantonStationsList.setPredicate(s -> s.getCanton().equals(shortName.get()));
 
+        setupBinding();
+    }
+
+    private void setupBinding() {
         totalPower = Bindings.createDoubleBinding(
                 () -> cantonStationsList.stream()
-                        .map(PowerStation::getMaxPower)
-                        .collect(Collectors.summingDouble(Double::parseDouble)), cantonStationsList
+                        .collect(Collectors.summingDouble(PowerStation::getMaxPower)), cantonStationsList
         );
     }
 
@@ -98,27 +101,27 @@ public class Canton {
         this.number.set(number);
     }
 
-    public String getCivilVote() {
+    public double getCivilVote() {
         return civilVote.get();
     }
 
-    public StringProperty civilVoteProperty() {
+    public DoubleProperty civilVoteProperty() {
         return civilVote;
     }
 
-    public void setCivilVote(String civilVote) {
+    public void setCivilVote(double civilVote) {
         this.civilVote.set(civilVote);
     }
 
-    public String getAccession() {
+    public int getAccession() {
         return accession.get();
     }
 
-    public StringProperty accessionProperty() {
+    public IntegerProperty accessionProperty() {
         return accession;
     }
 
-    public void setAccession(String accession) {
+    public void setAccession(int accession) {
         this.accession.set(accession);
     }
 
@@ -134,63 +137,63 @@ public class Canton {
         this.mainVillage.set(mainVillage);
     }
 
-    public String getPopulation() {
+    public int getPopulation() {
         return population.get();
     }
 
-    public StringProperty populationProperty() {
+    public IntegerProperty populationProperty() {
         return population;
     }
 
-    public void setPopulation(String population) {
+    public void setPopulation(int population) {
         this.population.set(population);
     }
 
-    public String getForeigners() {
+    public double getForeigners() {
         return foreigners.get();
     }
 
-    public StringProperty foreignersProperty() {
+    public DoubleProperty foreignersProperty() {
         return foreigners;
     }
 
-    public void setForeigners(String foreigners) {
+    public void setForeigners(double foreigners) {
         this.foreigners.set(foreigners);
     }
 
-    public String getArea() {
+    public int getArea() {
         return area.get();
     }
 
-    public StringProperty areaProperty() {
+    public IntegerProperty areaProperty() {
         return area;
     }
 
-    public void setArea(String area) {
+    public void setArea(int area) {
         this.area.set(area);
     }
 
-    public String getInhabitantDensity() {
+    public int getInhabitantDensity() {
         return inhabitantDensity.get();
     }
 
-    public StringProperty inhabitantDensityProperty() {
+    public IntegerProperty inhabitantDensityProperty() {
         return inhabitantDensity;
     }
 
-    public void setInhabitantDensity(String inhabitantDensity) {
+    public void setInhabitantDensity(int inhabitantDensity) {
         this.inhabitantDensity.set(inhabitantDensity);
     }
 
-    public String getVillages() {
+    public int getVillages() {
         return villages.get();
     }
 
-    public StringProperty villagesProperty() {
+    public IntegerProperty villagesProperty() {
         return villages;
     }
 
-    public void setVillages(String villages) {
+    public void setVillages(int villages) {
         this.villages.set(villages);
     }
 
@@ -204,6 +207,14 @@ public class Canton {
 
     public void setLanguage(String language) {
         this.language.set(language);
+    }
+
+    public FilteredList<PowerStation> getCantonStationsList() {
+        return cantonStationsList;
+    }
+
+    public void setCantonStationsList(FilteredList<PowerStation> cantonStationsList) {
+        this.cantonStationsList = cantonStationsList;
     }
 
     public Number getTotalPower() {

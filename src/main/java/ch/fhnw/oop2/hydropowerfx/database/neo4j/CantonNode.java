@@ -17,14 +17,14 @@ public class CantonNode {
     @Id
     private String shortName;
     private String number;
-    private String civilVote;
-    private String accession;
+    private double civilVote;
+    private int accession;
     private String mainVillage;
-    private String population;
-    private String foreigners;
-    private String area;
-    private String inhabitantDensity;
-    private String villages;
+    private int population;
+    private double foreigners;
+    private int area;
+    private int inhabitantDensity;
+    private int villages;
     private String language;
 
     @Relationship(type = "LOCATED_IN", direction = "INCOMING")
@@ -93,19 +93,19 @@ public class CantonNode {
         this.number = number;
     }
 
-    public String getCivilVote() {
+    public double getCivilVote() {
         return civilVote;
     }
 
-    public void setCivilVote(String civilVote) {
+    public void setCivilVote(double civilVote) {
         this.civilVote = civilVote;
     }
 
-    public String getAccession() {
+    public int getAccession() {
         return accession;
     }
 
-    public void setAccession(String accession) {
+    public void setAccession(int accession) {
         this.accession = accession;
     }
 
@@ -117,43 +117,43 @@ public class CantonNode {
         this.mainVillage = mainVillage;
     }
 
-    public String getPopulation() {
+    public int getPopulation() {
         return population;
     }
 
-    public void setPopulation(String population) {
+    public void setPopulation(int population) {
         this.population = population;
     }
 
-    public String getForeigners() {
+    public double getForeigners() {
         return foreigners;
     }
 
-    public void setForeigners(String foreigners) {
+    public void setForeigners(double foreigners) {
         this.foreigners = foreigners;
     }
 
-    public String getArea() {
+    public int getArea() {
         return area;
     }
 
-    public void setArea(String area) {
+    public void setArea(int area) {
         this.area = area;
     }
 
-    public String getInhabitantDensity() {
+    public int getInhabitantDensity() {
         return inhabitantDensity;
     }
 
-    public void setInhabitantDensity(String inhabitantDensity) {
+    public void setInhabitantDensity(int inhabitantDensity) {
         this.inhabitantDensity = inhabitantDensity;
     }
 
-    public String getVillages() {
+    public int getVillages() {
         return villages;
     }
 
-    public void setVillages(String villages) {
+    public void setVillages(int villages) {
         this.villages = villages;
     }
 
