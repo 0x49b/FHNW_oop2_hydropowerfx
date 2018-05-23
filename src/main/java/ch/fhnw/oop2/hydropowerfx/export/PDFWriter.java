@@ -9,6 +9,7 @@ import javafx.stage.DirectoryChooser;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Locale;
 
 public class PDFWriter {
 
@@ -16,6 +17,7 @@ public class PDFWriter {
     private File location;
     private PowerStation actualStation;
     private String stationName;
+
 
 
     private static Font catFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
@@ -26,6 +28,7 @@ public class PDFWriter {
     public PDFWriter(PowerStation actualStation, RootPM rootPM) {
         this.actualStation = actualStation;
         this.rootPM = rootPM;
+
 
         System.out.println("generating PDF for Station: " + actualStation.getEntitiyID() + " NAME" + actualStation.getName());
         chooseFileSaveLocation();

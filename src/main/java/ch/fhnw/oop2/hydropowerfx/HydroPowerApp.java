@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.util.Locale;
+
 public class HydroPowerApp extends Application {
 
     private Pane splashLayout;
@@ -26,6 +28,7 @@ public class HydroPowerApp extends Application {
     private int splash_width;
     private int splash_height;
     private RootPM rootPM;
+    private Locale locale;
 
     public static void main(String[] args) {
         launch(args);
@@ -36,6 +39,9 @@ public class HydroPowerApp extends Application {
 
         Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Montserrat-Bold.ttf").toExternalForm(), 10);
         Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Rubik-Regular.ttf").toExternalForm(), 10);
+
+        locale = new Locale("de-CH");
+        Locale.setDefault(locale);
 
         splashStage = new Stage();
         showSplash(splashStage);
