@@ -127,43 +127,43 @@ public class PDFExport {
         table.setWidthPercentage(100);
 
         //ROW 1
-        table.addCell("Name");
+        table.addCell(rootPM.getLabelName());
         table.addCell(actualStation.getName());
-        table.addCell("Typ");
+        table.addCell(rootPM.getLabelType());
         table.addCell(actualStation.getType());
 
         //ROW 2
-        table.addCell("Standort");
+        table.addCell(rootPM.getLabelPlace());
         table.addCell(actualStation.getSite());
-        table.addCell("Kanton");
+        table.addCell(rootPM.getLabelCanton());
         table.addCell(actualStation.getCanton());
 
         //ROW 3
-        table.addCell("Wassermenge");
+        table.addCell(rootPM.getLabelWaterflow());
         table.addCell(String.valueOf(actualStation.getMaxWater()));
-        table.addCell("Leistung (MW)");
+        table.addCell(rootPM.getLabelPowerOutput());
         table.addCell(String.valueOf(actualStation.getMaxPower()));
 
         //ROW 4
-        table.addCell("1. Inbetriebnahme");
+        table.addCell(rootPM.getLabelFirstOperation());
         table.addCell(String.valueOf(actualStation.getStartOperation()));
-        table.addCell("Sanierung");
+        table.addCell(rootPM.getLabelLastOperation());
         table.addCell(String.valueOf(actualStation.getLastOperation()));
 
         //ROW 5
-        table.addCell("Längengrad");
+        table.addCell(rootPM.getLabelLatitude());
         table.addCell(String.valueOf(actualStation.getLatitude()));
-        table.addCell("Breitengrad");
+        table.addCell(rootPM.getLabelLongitude());
         table.addCell(String.valueOf(actualStation.getLongitude()));
 
         //ROW 6
-        table.addCell("Status");
+        table.addCell(rootPM.getLabelStatus());
         table.addCell(actualStation.getStatus());
         table.addCell("");
         table.addCell("");
 
         //ROW 7
-        table.addCell("Genutzte Gewässer");
+        table.addCell(rootPM.getLabelUsedFlows());
         table.addCell(actualStation.getWaterbodies());
         table.addCell("");
         table.addCell("");
