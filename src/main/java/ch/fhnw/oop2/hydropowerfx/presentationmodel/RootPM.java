@@ -1,19 +1,11 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
 import ch.fhnw.oop2.hydropowerfx.database.Database;
-import ch.fhnw.oop2.hydropowerfx.database.neo4j.Neo4j;
 import ch.fhnw.oop2.hydropowerfx.view.preferences.PreferencesPanel;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

@@ -1,6 +1,6 @@
 package ch.fhnw.oop2.hydropowerfx.view.menubar;
 
-import ch.fhnw.oop2.hydropowerfx.export.PDFWriter;
+import ch.fhnw.oop2.hydropowerfx.export.PDFExport;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
@@ -60,6 +60,8 @@ public class Menubar extends VBox implements ViewMixin {
         // Logo
         Image logo = new Image(this.getClass().getResource("../assets/images/hpfxlogo.png").toExternalForm());
         hpfxLogo = new ImageView(logo);
+        hpfxLogo.setFitHeight(35);
+        hpfxLogo.setFitWidth(35);
         hpfxLogo.getStyleClass().addAll("menubar-item", "logo");
 
         // undo Button
@@ -145,7 +147,7 @@ public class Menubar extends VBox implements ViewMixin {
         });
 
         topdf.setOnAction(event -> {
-            PDFWriter pdfwriter = new PDFWriter(rootPM.getActualPowerStation(), rootPM);
+            PDFExport pdfwriter = new PDFExport(rootPM.getActualPowerStation(), rootPM);
             new NotificationPanel(rootPanel, "PDF wird erstellt", NotificationPanel.Type.INFO).show();
         });
 

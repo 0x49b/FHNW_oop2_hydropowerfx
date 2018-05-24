@@ -1,9 +1,7 @@
 package ch.fhnw.oop2.hydropowerfx.view.editor;
 
-import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
-import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
