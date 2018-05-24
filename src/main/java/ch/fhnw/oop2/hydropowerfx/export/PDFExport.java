@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PDFWriter {
+public class PDFExport {
 
     private RootPM rootPM;
     private File location;
@@ -25,7 +25,7 @@ public class PDFWriter {
     private static Font smallFont = new Font(Font.FontFamily.HELVETICA, 7);
 
 
-    public PDFWriter(PowerStation actualStation, RootPM rootPM) {
+    public PDFExport(PowerStation actualStation, RootPM rootPM) {
         this.actualStation = actualStation;
         this.rootPM = rootPM;
 
@@ -88,7 +88,7 @@ public class PDFWriter {
             ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, headerLeft, document.leftMargin(), textTopPosition, 0);
 
 
-            Image img = Image.getInstance(PDFWriter.class.getResource("../view/assets/images/hpfxlogo_dark.png"));
+            Image img = Image.getInstance(PDFExport.class.getResource("../view/assets/images/hpfxlogo_dark.png"));
             img.scaleAbsolute(25,25);
             img.setAbsolutePosition((document.right() - document.left()) / 2 + img.getHeight() / 4, document.top() + 5);
             document.add(img);
