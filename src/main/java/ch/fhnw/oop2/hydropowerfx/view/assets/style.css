@@ -18,12 +18,15 @@
     -fx-font-size: 16;
 }
 
-
 .label-sm {
     -fx-text-fill: #E8F8FF;
     -fx-font-family: Rubik;
     -fx-padding: 2 2 2 2;
     -fx-font-size: 10;
+}
+
+.label-dark {
+    -fx-text-fill: #000;
 }
 
 .split-pane-divider {
@@ -97,6 +100,22 @@
     -fx-border-radius: 0, 0, 0, 0;
 }
 
+.button-primary {
+    -fx-background-color: #3399CC;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-border-radius: 0, 0, 0, 0;
+}
+
+.button-light {
+    -fx-background-color: #91C9E8;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-border-radius: 0, 0, 0, 0;
+}
+
+.button-light:hover {
+    -fx-background-color: #3399CC;
+}
+
 .logo {
     -fx-padding: 10;
     -fx-border-color: #E8F8FF;
@@ -127,18 +146,18 @@
 
 .editor-stationimage {
     -fx-padding: 10 10 10 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
     -fx-background-radius: 5;
 }
 
-.text-field{
+.text-field {
     -fx-font-size: 16;
     -fx-font-family: Rubik;
     -fx-text-fill: #E8F8FF;
     -fx-background-color: #67B8DE;
     -fx-border-insets: 0;
     -fx-border-width: 2px;
-    -fx-border-color:  #67B8DE  #67B8DE #3399CC  #67B8DE;
+    -fx-border-color: #67B8DE #67B8DE #3399CC #67B8DE;
 }
 
 /***********************************************************************************************************************
@@ -191,4 +210,66 @@
 .footer {
     -fx-background-color: #67B8DE;
     -fx-border-color: #67B8DE;
+}
+
+/***********************************************************************************************************************
+    PreferencePane
+ **********************************************************************************************************************/
+.preference-panel, .tab-pane {
+    -fx-background-color: #67B8DE;
+    -fx-border-color: none;
+}
+
+.tab:selected .tab-label {
+    -fx-font-weight: bold;
+    -fx-background-color: #62bbff;
+}
+.tab-down-button{
+    -fx-background-color: #62bbff;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #2D5373;
+}
+
+.preference-title {
+    -fx-font-size: 23;
+    -fx-font-family: Montserrat;
+}
+
+.preference-radio {
+    -fx-text-fill: #E8F8FF;
+    -fx-font-family: Montserrat;
+    -fx-font-size: 16;
+}
+
+.radio-button .radio {
+    -fx-border-width: 1px;
+    -fx-border-color: transparent;
+    -fx-background-color: #E8F8FF;
+    -fx-background-image: null;
+    -fx-border-radius: 15px;
+    -fx-padding: 4px;
+}
+.radio-button .radio:selected {
+    -fx-background-color: #E8F8FF;
+    -fx-background-image: null;
+}
+.radio-button -radio:armed {
+    -fx-background-color: #E8F8FF;
+    -fx-background-image: null;
+}
+.radio-button -radio:determinate {
+    -fx-background-color: #E8F8FF;
+    -fx-background-image: null;
+}
+.radio-button -radio:indeterminate {
+    -fx-background-color: #91C9E8;
+    -fx-background-image: null;
+}
+.radio-button .dot {
+    -fx-background-radius: 8px;
+    -fx-padding: 6px;
+    -fx-mark-highlight-color: #3399CC ;
+    -fx-mark-color: #3399CC ;
 }
