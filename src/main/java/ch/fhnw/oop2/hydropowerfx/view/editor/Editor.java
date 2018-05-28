@@ -3,9 +3,7 @@ package ch.fhnw.oop2.hydropowerfx.view.editor;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import javafx.geometry.Insets;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -43,8 +41,6 @@ public class Editor extends VBox implements ViewMixin {
     private Label labelLastOperation;
     private Label labelLatitude;
 
-    private ImageView stationImage;
-
     private TextField stationName;
     private TextField stationSite;
     private TextField stationWaterflow;
@@ -58,6 +54,16 @@ public class Editor extends VBox implements ViewMixin {
     private TextField powerOutput;
     private TextField lastOperation;
     private TextField latitude;
+
+    private TabPane editorTab;
+    private Tab imageTab;
+    private Tab mapTab;
+
+    private ImageView stationImage;
+    private ImageView mapImage;
+    private Image mapImageRaw;
+    private final double HEIGHT = 200.0;
+    private final double WIDTH = 350.0;
 
 
     public Editor(RootPM rootPM) {
@@ -88,8 +94,29 @@ public class Editor extends VBox implements ViewMixin {
 
         stationImage = new ImageView(new Image("https://i.stack.imgur.com/v1Yy8.png"));
         stationImage.getStyleClass().addAll("editor-stationimage");
-        stationImage.setFitHeight(200);
-        stationImage.setFitWidth(350);
+        stationImage.setFitHeight(HEIGHT);
+        stationImage.setFitWidth(WIDTH);
+
+        mapImageRaw = new Image(rootPM.getMapURL());
+        mapImage = new ImageView(mapImageRaw);
+        mapImage.getStyleClass().add("editor-mapsimage");
+        mapImage.setFitHeight(HEIGHT);
+        mapImage.setFitWidth(WIDTH);
+
+        editorTab = new TabPane();
+        editorTab.setPrefSize(WIDTH, HEIGHT + 50);
+        editorTab.setMinSize(TabPane.USE_PREF_SIZE, TabPane.USE_PREF_SIZE);
+        editorTab.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+        imageTab = new Tab();
+        mapTab = new Tab();
+
+        imageTab.setContent(stationImage);
+        imageTab.setText("Bild");
+        mapTab.setContent(mapImage);
+        mapTab.setText("Karte");
+
+        editorTab.getTabs().addAll(imageTab, mapTab);
 
         labelName = new Label();
         labelPlace = new Label();
@@ -128,9 +155,9 @@ public class Editor extends VBox implements ViewMixin {
         title.getChildren().addAll(titleStationName, titlestationSite, titleStationCanton, titleStationPowerOutput, titleStationStartOperation);
 
         editorHead.setCenter(title);
-        editorHead.setRight(stationImage);
+        editorHead.setRight(editorTab);
         editorHead.setMargin(title, new Insets(10, 10, 25, 10));
-        editorHead.setMargin(stationImage, new Insets(10, 10, 25, 10));
+        editorHead.setMargin(editorTab, new Insets(10, 10, 25, 10));
 
         editor.add(labelName, 0, 0);
         editor.add(stationName, 1, 0);
@@ -205,6 +232,11 @@ public class Editor extends VBox implements ViewMixin {
         powerOutput.textProperty().bindBidirectional(rootPM.getPowerStationProxy().maxPowerProperty(), new NumberStringConverter());
         lastOperation.textProperty().bindBidirectional(rootPM.getPowerStationProxy().lastOperationProperty(), new NumberStringConverter());
         latitude.textProperty().bindBidirectional(rootPM.getPowerStationProxy().latitudeProperty(), new NumberStringConverter());
+    }
 
+    @Override
+    public void setupValueChangedListeners() {
+
+      //TODO bind MapURL to ImageView
     }
 }
