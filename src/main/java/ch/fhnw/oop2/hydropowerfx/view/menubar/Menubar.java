@@ -13,6 +13,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import javax.swing.event.ChangeListener;
+
 public class Menubar extends VBox implements ViewMixin {
 
     private RootPM rootPM;
@@ -128,7 +130,26 @@ public class Menubar extends VBox implements ViewMixin {
 
     @Override
     public void setupEventHandlers() {
+        settings.setOnAction(event -> {
+            rootPM.openPreferences();
+        });
 
+        newstation.setOnAction(ae -> {
+            rootPM.addPowerStation();
+        });
+
+        deletestation.setOnAction(ae -> {
+            rootPM.deletePowerStation();
+        });
+
+        rootPM.saveShownProperty().addListener((observable, oldValue, newValue) -> {
+            if (!oldValue && newValue) {
+                savestation.setDisable(false);
+            }
+            else if (!newValue && oldValue) {
+                savestation.setDisable(true);
+            }
+        });
     }
 
     @Override
@@ -149,18 +170,6 @@ public class Menubar extends VBox implements ViewMixin {
         topdf.setOnAction(event -> {
             PDFExport pdfwriter = new PDFExport(rootPM.getActualPowerStation(), rootPM);
             new NotificationPanel(rootPanel, "PDF wird erstellt", NotificationPanel.Type.INFO).show();
-        });
-
-        settings.setOnAction(event -> {
-            rootPM.openPreferences();
-        });
-
-        newstation.setOnAction(ae -> {
-            rootPM.addPowerStation();
-        });
-
-        deletestation.setOnAction(ae -> {
-            rootPM.deletePowerStation();
         });
     }
 
