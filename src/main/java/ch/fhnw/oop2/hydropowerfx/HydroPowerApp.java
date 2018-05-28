@@ -92,7 +92,6 @@ public class HydroPowerApp extends Application {
 
     @Override
     public void stop() throws Exception {
-        rootPM.close();
         super.stop();
     }
 }

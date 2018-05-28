@@ -1,17 +1,21 @@
 group 'ch.fhnw'
 version '0.1-SNAPSHOT'
 
+
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.3'
         classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
     }
 }
 
@@ -39,7 +43,7 @@ compileJava {
 dependencies {
     testCompile("org.junit.jupiter:junit-jupiter-api:5.0.3")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.3")
-    compile group: 'com.sothawo', name: 'mapjfx', version: '1.8.0'
+    //compile group: 'com.sothawo', name: 'mapjfx', version: '1.8.0'
     compile 'org.xerial:sqlite-jdbc:3.21.0.1'
     compile 'org.neo4j:neo4j-ogm-core:3.1.0'
     //runtime 'org.neo4j:neo4j-ogm-embedded-driver:3.1.0'
@@ -66,14 +70,28 @@ junitPlatform {
     logManager 'org.apache.logging.log4j.jul.LogManager'
 }
 
-//create a single Jar with all dependencies
-task fatJar(type: Jar) {
+// Include dependent libraries in archive.
+jar {
     manifest {
-        attributes 'Implementation-Title': 'Gradle Jar File Example',
-                'Implementation-Version': version,
-                'Main-Class': 'com.mkyong.DateUtils'
+        attributes "Manifest-Version": "1.0",
+                "Main-Class": "ch.fhnw.oop2.hydropowerfx.HydroPowerApp"
     }
-    baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest.from jar.manifest
+    classifier = 'all'
+    baseName = rootProject.name
+    from {
+        configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
     with jar
 }
