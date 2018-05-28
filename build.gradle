@@ -1,17 +1,21 @@
 group 'ch.fhnw'
 version '0.1-SNAPSHOT'
 
+
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.3'
         classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
     }
 }
 
@@ -66,14 +70,22 @@ junitPlatform {
     logManager 'org.apache.logging.log4j.jul.LogManager'
 }
 
-//create a single Jar with all dependencies
+// Include dependent libraries in archive.
+jar {
+    manifest {
+        attributes "Main-Class": "ch.fhnw.oop2.hydropowerfx.HydroPowerApp"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 task fatJar(type: Jar) {
     manifest {
-        attributes 'Implementation-Title': 'Gradle Jar File Example',
-                'Implementation-Version': version,
-                'Main-Class': 'com.mkyong.DateUtils'
+        attributes 'Main-Class': 'ch.fhnw.oop2.hydropowerfx.HydroPowerApp'
     }
-    baseName = project.name + '-all'
+    baseName = rootProject.name
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }

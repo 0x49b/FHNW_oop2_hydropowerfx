@@ -35,55 +35,47 @@ public class RootPM {
 
     private Stage primaryStage;
 
-    private final StringProperty applicationTitle     = new SimpleStringProperty("HydroPowerFX");
+    private final StringProperty applicationTitle = new SimpleStringProperty("HydroPowerFX");
     private final StringProperty versionInformation = new SimpleStringProperty("V0.1");
     private final BooleanProperty searchpanelShown = new SimpleBooleanProperty(false);
     private final StringProperty stationListTitleText = new SimpleStringProperty("Kraftwerke");
     private final StringProperty currentMaxItemsText = new SimpleStringProperty("");
     private final ObjectProperty<PowerStation> actualPowerStation = new SimpleObjectProperty();
-    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(station -> new Observable[] {
-            station.nameProperty(),
-            station.typeProperty(),
-            station.siteProperty(),
-            station.cantonProperty(),
-            station.maxWaterProperty(),
-            station.maxPowerProperty(),
-            station.startOperationProperty(),
-            station.lastOperationProperty(),
-            station.latitudeProperty(),
-            station.longitudeProperty(),
-            station.statusProperty(),
-            station.waterbodiesProperty(),
-            station.imgUrlProperty()
-    });
+    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(
+            station -> new Observable[]{
+                    station.nameProperty(),
+                    station.typeProperty(),
+                    station.siteProperty(),
+                    station.cantonProperty(),
+                    station.maxWaterProperty(),
+                    station.maxPowerProperty(),
+                    station.startOperationProperty(),
+                    station.lastOperationProperty(),
+                    station.latitudeProperty(),
+                    station.longitudeProperty(),
+                    station.statusProperty(),
+                    station.waterbodiesProperty(),
+                    station.imgUrlProperty()});
     private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);
     private final IntegerBinding totalPowerStations = Bindings.size(powerStationList);
     private final IntegerBinding numberOfPowerStations = Bindings.size(powerStationFilterList);
     private final ObservableList<Canton> cantons = FXCollections.observableArrayList();
 
-    /************************************************ Editor Head Title ********************************************/
-
-    /*editorTitleStationName;
-    editorTitleStationPlace;
-    editorTitleStationCanton;
-    editorTitleStationPowerOutput;
-    editorTitleStationFirstOperation;*/
-
     /************************************************ Editor Labels ************************************************/
 
-    private final StringProperty labelName= new SimpleStringProperty("Name");
-    private final StringProperty labelPlace= new SimpleStringProperty("Standort");
-    private final StringProperty labelWaterflow= new SimpleStringProperty("Wassermenge");
-    private final StringProperty labelFirstOperation= new SimpleStringProperty("1. Inbetriebnahme");
-    private final StringProperty labelLongitude= new SimpleStringProperty("Breitengrad");
-    private final StringProperty labelStatus= new SimpleStringProperty("Status");
-    private final StringProperty labelUsedFlows= new SimpleStringProperty("Genutzte Gewässer");
-    private final StringProperty labelImageURL= new SimpleStringProperty("Bild");
-    private final StringProperty labelType= new SimpleStringProperty("Typ");
-    private final StringProperty labelCanton= new SimpleStringProperty("Kanton");
-    private final StringProperty labelPowerOutput= new SimpleStringProperty("Leistung (MW)");
-    private final StringProperty labelLastOperation= new SimpleStringProperty("Sanierung");
-    private final StringProperty labelLatitude= new SimpleStringProperty("Längengrad");
+    private final StringProperty labelName = new SimpleStringProperty("Name");
+    private final StringProperty labelPlace = new SimpleStringProperty("Standort");
+    private final StringProperty labelWaterflow = new SimpleStringProperty("Wassermenge");
+    private final StringProperty labelFirstOperation = new SimpleStringProperty("1. Inbetriebnahme");
+    private final StringProperty labelLongitude = new SimpleStringProperty("Breitengrad");
+    private final StringProperty labelStatus = new SimpleStringProperty("Status");
+    private final StringProperty labelUsedFlows = new SimpleStringProperty("Genutzte Gewässer");
+    private final StringProperty labelImageURL = new SimpleStringProperty("Bild");
+    private final StringProperty labelType = new SimpleStringProperty("Typ");
+    private final StringProperty labelCanton = new SimpleStringProperty("Kanton");
+    private final StringProperty labelPowerOutput = new SimpleStringProperty("Leistung (MW)");
+    private final StringProperty labelLastOperation = new SimpleStringProperty("Sanierung");
+    private final StringProperty labelLatitude = new SimpleStringProperty("Längengrad");
 
     public RootPM() {
         cantons.addAll(readCantons());
@@ -118,15 +110,13 @@ public class RootPM {
 
     private List<PowerStation> readPowerStations() {
         try (Stream<String> stream = getStreamOfLines(POWERSTATIONS_FILE)) {
-            return stream.skip(1)
-                    .map(line -> new PowerStation(line.split(DELIMITER, 22))).collect(Collectors.toList());
+            return stream.skip(1).map(line -> new PowerStation(line.split(DELIMITER, 22))).collect(Collectors.toList());
         }
     }
 
     private List<Canton> readCantons() {
         try (Stream<String> stream = getStreamOfLines(CANTONS_FILE)) {
-            return stream.skip(1)
-                    .map(line -> new Canton(line.split(DELIMITER, 22), powerStationList)).collect(Collectors.toList());
+            return stream.skip(1).map(line -> new Canton(line.split(DELIMITER, 22), powerStationList)).collect(Collectors.toList());
         }
     }
 
@@ -134,7 +124,7 @@ public class RootPM {
         //TODO implement
     }
 
-    private Path getPath(String fileName)  {
+    private Path getPath(String fileName) {
         try {
             return Paths.get(getClass().getResource(fileName).toURI());
         } catch (URISyntaxException e) {
@@ -163,8 +153,7 @@ public class RootPM {
     }
 
     private void setupBindings() {
-        currentMaxItemsTextProperty().bind(
-                numberOfPowerStationsProperty().asString().concat("/").concat(totalPowerStationsProperty()));
+        currentMaxItemsTextProperty().bind(numberOfPowerStationsProperty().asString().concat("/").concat(totalPowerStationsProperty()));
 
 
     }
@@ -217,10 +206,9 @@ public class RootPM {
     }
 
     public void searchPowerStations(String search) {
-        if(search == null || search.length() == 0) {
+        if (search == null || search.length() == 0) {
             powerStationFilterList.setPredicate(s -> true);
-        }
-        else {
+        } else {
             powerStationFilterList.setPredicate(s -> s.getCanton().contains(search) || s.getName().contains(search));
         }
     }
@@ -243,26 +231,38 @@ public class RootPM {
     public String getApplicationTitle() {
         return applicationTitle.get();
     }
+
     public StringProperty applicationTitleProperty() {
         return applicationTitle;
     }
+
     public void setApplicationTitle(String applicationTitle) {
         this.applicationTitle.set(applicationTitle);
     }
 
     // Menubar properties setter & getter
-    public String getVersionInformation() {  return versionInformation.get(); }
-    public StringProperty versionInformationProperty() { return versionInformation; }
-    public void setVersionInformation(String versionInformation) { this.versionInformation.set(versionInformation); }
+    public String getVersionInformation() {
+        return versionInformation.get();
+    }
+
+    public StringProperty versionInformationProperty() {
+        return versionInformation;
+    }
+
+    public void setVersionInformation(String versionInformation) {
+        this.versionInformation.set(versionInformation);
+    }
 
 
     // searchpanel
     public boolean isSearchpanelShown() {
         return searchpanelShown.get();
     }
+
     public BooleanProperty searchpanelShownProperty() {
         return searchpanelShown;
     }
+
     public void setSearchpanelShown(boolean searchpanelShown) {
         this.searchpanelShown.set(searchpanelShown);
     }
@@ -271,17 +271,26 @@ public class RootPM {
     public String getStationListTitleText() {
         return stationListTitleText.get();
     }
+
     public StringProperty stationListTitleTextProperty() {
         return stationListTitleText;
     }
-    public void setStationListTitleText(String stationListTitleText) { this.stationListTitleText.set(stationListTitleText); }
+
+    public void setStationListTitleText(String stationListTitleText) {
+        this.stationListTitleText.set(stationListTitleText);
+    }
+
     public String getCurrentMaxItemsText() {
         return currentMaxItemsText.get();
     }
+
     public StringProperty currentMaxItemsTextProperty() {
         return currentMaxItemsText;
     }
-    public void setCurrentMaxItemsText(String currentMaxItemsText) {this.currentMaxItemsText.set(currentMaxItemsText); }
+
+    public void setCurrentMaxItemsText(String currentMaxItemsText) {
+        this.currentMaxItemsText.set(currentMaxItemsText);
+    }
 
     public Number getTotalPowerStations() {
         return totalPowerStations.get();
