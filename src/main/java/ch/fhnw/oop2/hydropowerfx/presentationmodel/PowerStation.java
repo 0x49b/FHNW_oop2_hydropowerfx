@@ -4,19 +4,19 @@ import javafx.beans.property.*;
 
 public class PowerStation {
     private IntegerProperty entitiyID = new SimpleIntegerProperty();
-    private StringProperty name = new SimpleStringProperty();
-    private StringProperty type = new SimpleStringProperty();
-    private StringProperty site = new SimpleStringProperty();
-    private StringProperty canton = new SimpleStringProperty();
-    private DoubleProperty maxWater = new SimpleDoubleProperty();
-    private DoubleProperty maxPower = new SimpleDoubleProperty();
-    private IntegerProperty startOperation = new SimpleIntegerProperty();
-    private IntegerProperty lastOperation = new SimpleIntegerProperty();
-    private DoubleProperty latitude = new SimpleDoubleProperty();
-    private DoubleProperty longitude = new SimpleDoubleProperty();
-    private StringProperty status = new SimpleStringProperty();
-    private StringProperty waterbodies = new SimpleStringProperty();
-    private StringProperty imgUrl = new SimpleStringProperty();
+    private StringProperty name = new SimpleStringProperty("New PowerStation");
+    private StringProperty type = new SimpleStringProperty("");
+    private StringProperty site = new SimpleStringProperty("");
+    private StringProperty canton = new SimpleStringProperty("");
+    private DoubleProperty maxWater = new SimpleDoubleProperty(0.0);
+    private DoubleProperty maxPower = new SimpleDoubleProperty(0.0);
+    private IntegerProperty startOperation = new SimpleIntegerProperty(0);
+    private IntegerProperty lastOperation = new SimpleIntegerProperty(0);
+    private DoubleProperty latitude = new SimpleDoubleProperty(0.0);
+    private DoubleProperty longitude = new SimpleDoubleProperty(0.0);
+    private StringProperty status = new SimpleStringProperty("");
+    private StringProperty waterbodies = new SimpleStringProperty("");
+    private StringProperty imgUrl = new SimpleStringProperty("");
 
     public PowerStation() {
 
