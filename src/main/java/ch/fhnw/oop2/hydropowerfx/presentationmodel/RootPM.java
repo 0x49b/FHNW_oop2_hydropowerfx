@@ -162,6 +162,10 @@ public class RootPM {
         }
     }
 
+    public DATABASES getDatabaseType() {
+        return DATABASES.fromInt(prefs.getInt(DATABASETYPE, DATABASES.CSV.getValue()));
+    }
+
     /************************************************ Primary Stage ***********************************************************/
     public Stage getPrimaryStage() {
         return primaryStage;

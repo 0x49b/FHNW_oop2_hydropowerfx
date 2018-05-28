@@ -62,6 +62,19 @@ public class PreferencesPanel extends VBox implements ViewMixin {
         sqliteButton.setToggleGroup(dbGroup);
         neo4jButton = new RadioButton();
         neo4jButton.setToggleGroup(dbGroup);
+
+        RootPM.DATABASES dbType = rootPM.getDatabaseType();
+
+        if (dbType == RootPM.DATABASES.SQLITE) {
+            sqliteButton.setSelected(true);
+        }
+        else if (dbType == RootPM.DATABASES.NEO4J) {
+            neo4jButton.setSelected(true);
+        }
+        else {
+            csvButton.setSelected(true);
+        }
+
         vbox.getChildren().addAll(dbLabel, csvButton, sqliteButton, neo4jButton);
 
         tabPane.getTabs().add(dbTab);
