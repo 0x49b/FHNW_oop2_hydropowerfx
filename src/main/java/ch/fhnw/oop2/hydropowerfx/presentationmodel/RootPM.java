@@ -163,6 +163,13 @@ public class RootPM {
         actualPowerStation.set(ps);
     }
 
+    public void deletePowerStation() {
+        PowerStation ps = getActualPowerStation();
+        powerStationList.remove(ps);
+
+        actualPowerStation.set(powerStationFilterList.get(0));
+    }
+
     public void openPreferences() {
         Parent rootPanel = new PreferencesPanel(this);
         Scene scene = new Scene(rootPanel);
