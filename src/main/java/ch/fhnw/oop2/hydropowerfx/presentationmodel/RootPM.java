@@ -1,6 +1,8 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
 import ch.fhnw.oop2.hydropowerfx.database.Database;
+import ch.fhnw.oop2.hydropowerfx.database.neo4j.Neo4j;
+import ch.fhnw.oop2.hydropowerfx.database.sqlite.SQLite;
 import ch.fhnw.oop2.hydropowerfx.view.preferences.PreferencesPanel;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -21,10 +23,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
+import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class RootPM {
+
+    private final int DBCSV = 0;
+    private final int DBSQLITE = 1;
+    private final int DBNEO4J = 2;
+
+    private final String DATABASETYPE = "DatabaseType";
 
     private static final String POWERSTATIONS_FILE = "/data/HYDRO_POWERSTATION.csv";
     private static final String CANTONS_FILE = "/data/cantons.csv";
@@ -80,6 +89,8 @@ public class RootPM {
 
     /************************************************ Preferences Panel ************************************************/
 
+    private Preferences prefs;
+
     private final StringProperty preferencesTitle = new SimpleStringProperty("Einstellungen");
     private final StringProperty dbTitle = new SimpleStringProperty("Datenbank");
     private final StringProperty dbText = new SimpleStringProperty("Wie sollen die Daten gespeichert werden?");
@@ -88,11 +99,10 @@ public class RootPM {
     private final StringProperty dbNeo4jText = new SimpleStringProperty("Speichern in Neo4j Datenbank");
 
     public RootPM() {
-        cantons.addAll(readCantons());
-        powerStationList.addAll(readPowerStations());
+        prefs = Preferences.systemRoot().node(this.getClass().getName());
+        int db = prefs.getInt(DATABASETYPE, DBCSV);
 
-        // TODO before activating database setup preferences panel
-        // database = new Neo4j(cantons, powerStationList);
+        initDatabase(db);
 
         setActualPowerStation(powerStationList.get(0));
         setupBindings();
@@ -104,6 +114,20 @@ public class RootPM {
     public void close() {
         if (database != null) {
             database.close();
+        }
+    }
+
+    private void initDatabase(int dbType) {
+
+        if (dbType == DBSQLITE) {
+            database = new SQLite(cantons, powerStationList);
+        }
+        else if (dbType == DBNEO4J) {
+            database = new Neo4j(cantons, powerStationList);
+        }
+        else {
+            cantons.addAll(readCantons());
+            powerStationList.addAll(readPowerStations());
         }
     }
 
