@@ -86,6 +86,15 @@ public class RootPM {
     private final StringProperty labelLastOperation= new SimpleStringProperty("Sanierung");
     private final StringProperty labelLatitude= new SimpleStringProperty("Längengrad");
 
+    /************************************************ Preferences Panel ************************************************/
+
+    private final StringProperty preferencesTitle = new SimpleStringProperty("Einstellungen");
+    private final StringProperty dbTitle = new SimpleStringProperty("Datenbank");
+    private final StringProperty dbText = new SimpleStringProperty("Wie sollen die Daten gespeichert werden?");
+    private final StringProperty dbCsvText = new SimpleStringProperty("Speichern als CSV");
+    private final StringProperty dbSqliteText = new SimpleStringProperty("Speichern in SQLite Datenbank");
+    private final StringProperty dbNeo4jText = new SimpleStringProperty("Speichern in Neo4j Datenbank");
+
     public RootPM() {
         cantons.addAll(readCantons());
         powerStationList.addAll(readPowerStations());
@@ -174,9 +183,12 @@ public class RootPM {
         Parent rootPanel = new PreferencesPanel(this);
         Scene scene = new Scene(rootPanel);
         Stage preferences = new Stage();
+        preferences.titleProperty().bind(preferencesTitleProperty());
         preferences.setScene(scene);
-        preferences.setWidth(800);
-        preferences.setHeight(500);
+        preferences.setWidth(500);
+        preferences.setHeight(450);
+        preferences.setMinWidth(500);
+        preferences.setMinHeight(450);
         preferences.show();
     }
 
@@ -244,6 +256,78 @@ public class RootPM {
     }
 
     /************************************************ Property Methods ************************************************/
+
+    public String getPreferencesTitle() {
+        return preferencesTitle.get();
+    }
+
+    public StringProperty preferencesTitleProperty() {
+        return preferencesTitle;
+    }
+
+    public void setPreferencesTitle(String preferencesTitle) {
+        this.preferencesTitle.set(preferencesTitle);
+    }
+
+    public String getDbTitle() {
+        return dbTitle.get();
+    }
+
+    public StringProperty dbTitleProperty() {
+        return dbTitle;
+    }
+
+    public void setDbTitle(String dbTitle) {
+        this.dbTitle.set(dbTitle);
+    }
+
+    public String getDbText() {
+        return dbText.get();
+    }
+
+    public StringProperty dbTextProperty() {
+        return dbText;
+    }
+
+    public void setDbText(String dbText) {
+        this.dbText.set(dbText);
+    }
+
+    public String getDbCsvText() {
+        return dbCsvText.get();
+    }
+
+    public StringProperty dbCsvTextProperty() {
+        return dbCsvText;
+    }
+
+    public void setDbCsvText(String dbCsvText) {
+        this.dbCsvText.set(dbCsvText);
+    }
+
+    public String getDbSqliteText() {
+        return dbSqliteText.get();
+    }
+
+    public StringProperty dbSqliteTextProperty() {
+        return dbSqliteText;
+    }
+
+    public void setDbSqliteText(String dbSqliteText) {
+        this.dbSqliteText.set(dbSqliteText);
+    }
+
+    public String getDbNeo4jText() {
+        return dbNeo4jText.get();
+    }
+
+    public StringProperty dbNeo4jTextProperty() {
+        return dbNeo4jText;
+    }
+
+    public void setDbNeo4jText(String dbNeo4jText) {
+        this.dbNeo4jText.set(dbNeo4jText);
+    }
 
     public PowerStation getPowerStationProxy() {
         return powerStationProxy;
