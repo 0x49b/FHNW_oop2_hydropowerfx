@@ -22,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
@@ -29,9 +30,25 @@ import java.util.stream.Stream;
 
 public class RootPM {
 
-    private final int DBCSV = 0;
-    private final int DBSQLITE = 1;
-    private final int DBNEO4J = 2;
+    public enum DATABASES {
+        CSV(0),
+        SQLITE(1),
+        NEO4J(2);
+
+        private int type;
+
+        DATABASES(int type) {
+            this.type = type;
+        }
+
+        public int getValue() {
+            return this.type;
+        }
+
+        public static DATABASES fromInt(final int id) {
+            return (id == 2) ? DATABASES.NEO4J : (id == 1) ? DATABASES.SQLITE : DATABASES.CSV;
+        }
+    }
 
     private final String DATABASETYPE = "DatabaseType";
 
@@ -98,11 +115,14 @@ public class RootPM {
     private final StringProperty dbSqliteText = new SimpleStringProperty("Speichern in SQLite Datenbank");
     private final StringProperty dbNeo4jText = new SimpleStringProperty("Speichern in Neo4j Datenbank");
 
+    private final BooleanProperty saveShown = new SimpleBooleanProperty(true);
+
     public RootPM() {
         prefs = Preferences.systemRoot().node(this.getClass().getName());
-        int db = prefs.getInt(DATABASETYPE, DBCSV);
 
-        initDatabase(db);
+        DATABASES db = DATABASES.fromInt(prefs.getInt(DATABASETYPE, DATABASES.CSV.getValue()));
+
+        initDatabase(db, true);
 
         setActualPowerStation(powerStationList.get(0));
         setupBindings();
@@ -117,17 +137,28 @@ public class RootPM {
         }
     }
 
-    private void initDatabase(int dbType) {
+    private void initDatabase(DATABASES dbType, boolean initial) {
 
-        if (dbType == DBSQLITE) {
+        if (dbType == DATABASES.SQLITE) {
             database = new SQLite(cantons, powerStationList);
+            saveShown.set(false);
         }
-        else if (dbType == DBNEO4J) {
+        else if (dbType == DATABASES.NEO4J) {
             database = new Neo4j(cantons, powerStationList);
+            saveShown.set(false);
         }
         else {
-            cantons.addAll(readCantons());
-            powerStationList.addAll(readPowerStations());
+            if (initial) {
+                cantons.addAll(readCantons());
+                powerStationList.addAll(readPowerStations());
+            }
+            saveShown.set(true);
+        }
+    }
+
+    public void updateDatabaseType(DATABASES dbType) {
+        if (dbType != DATABASES.fromInt(prefs.getInt(DATABASETYPE, DATABASES.CSV.getValue()))) {
+            initDatabase(dbType, false);
         }
     }
 
@@ -339,6 +370,18 @@ public class RootPM {
 
     public void setDbNeo4jText(String dbNeo4jText) {
         this.dbNeo4jText.set(dbNeo4jText);
+    }
+
+    public boolean isSaveShown() {
+        return saveShown.get();
+    }
+
+    public BooleanProperty saveShownProperty() {
+        return saveShown;
+    }
+
+    public void setSaveShown(boolean saveShown) {
+        this.saveShown.set(saveShown);
     }
 
     public PowerStation getPowerStationProxy() {
