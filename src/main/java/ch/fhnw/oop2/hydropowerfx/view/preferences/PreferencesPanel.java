@@ -87,6 +87,26 @@ public class PreferencesPanel extends VBox implements ViewMixin {
         getChildren().addAll(tabPane, cancel, save);
     }
 
+    @Override public void setupEventHandlers() {
+        cancel.setOnAction(event -> {
+            cancel.getScene().getWindow().hide();
+        });
+
+        save.setOnAction(event -> {
+            if (sqliteButton.isSelected()) {
+                rootPM.updateDatabaseType(RootPM.DATABASES.SQLITE);
+            }
+            else if (neo4jButton.isSelected()) {
+                rootPM.updateDatabaseType(RootPM.DATABASES.NEO4J);
+            }
+            else {
+                rootPM.updateDatabaseType(RootPM.DATABASES.CSV);
+            }
+
+            cancel.getScene().getWindow().hide();
+        });
+    }
+
     @Override
     public void setupBindings() {
         dbTab.textProperty().bind(rootPM.dbTitleProperty());
@@ -94,9 +114,5 @@ public class PreferencesPanel extends VBox implements ViewMixin {
         csvButton.textProperty().bind(rootPM.dbCsvTextProperty());
         sqliteButton.textProperty().bind(rootPM.dbSqliteTextProperty());
         neo4jButton.textProperty().bind(rootPM.dbNeo4jTextProperty());
-
-        cancel.setOnAction(event -> {
-            cancel.getScene().getWindow().hide();
-        });
     }
 }
