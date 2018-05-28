@@ -72,7 +72,7 @@ public class PDFExport {
         try {
             PdfContentByte cb = writer.getDirectContent();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-            float textTopPosition = document.top() + 15;
+            float textTopPosition = document.top() - 15;
 
             StringBuilder sbLeft = new StringBuilder();
             sbLeft.append("Datenblatt: ");
@@ -89,8 +89,8 @@ public class PDFExport {
 
 
             Image img = Image.getInstance(PDFExport.class.getResource("../view/assets/images/hpfxlogo_dark.png"));
-            img.scaleAbsolute(25,25);
-            img.setAbsolutePosition((document.right() - document.left()) / 2 + img.getHeight() / 4, document.top() + 5);
+            img.scaleAbsolute(25, 25);
+            img.setAbsolutePosition((document.right() - document.left()) / 2 + img.getHeight() / 4, textTopPosition);
             document.add(img);
 
             Phrase headerRight = new Phrase(sbRight.toString(), smallFont);
@@ -99,8 +99,8 @@ public class PDFExport {
 
             CMYKColor black = new CMYKColor(0, 0, 0, 255);
             cb.setColorStroke(black);
-            cb.moveTo(document.left(), document.top());
-            cb.lineTo(document.right(), document.top());
+            cb.moveTo(document.left(), textTopPosition-5);
+            cb.lineTo(document.right(), textTopPosition-5);
             cb.closePathStroke();
 
         } catch (Exception e) {
@@ -111,6 +111,7 @@ public class PDFExport {
     private void addContent(Document document) throws DocumentException {
 
         Paragraph paragraph = new Paragraph();
+        paragraph.add("\n\n");
         paragraph.add(new Paragraph("Datenblatt: " + actualStation.getName(), catFont));
 
         paragraph.add(new Paragraph("\n"));
