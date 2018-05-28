@@ -154,6 +154,14 @@ public class Menubar extends VBox implements ViewMixin {
         settings.setOnAction(event -> {
             rootPM.openPreferences();
         });
+
+        newstation.setOnAction(ae -> {
+            rootPM.addPowerStation();
+        });
+
+        deletestation.setOnAction(ae -> {
+            rootPM.deletePowerStation();
+        });
     }
 
     //getter for searchbutton
