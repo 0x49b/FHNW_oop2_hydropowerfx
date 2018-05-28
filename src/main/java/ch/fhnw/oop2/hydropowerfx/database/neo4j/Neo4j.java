@@ -134,7 +134,7 @@ public class Neo4j extends Database {
         StationNode sn = session.load(StationNode.class, station.getEntitiyID());
 
         if (sn != null) {
-            session.delete(sn);
+            session.delete(sn.getEntityID());
         }
     }
 }
