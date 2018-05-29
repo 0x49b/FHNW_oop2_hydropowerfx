@@ -27,7 +27,7 @@ public class Canton {
     private FilteredList<PowerStation> cantonStationsList;
     private DoubleBinding totalPower;
 
-    private IntegerBinding totatStations = Bindings.size(cantonStationsList);
+    private IntegerBinding totatStations;
 
     public Canton(ObservableList<PowerStation> stationList) {
         cantonStationsList = new FilteredList<>(stationList);
@@ -57,6 +57,8 @@ public class Canton {
     }
 
     private void setupBinding() {
+        totatStations = Bindings.size(cantonStationsList);
+
         totalPower = Bindings.createDoubleBinding(
                 () -> cantonStationsList.stream()
                         .collect(Collectors.summingDouble(PowerStation::getMaxPower)), cantonStationsList
