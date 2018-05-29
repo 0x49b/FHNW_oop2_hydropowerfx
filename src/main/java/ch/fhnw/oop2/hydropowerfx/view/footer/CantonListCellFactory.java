@@ -1,15 +1,12 @@
 package ch.fhnw.oop2.hydropowerfx.view.footer;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.Canton;
-import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class CantonListCellFactory extends ListCell<Canton> {
@@ -20,6 +17,7 @@ public class CantonListCellFactory extends ListCell<Canton> {
 
 
     public CantonListCellFactory(RootPM rootPM) {
+        this.rootPM = rootPM;
         getStyleClass().add("cantonlist-cell");
     }
 
@@ -50,14 +48,13 @@ public class CantonListCellFactory extends ListCell<Canton> {
         }
     }
 
-    private double calcStationCountWidth(String numStations){
+    private double calcStationCountWidth(String numStations) {
 
-        double totalStations = (double) rootPM.getTotalPowerStations();
+        double totalStations = (double) rootPM.totalPowerStationsProperty().get();
         double cantonStations = Double.valueOf(numStations);
 
-        double cantonCount = cantonStations / totalStations;
-        System.out.println("KANTON COUNT" + cantonCount);
+        double cantonCount = (cantonStations * 10) / totalStations;
 
-        return 0.1;
+        return cantonCount;
     }
 }
