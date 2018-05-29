@@ -38,7 +38,7 @@ public class CantonListCellFactory extends ListCell<Canton> {
                 stationName.getStyleClass().add("canton-cell-name");
                 stationName.setWrappingWidth(200);
 
-                ProgressBar stationCount = new ProgressBar(calcStationCountWidth(field.getNumber()));
+                ProgressBar stationCount = new ProgressBar(calcStationCountWidth(field.getCantonStationsList().size()));
                 stationCount.setPrefWidth(300);
 
                 HBox hBox = new HBox(cantonView, stationName, stationCount);
@@ -48,12 +48,14 @@ public class CantonListCellFactory extends ListCell<Canton> {
         }
     }
 
-    private double calcStationCountWidth(String numStations) {
+    private double calcStationCountWidth(int numStations) {
 
         double totalStations = (double) rootPM.totalPowerStationsProperty().get();
         double cantonStations = Double.valueOf(numStations);
 
-        double cantonCount = (cantonStations * 10) / totalStations;
+        double cantonCount = (cantonStations / totalStations) * 4;
+
+        System.out.println("CANTONS COUNT " + totalStations + " | " + cantonStations + " | " + cantonCount);
 
         return cantonCount;
     }
