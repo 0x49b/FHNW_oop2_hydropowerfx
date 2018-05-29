@@ -123,6 +123,7 @@
 
 .version {
     -fx-text-alignment: center;
+    -fx-font-size: 14;
 }
 
 .search-panel {

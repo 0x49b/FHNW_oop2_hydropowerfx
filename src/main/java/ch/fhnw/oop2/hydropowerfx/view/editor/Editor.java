@@ -4,12 +4,19 @@ import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class Editor extends VBox implements ViewMixin {
 
@@ -97,6 +104,7 @@ public class Editor extends VBox implements ViewMixin {
         stationImage.setFitHeight(HEIGHT);
         stationImage.setFitWidth(WIDTH);
 
+        System.out.println(rootPM.getMapURL());
         mapImageRaw = new Image(rootPM.getMapURL());
         mapImage = new ImageView(mapImageRaw);
         mapImage.getStyleClass().add("editor-mapsimage");
@@ -236,7 +244,19 @@ public class Editor extends VBox implements ViewMixin {
 
     @Override
     public void setupValueChangedListeners() {
-
       //TODO bind MapURL to ImageView
+       mapImage.setOnMouseClicked(event -> {
+
+           System.out.println(rootPM.getOnlineMapUrl());
+           if (Desktop.isDesktopSupported()) {
+               try {
+                   Desktop.getDesktop().browse(new URI(rootPM.getOnlineMapUrl()));
+               } catch (URISyntaxException e) {
+                   e.printStackTrace();
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+           }
+       });
     }
 }

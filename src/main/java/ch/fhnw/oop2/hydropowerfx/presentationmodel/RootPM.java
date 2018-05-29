@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -42,21 +43,7 @@ public class RootPM {
     private final StringProperty stationListTitleText = new SimpleStringProperty("Kraftwerke");
     private final StringProperty currentMaxItemsText = new SimpleStringProperty("");
     private final ObjectProperty<PowerStation> actualPowerStation = new SimpleObjectProperty();
-    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(
-            station -> new Observable[]{
-                    station.nameProperty(),
-                    station.typeProperty(),
-                    station.siteProperty(),
-                    station.cantonProperty(),
-                    station.maxWaterProperty(),
-                    station.maxPowerProperty(),
-                    station.startOperationProperty(),
-                    station.lastOperationProperty(),
-                    station.latitudeProperty(),
-                    station.longitudeProperty(),
-                    station.statusProperty(),
-                    station.waterbodiesProperty(),
-                    station.imgUrlProperty()});
+    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(station -> new Observable[]{station.nameProperty(), station.typeProperty(), station.siteProperty(), station.cantonProperty(), station.maxWaterProperty(), station.maxPowerProperty(), station.startOperationProperty(), station.lastOperationProperty(), station.latitudeProperty(), station.longitudeProperty(), station.statusProperty(), station.waterbodiesProperty(), station.imgUrlProperty()});
     private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);
     private final IntegerBinding totalPowerStations = Bindings.size(powerStationList);
     private final IntegerBinding numberOfPowerStations = Bindings.size(powerStationFilterList);
@@ -86,6 +73,14 @@ public class RootPM {
     private final StringProperty dbCsvText = new SimpleStringProperty("Speichern als CSV");
     private final StringProperty dbSqliteText = new SimpleStringProperty("Speichern in SQLite Datenbank");
     private final StringProperty dbNeo4jText = new SimpleStringProperty("Speichern in Neo4j Datenbank");
+
+    /************************************************ Map Properties ************************************************/
+    private final String GMAPS_API_KEY = "AIzaSyAjogSXUchu1pQFS3ZqjF06WYfYSGZZb-M";
+    private final String ZOOM = "14";
+    private final String SIZE = "350x200";
+    private final String MAPTYPE = "satellite";
+    private final StringProperty mapURL = new SimpleStringProperty("");
+
 
     public RootPM() {
         cantons.addAll(readCantons());
@@ -152,6 +147,48 @@ public class RootPM {
 
     /************************************************ Helper functions ************************************************/
 
+    private void refreshMapURL() {
+
+        StringBuilder coords = new StringBuilder();
+        coords.append(getActualPowerStation().getLatitude());
+        coords.append(",");
+        coords.append(getActualPowerStation().getLongitude());
+
+        String mapsURL = String.format("https://maps.googleapis.com/maps/api/staticmap?center=%s&markers=color:red%7Clabel:%s7C%s&zoom=%s&size=%s&maptype=%s&key=%s", coords.toString(), getActualPowerStation().getName(), coords.toString(), ZOOM, SIZE, MAPTYPE, GMAPS_API_KEY);
+        setMapURL(mapsURL);
+    }
+
+    //TODO Funktion kann gelöscht werden wenn PropertyBinding korrekt implementiert ist
+    public String getMapURL() {
+        StringBuilder coords = new StringBuilder();
+        coords.append(getActualPowerStation().getLatitude());
+        coords.append(",");
+        coords.append(getActualPowerStation().getLongitude());
+        String coord = coords.toString();
+
+        String mapsURL = String.format("https://maps.googleapis.com/maps/api/staticmap?center=%s&zoom=%s&size=%s&maptype=%s&markers=color:red|label:Sicher|%s&key=%s", coords, ZOOM, SIZE, MAPTYPE, coords, GMAPS_API_KEY);
+
+        return mapsURL;
+    }
+
+    public String getOnlineMapUrl() {
+        StringBuilder map = new StringBuilder();
+        map.append("https://www.google.com/maps/place/");
+        map.append(getActualPowerStation().getLatitude());
+        map.append(",");
+        map.append(getActualPowerStation().getLongitude());
+        return map.toString();
+    }
+
+    public StringProperty mapURLProperty() {
+        return mapURL;
+    }
+
+    public void setMapURL(String mapURL) {
+        this.mapURL.set(mapURL);
+    }
+
+
     public void addPowerStation() {
         PowerStation ps = new PowerStation();
 
@@ -179,6 +216,7 @@ public class RootPM {
         preferences.setHeight(450);
         preferences.setMinWidth(500);
         preferences.setMinHeight(450);
+        preferences.initStyle(StageStyle.UNDECORATED);
         preferences.show();
     }
 
