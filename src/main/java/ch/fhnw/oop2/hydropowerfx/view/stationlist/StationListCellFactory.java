@@ -14,6 +14,7 @@ public class StationListCellFactory extends ListCell<PowerStation> {
     private Image cantonImage;
 
     public StationListCellFactory(){
+
         getStyleClass().add("stationlist-cell");
     }
 

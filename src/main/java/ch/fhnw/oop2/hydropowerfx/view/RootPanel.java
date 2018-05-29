@@ -2,7 +2,7 @@ package ch.fhnw.oop2.hydropowerfx.view;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.editor.Editor;
-import ch.fhnw.oop2.hydropowerfx.view.footer.Footer;
+import ch.fhnw.oop2.hydropowerfx.view.footer.CantonList;
 import ch.fhnw.oop2.hydropowerfx.view.menubar.Menubar;
 import ch.fhnw.oop2.hydropowerfx.view.stationlist.StationList;
 import javafx.geometry.Orientation;
@@ -17,7 +17,7 @@ public class RootPanel extends HBox implements ViewMixin {
     private Menubar menubar;
     private Editor editor;
     private StationList stationList;
-    private Footer footer;
+    private CantonList cantonList;
 
     private SplitPane outerSplitPane;
     private SplitPane innerSplitPane;
@@ -47,10 +47,10 @@ public class RootPanel extends HBox implements ViewMixin {
         menubar = new Menubar(rootPM, rootPanel);
         editor = new Editor(rootPM);
         stationList = new StationList(rootPM);
-        footer = new Footer();
+        cantonList = new CantonList(rootPM);
 
         innerSplitPane.getItems().addAll(stationList, editor);
-        outerSplitPane.getItems().addAll(innerSplitPane, footer);
+        outerSplitPane.getItems().addAll(innerSplitPane, cantonList);
         setHgrow(outerSplitPane, Priority.ALWAYS);
     }
 

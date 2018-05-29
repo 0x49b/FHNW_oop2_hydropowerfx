@@ -703,4 +703,8 @@ public class RootPM {
     public void setLabelLatitude(String labelLatitude) {
         this.labelLatitude.set(labelLatitude);
     }
+
+    public ObservableList<Canton> getCantons() {
+        return cantons;
+    }
 }

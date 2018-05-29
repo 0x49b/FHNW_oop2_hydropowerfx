@@ -104,7 +104,6 @@ public class Editor extends VBox implements ViewMixin {
         stationImage.setFitHeight(HEIGHT);
         stationImage.setFitWidth(WIDTH);
 
-        System.out.println(rootPM.getMapURL());
         mapImageRaw = new Image(rootPM.getMapURL());
         mapImage = new ImageView(mapImageRaw);
         mapImage.getStyleClass().add("editor-mapsimage");
@@ -246,8 +245,6 @@ public class Editor extends VBox implements ViewMixin {
     public void setupValueChangedListeners() {
       //TODO bind MapURL to ImageView
        mapImage.setOnMouseClicked(event -> {
-
-           System.out.println(rootPM.getOnlineMapUrl());
            if (Desktop.isDesktopSupported()) {
                try {
                    Desktop.getDesktop().browse(new URI(rootPM.getOnlineMapUrl()));

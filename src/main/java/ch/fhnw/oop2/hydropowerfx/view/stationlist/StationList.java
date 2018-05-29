@@ -26,7 +26,6 @@ public class StationList extends VBox implements ViewMixin {
     @Override
     public void initializeSelf() {
         this.getStyleClass().add("stationlist");
-
     }
 
     @Override
@@ -51,6 +50,7 @@ public class StationList extends VBox implements ViewMixin {
 
     @Override
     public void layoutControls() {
+
         this.getChildren().addAll(stationListTitle, stationList, currentMaxItems);
     }
 
