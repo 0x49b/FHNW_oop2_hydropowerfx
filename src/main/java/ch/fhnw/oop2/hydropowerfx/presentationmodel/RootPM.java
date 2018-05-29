@@ -1,6 +1,8 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
 import ch.fhnw.oop2.hydropowerfx.database.Database;
+import ch.fhnw.oop2.hydropowerfx.database.neo4j.Neo4j;
+import ch.fhnw.oop2.hydropowerfx.database.sqlite.SQLite;
 import ch.fhnw.oop2.hydropowerfx.view.preferences.PreferencesPanel;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -22,10 +24,33 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
+import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class RootPM {
+
+    public enum DATABASES {
+        CSV(0),
+        SQLITE(1),
+        NEO4J(2);
+
+        private int type;
+
+        DATABASES(int type) {
+            this.type = type;
+        }
+
+        public int getValue() {
+            return this.type;
+        }
+
+        public static DATABASES fromInt(final int id) {
+            return (id == 2) ? DATABASES.NEO4J : (id == 1) ? DATABASES.SQLITE : DATABASES.CSV;
+        }
+    }
+
+    private final String DATABASETYPE = "DatabaseType";
 
     private static final String POWERSTATIONS_FILE = "/data/HYDRO_POWERSTATION.csv";
     private static final String CANTONS_FILE = "/data/cantons.csv";
@@ -43,7 +68,21 @@ public class RootPM {
     private final StringProperty stationListTitleText = new SimpleStringProperty("Kraftwerke");
     private final StringProperty currentMaxItemsText = new SimpleStringProperty("");
     private final ObjectProperty<PowerStation> actualPowerStation = new SimpleObjectProperty();
-    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(station -> new Observable[]{station.nameProperty(), station.typeProperty(), station.siteProperty(), station.cantonProperty(), station.maxWaterProperty(), station.maxPowerProperty(), station.startOperationProperty(), station.lastOperationProperty(), station.latitudeProperty(), station.longitudeProperty(), station.statusProperty(), station.waterbodiesProperty(), station.imgUrlProperty()});
+    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(
+            station -> new Observable[]{
+                    station.nameProperty(),
+                    station.typeProperty(),
+                    station.siteProperty(),
+                    station.cantonProperty(),
+                    station.maxWaterProperty(),
+                    station.maxPowerProperty(),
+                    station.startOperationProperty(),
+                    station.lastOperationProperty(),
+                    station.latitudeProperty(),
+                    station.longitudeProperty(),
+                    station.statusProperty(),
+                    station.waterbodiesProperty(),
+                    station.imgUrlProperty()});
     private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);
     private final IntegerBinding totalPowerStations = Bindings.size(powerStationList);
     private final IntegerBinding numberOfPowerStations = Bindings.size(powerStationFilterList);
@@ -67,6 +106,8 @@ public class RootPM {
 
     /************************************************ Preferences Panel ************************************************/
 
+    private Preferences prefs;
+
     private final StringProperty preferencesTitle = new SimpleStringProperty("Einstellungen");
     private final StringProperty dbTitle = new SimpleStringProperty("Datenbank");
     private final StringProperty dbText = new SimpleStringProperty("Wie sollen die Daten gespeichert werden?");
@@ -82,12 +123,14 @@ public class RootPM {
     private final StringProperty mapURL = new SimpleStringProperty("");
 
 
-    public RootPM() {
-        cantons.addAll(readCantons());
-        powerStationList.addAll(readPowerStations());
+    private final BooleanProperty saveShown = new SimpleBooleanProperty(true);
 
-        // TODO before activating database setup preferences panel
-        // database = new Neo4j(cantons, powerStationList);
+    public RootPM() {
+        prefs = Preferences.userRoot().node(this.getClass().getName());
+
+        DATABASES db = DATABASES.fromInt(prefs.getInt(DATABASETYPE, DATABASES.CSV.getValue()));
+
+        initDatabase(db, true);
 
         setActualPowerStation(powerStationList.get(0));
         setupBindings();
@@ -100,6 +143,38 @@ public class RootPM {
         if (database != null) {
             database.close();
         }
+    }
+
+    private void initDatabase(DATABASES dbType, boolean initial) {
+
+        if (dbType == DATABASES.SQLITE) {
+            database = new SQLite(cantons, powerStationList);
+            prefs.putInt(DATABASETYPE, DATABASES.SQLITE.getValue());
+            saveShown.set(false);
+        }
+        else if (dbType == DATABASES.NEO4J) {
+            database = new Neo4j(cantons, powerStationList);
+            prefs.putInt(DATABASETYPE, DATABASES.NEO4J.getValue());
+            saveShown.set(false);
+        }
+        else {
+            if (initial) {
+                cantons.addAll(readCantons());
+                powerStationList.addAll(readPowerStations());
+            }
+            prefs.putInt(DATABASETYPE, DATABASES.CSV.getValue());
+            saveShown.set(true);
+        }
+    }
+
+    public void updateDatabaseType(DATABASES dbType) {
+        if (dbType != DATABASES.fromInt(prefs.getInt(DATABASETYPE, DATABASES.CSV.getValue()))) {
+            initDatabase(dbType, false);
+        }
+    }
+
+    public DATABASES getDatabaseType() {
+        return DATABASES.fromInt(prefs.getInt(DATABASETYPE, DATABASES.CSV.getValue()));
     }
 
     /************************************************ Primary Stage ***********************************************************/
@@ -353,6 +428,18 @@ public class RootPM {
 
     public void setDbNeo4jText(String dbNeo4jText) {
         this.dbNeo4jText.set(dbNeo4jText);
+    }
+
+    public boolean isSaveShown() {
+        return saveShown.get();
+    }
+
+    public BooleanProperty saveShownProperty() {
+        return saveShown;
+    }
+
+    public void setSaveShown(boolean saveShown) {
+        this.saveShown.set(saveShown);
     }
 
     public PowerStation getPowerStationProxy() {

@@ -26,6 +26,7 @@ public class PreferencesPanel extends VBox implements ViewMixin {
 
     public PreferencesPanel(RootPM rootPM) {
         this.rootPM = rootPM;
+
         init();
     }
 
@@ -65,6 +66,19 @@ public class PreferencesPanel extends VBox implements ViewMixin {
         sqliteButton.getStyleClass().add("preference-radio");
         neo4jButton = new RadioButton();
         neo4jButton.setToggleGroup(dbGroup);
+
+        RootPM.DATABASES dbType = rootPM.getDatabaseType();
+
+        if (dbType == RootPM.DATABASES.SQLITE) {
+            sqliteButton.setSelected(true);
+        }
+        else if (dbType == RootPM.DATABASES.NEO4J) {
+            neo4jButton.setSelected(true);
+        }
+        else {
+            csvButton.setSelected(true);
+        }
+
         neo4jButton.getStyleClass().add("preference-radio");
         vbox.getChildren().addAll(dbLabel, csvButton, sqliteButton, neo4jButton);
 
@@ -81,6 +95,26 @@ public class PreferencesPanel extends VBox implements ViewMixin {
     public void layoutControls() {
         buttonBox.getChildren().addAll(cancel, save);
         getChildren().addAll(tabPane, buttonBox);
+    }
+
+    @Override public void setupEventHandlers() {
+        cancel.setOnAction(event -> {
+            cancel.getScene().getWindow().hide();
+        });
+
+        save.setOnAction(event -> {
+            if (sqliteButton.isSelected()) {
+                rootPM.updateDatabaseType(RootPM.DATABASES.SQLITE);
+            }
+            else if (neo4jButton.isSelected()) {
+                rootPM.updateDatabaseType(RootPM.DATABASES.NEO4J);
+            }
+            else {
+                rootPM.updateDatabaseType(RootPM.DATABASES.CSV);
+            }
+
+            cancel.getScene().getWindow().hide();
+        });
     }
 
     @Override
