@@ -121,7 +121,7 @@ public class RootPM {
     private final BooleanProperty saveShown = new SimpleBooleanProperty(true);
 
     public RootPM() {
-        prefs = Preferences.systemRoot().node(this.getClass().getName());
+        prefs = Preferences.userRoot().node(this.getClass().getName());
 
         DATABASES db = DATABASES.fromInt(prefs.getInt(DATABASETYPE, DATABASES.CSV.getValue()));
 
@@ -143,21 +143,16 @@ public class RootPM {
     private void initDatabase(DATABASES dbType, boolean initial) {
 
         if (dbType == DATABASES.SQLITE) {
-            System.out.println("Database: SQLITE");
             database = new SQLite(cantons, powerStationList);
             prefs.putInt(DATABASETYPE, DATABASES.SQLITE.getValue());
             saveShown.set(false);
         }
         else if (dbType == DATABASES.NEO4J) {
-            System.out.println("Database: SQLITE");
-
             database = new Neo4j(cantons, powerStationList);
             prefs.putInt(DATABASETYPE, DATABASES.NEO4J.getValue());
             saveShown.set(false);
         }
         else {
-            System.out.println("Database: CSV");
-
             if (initial) {
                 cantons.addAll(readCantons());
                 powerStationList.addAll(readPowerStations());
