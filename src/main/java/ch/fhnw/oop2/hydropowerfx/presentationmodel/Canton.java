@@ -2,6 +2,7 @@ package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -25,6 +26,8 @@ public class Canton {
 
     private FilteredList<PowerStation> cantonStationsList;
     private DoubleBinding totalPower;
+
+    private IntegerBinding totatStations = Bindings.size(cantonStationsList);
 
     public Canton(ObservableList<PowerStation> stationList) {
         cantonStationsList = new FilteredList<>(stationList);
@@ -58,6 +61,14 @@ public class Canton {
                 () -> cantonStationsList.stream()
                         .collect(Collectors.summingDouble(PowerStation::getMaxPower)), cantonStationsList
         );
+    }
+
+    public Number getTotatStations() {
+        return totatStations.get();
+    }
+
+    public IntegerBinding totatStationsProperty() {
+        return totatStations;
     }
 
     public String getCantonName() {
