@@ -71,6 +71,8 @@
 
 }
 
+
+
 /***********************************************************************************************************************
     MenuBar implemented in a VBox
  **********************************************************************************************************************/
@@ -225,7 +227,8 @@
     -fx-font-weight: bold;
     -fx-background-color: #62bbff;
 }
-.tab-down-button{
+
+.tab-down-button {
     -fx-background-color: #62bbff;
 }
 
@@ -252,25 +255,54 @@
     -fx-border-radius: 15px;
     -fx-padding: 4px;
 }
+
 .radio-button .radio:selected {
     -fx-background-color: #E8F8FF;
     -fx-background-image: null;
 }
+
 .radio-button -radio:armed {
     -fx-background-color: #E8F8FF;
     -fx-background-image: null;
 }
+
 .radio-button -radio:determinate {
     -fx-background-color: #E8F8FF;
     -fx-background-image: null;
 }
+
 .radio-button -radio:indeterminate {
     -fx-background-color: #91C9E8;
     -fx-background-image: null;
 }
+
 .radio-button .dot {
     -fx-background-radius: 8px;
     -fx-padding: 6px;
-    -fx-mark-highlight-color: #3399CC ;
-    -fx-mark-color: #3399CC ;
+    -fx-mark-highlight-color: #3399CC;
+    -fx-mark-color: #3399CC;
+}
+
+
+/***********************************************************************************************************************
+    Footer
+ **********************************************************************************************************************/
+.canton-cell-bar .track {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-padding: 0;
+}
+.canton-cell-bar .bar{
+    -fx-background-color: e8f7ff;
+    -fx-background-radius: 0, 0, 0, 0;
+}
+.canton-cell-bar .progress-bar{
+    -fx-padding: 0;
+}
+
+.canton-cell-filter{
+    -fx-background-color: transparent;
+}
+.canton-cell-name{
+    -fx-margin: 50,10,0,0;
 }
