@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -57,6 +58,7 @@ public class RootPM {
     private static final String CANTONS_FILE = "/data/cantons.csv";
     private static final String DELIMITER = ";";
     private String filePath;
+    private URI filePathURI;
     private String powerStationFilePath;
     private String cantonFilePath;
 
@@ -157,12 +159,12 @@ public class RootPM {
     private void initDatabase(DATABASES dbType, boolean initial) {
 
         if (dbType == DATABASES.SQLITE) {
-            database = new SQLite(cantons, powerStationList);
+            database = new SQLite(this, cantons, powerStationList);
             prefs.putInt(DATABASETYPE, DATABASES.SQLITE.getValue());
             disableSave.set(true);
         }
         else if (dbType == DATABASES.NEO4J) {
-            database = new Neo4j(cantons, powerStationList);
+            database = new Neo4j(this, cantons, powerStationList);
             prefs.putInt(DATABASETYPE, DATABASES.NEO4J.getValue());
             disableSave.set(true);
         }
@@ -227,6 +229,7 @@ public class RootPM {
     private void moveCsvToUserFolder() {
         filePath = System.getProperty("user.home") + File.separator + "HydroPowerFX";
         File directory = new File(filePath);
+        filePathURI = directory.toURI();
 
         if (directory.exists() || directory.mkdirs()) {
             powerStationFilePath = filePath + File.separator + "HYDRO_POWERSTATION.csv";
@@ -423,6 +426,10 @@ public class RootPM {
 
     public String getCantonFilePath() {
         return cantonFilePath;
+    }
+
+    public URI getFilePathURI() {
+        return filePathURI;
     }
 
     public String getPreferencesTitle() {

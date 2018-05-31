@@ -3,6 +3,7 @@ package ch.fhnw.oop2.hydropowerfx.database.neo4j;
 import ch.fhnw.oop2.hydropowerfx.database.Database;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.Canton;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
+import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import javafx.collections.ObservableList;
 import org.neo4j.ogm.config.Configuration;
 import org.neo4j.ogm.session.Session;
@@ -16,12 +17,17 @@ public class Neo4j extends Database {
 
     private SessionFactory sessionFactory;
 
-    public Neo4j(ObservableList<Canton> cantons, ObservableList<PowerStation> stations) {
-        super(cantons, stations);
+    public Neo4j(RootPM rootPM, ObservableList<Canton> cantons, ObservableList<PowerStation> stations) {
+        super(rootPM, cantons, stations);
 
+        /*
         Configuration configuration = new Configuration.Builder()
                 .uri("bolt://localhost")
                 .credentials("hydropower", "1234")
+                .build();
+                */
+        Configuration configuration = new Configuration.Builder()
+                .uri(rootPM.getFilePathURI().toString() + "neo4j.db")
                 .build();
 
         sessionFactory = new SessionFactory(configuration, "ch.fhnw.oop2.hydropowerfx");

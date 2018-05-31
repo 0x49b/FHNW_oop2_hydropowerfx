@@ -3,14 +3,15 @@ package ch.fhnw.oop2.hydropowerfx.database.sqlite;
 import ch.fhnw.oop2.hydropowerfx.database.Database;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.Canton;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
+import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import javafx.collections.ObservableList;
 
 import java.util.Collection;
 
 public class SQLite extends Database {
 
-    public SQLite(ObservableList<Canton> cantons, ObservableList<PowerStation> stations) {
-        super(cantons, stations);
+    public SQLite(RootPM rootPM, ObservableList<Canton> cantons, ObservableList<PowerStation> stations) {
+        super(rootPM, cantons, stations);
 
 
         init();
