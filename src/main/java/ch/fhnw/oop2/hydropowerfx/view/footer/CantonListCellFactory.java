@@ -31,8 +31,8 @@ public class CantonListCellFactory extends ListCell<Canton> {
             setGraphic(null);
         } else {
             if (field != null) {
-                canton = String.format("../assets/cantons/%s.png", field.getShortName());
-                cantonImage = new Image(getClass().getResource(canton).toExternalForm());
+                canton = String.format("/ch/fhnw/oop2/hydropowerfx/view/assets/cantons/%s.png", field.getShortName());
+                cantonImage = new Image(getClass().getResourceAsStream(canton));
                 ImageView cantonView = new ImageView(cantonImage);
                 cantonView.setFitWidth(20);
                 cantonView.setFitHeight(20);
@@ -65,7 +65,7 @@ public class CantonListCellFactory extends ListCell<Canton> {
                 cantonPowerCount.getStyleClass().add("canton-cell-bar");
                 cantonPowerCount.setPrefWidth(200);
 
-                ImageView filterImage = new ImageView(new Image(this.getClass().getResource("../assets/images/filter.png").toExternalForm()));
+                ImageView filterImage = new ImageView(new Image(this.getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/filter.png")));
                 filterImage.setFitHeight(15);
                 filterImage.setFitWidth(15);
                 Button button = new Button();

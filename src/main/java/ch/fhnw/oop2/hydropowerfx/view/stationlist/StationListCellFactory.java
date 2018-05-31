@@ -35,11 +35,11 @@ public class StationListCellFactory extends ListCell<PowerStation> {
 
                 // ToDo Very Bad Code..... Must be changed
                 try {
-                    canton = String.format("../assets/cantons/%s.png", field.getCanton());
+                    canton = String.format("/ch/fhnw/oop2/hydropowerfx/view/assets/cantons/%s.png", field.getCanton());
                     cantonImage = new Image(getClass().getResource(canton).toExternalForm());
                 } catch (Exception e) {
                     canton = "../assets/cantons/ZZ.png";
-                    cantonImage = new Image(getClass().getResource(canton).toExternalForm());
+                    cantonImage = new Image(getClass().getResourceAsStream(canton));
                 }
                 ImageView cantonView = new ImageView(cantonImage);
                 cantonView.setFitWidth(30);

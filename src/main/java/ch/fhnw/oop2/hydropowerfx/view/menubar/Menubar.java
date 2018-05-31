@@ -13,6 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 public class Menubar extends VBox implements ViewMixin {
 
     private RootPM rootPM;
@@ -57,51 +60,52 @@ public class Menubar extends VBox implements ViewMixin {
 
     @Override
     public void initializeControls() {
+
         // Logo
-        Image logo = new Image(this.getClass().getResource("../assets/images/hpfxlogo.png").toExternalForm());
-        hpfxLogo = new ImageView(logo);
+        hpfxLogo = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/hpfxlogo.png")));
         hpfxLogo.setFitHeight(35);
         hpfxLogo.setFitWidth(35);
         hpfxLogo.getStyleClass().addAll("menubar-item", "logo");
 
         // undo Button
-        undoImage = new ImageView(new Image(this.getClass().getResource("../assets/images/undo.png").toExternalForm()));
+        undoImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/undo.png")));
         undo = new Button();
         undo.getStyleClass().addAll("menubar-item", "menubar-button", "undo");
         undo.setGraphic(undoImage);
 
         // redo Button
-        redoImage = new ImageView(new Image(this.getClass().getResource("../assets/images/redo.png").toExternalForm()));
+
+        redoImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/redo.png")));
         redo = new Button();
         redo.getStyleClass().addAll("menubar-item", "menubar-button", "redo");
         redo.setGraphic(redoImage);
 
         // new station
-        newstationImage = new ImageView(new Image(this.getClass().getResource("../assets/images/new.png").toExternalForm()));
+        newstationImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/new.png")));
         newstation = new Button();
         newstation.getStyleClass().addAll("menubar-item", "menubar-button", "newstation");
         newstation.setGraphic(newstationImage);
 
         // delete Station
-        deletestationImage = new ImageView(new Image(this.getClass().getResource("../assets/images/delete.png").toExternalForm()));
+        deletestationImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/delete.png")));
         deletestation = new Button();
         deletestation.getStyleClass().addAll("menubar-item", "menubar-button", "deletestation");
         deletestation.setGraphic(deletestationImage);
 
         // savestation
-        savestationImage = new ImageView(new Image(this.getClass().getResource("../assets/images/save.png").toExternalForm()));
+        savestationImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/save.png")));
         savestation = new Button();
         savestation.getStyleClass().addAll("menubar-item", "menubar-button", "savestation");
         savestation.setGraphic(savestationImage);
 
         // search Button
-        searchImage = new ImageView(new Image(this.getClass().getResource("../assets/images/search.png").toExternalForm()));
+        searchImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/search.png")));
         search = new Button();
         search.getStyleClass().addAll("menubar-item", "menubar-button", "search");
         search.setGraphic(searchImage);
         searchpanel = new SearchPanel(rootPanel, rootPM, menubar);
 
-        topdfImage = new ImageView(new Image(this.getClass().getResource("../assets/images/topdf.png").toExternalForm()));
+        topdfImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/topdf.png")));
         topdf = new Button();
         topdf.getStyleClass().addAll("menubar-item", "menubar-button", "topdf");
         topdf.setGraphic(topdfImage);
@@ -110,7 +114,7 @@ public class Menubar extends VBox implements ViewMixin {
         topdf.setTooltip(toPDFTooltip);
 
         // settings Button
-        settingsImage = new ImageView(new Image(this.getClass().getResource("../assets/images/settings.png").toExternalForm()));
+        settingsImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/settings.png")));
         settings = new Button();
         settings.getStyleClass().addAll("menubar-item", "menubar-button", "settings");
         settings.setGraphic(settingsImage);
@@ -119,6 +123,7 @@ public class Menubar extends VBox implements ViewMixin {
         version = new Label();
         version.getStyleClass().addAll("menubar-item", "version");
         version.setAlignment(Pos.CENTER);
+
     }
 
     @Override
