@@ -68,6 +68,7 @@ public class Editor extends VBox implements ViewMixin {
 
     private ImageView stationImage;
     private ImageView mapImage;
+    private Image stationImageRaw;
     private Image mapImageRaw;
     private final double HEIGHT = 200.0;
     private final double WIDTH = 350.0;
@@ -99,14 +100,14 @@ public class Editor extends VBox implements ViewMixin {
         titleStationStartOperation = new Label();
 
 
-        stationImage = new ImageView(new Image("https://i.stack.imgur.com/v1Yy8.png"));
+        stationImage = new ImageView();
         stationImage.getStyleClass().addAll("editor-stationimage");
         stationImage.setFitHeight(HEIGHT);
         stationImage.setFitWidth(WIDTH);
 
         mapImageRaw = new Image(rootPM.getMapURL());
         mapImage = new ImageView(mapImageRaw);
-        mapImage.getStyleClass().add("editor-mapsimage");
+        mapImage.getStyleClass().add("editor-map-image");
         mapImage.setFitHeight(HEIGHT);
         mapImage.setFitWidth(WIDTH);
 
@@ -115,11 +116,12 @@ public class Editor extends VBox implements ViewMixin {
         editorTab.setMinSize(TabPane.USE_PREF_SIZE, TabPane.USE_PREF_SIZE);
         editorTab.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-        imageTab = new Tab();
-        mapTab = new Tab();
 
+        imageTab = new Tab();
         imageTab.setContent(stationImage);
         imageTab.setText("Bild");
+
+        mapTab = new Tab();
         mapTab.setContent(mapImage);
         mapTab.setText("Karte");
 
@@ -156,8 +158,6 @@ public class Editor extends VBox implements ViewMixin {
 
     @Override
     public void layoutControls() {
-        editor.setHgap(25);
-        editor.setVgap(25);
         editor.setPadding(new Insets(10, 10, 10, 10));
         title.getChildren().addAll(titleStationName, titlestationSite, titleStationCanton, titleStationPowerOutput, titleStationStartOperation);
 
@@ -239,21 +239,36 @@ public class Editor extends VBox implements ViewMixin {
         powerOutput.textProperty().bindBidirectional(rootPM.getPowerStationProxy().maxPowerProperty(), new NumberStringConverter());
         lastOperation.textProperty().bindBidirectional(rootPM.getPowerStationProxy().lastOperationProperty(), new NumberStringConverter());
         latitude.textProperty().bindBidirectional(rootPM.getPowerStationProxy().latitudeProperty(), new NumberStringConverter());
+
+
     }
 
     @Override
     public void setupValueChangedListeners() {
-      //TODO bind MapURL to ImageView
-       mapImage.setOnMouseClicked(event -> {
-           if (Desktop.isDesktopSupported()) {
-               try {
-                   Desktop.getDesktop().browse(new URI(rootPM.getOnlineMapUrl()));
-               } catch (URISyntaxException e) {
-                   e.printStackTrace();
-               } catch (IOException e) {
-                   e.printStackTrace();
-               }
-           }
-       });
+
+        titleStationName.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            if (rootPM.getPowerStationProxy().getImgUrl() != "") {
+                stationImageRaw = new Image(rootPM.getPowerStationProxy().getImgUrl(), true);
+            } else {
+                stationImageRaw = new Image("http://placekitten.com/350/200", true);
+            }
+            stationImage.setImage(stationImageRaw);
+
+        });
+
+
+        //TODO bind MapURL to ImageView
+        mapImage.setOnMouseClicked(event -> {
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().browse(new URI(rootPM.getOnlineMapUrl()));
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

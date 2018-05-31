@@ -71,8 +71,6 @@
 
 }
 
-
-
 /***********************************************************************************************************************
     MenuBar implemented in a VBox
  **********************************************************************************************************************/
@@ -161,6 +159,10 @@
     -fx-border-insets: 0;
     -fx-border-width: 2px;
     -fx-border-color: #67B8DE #67B8DE #3399CC #67B8DE;
+}
+
+.editor-map-image:hover {
+    -fx-cursor: hand;
 }
 
 /***********************************************************************************************************************
@@ -283,7 +285,6 @@
     -fx-mark-color: #3399CC;
 }
 
-
 /***********************************************************************************************************************
     Footer
  **********************************************************************************************************************/
@@ -292,17 +293,20 @@
     -fx-background-radius: 0, 0, 0, 0;
     -fx-padding: 0;
 }
-.canton-cell-bar .bar{
+
+.canton-cell-bar .bar {
     -fx-background-color: e8f7ff;
     -fx-background-radius: 0, 0, 0, 0;
 }
-.canton-cell-bar .progress-bar{
+
+.canton-cell-bar .progress-bar {
     -fx-padding: 0;
 }
 
-.canton-cell-filter{
+.canton-cell-filter {
     -fx-background-color: transparent;
 }
-.canton-cell-name{
-    -fx-margin: 50,10,0,0;
+
+.canton-cell-name {
+    -fx-margin: 50, 10, 0, 0;
 }

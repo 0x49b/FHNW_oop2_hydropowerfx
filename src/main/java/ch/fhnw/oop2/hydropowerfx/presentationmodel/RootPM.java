@@ -344,9 +344,8 @@ public class RootPM {
         preferences.titleProperty().bind(preferencesTitleProperty());
         preferences.setScene(scene);
         preferences.setWidth(500);
-        preferences.setHeight(450);
-        preferences.setMinWidth(500);
-        preferences.setMinHeight(450);
+        preferences.setHeight(300);
+        preferences.setResizable(false);
         preferences.initStyle(StageStyle.UNDECORATED);
         preferences.show();
     }
