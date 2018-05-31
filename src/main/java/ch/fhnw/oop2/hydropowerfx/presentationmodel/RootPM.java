@@ -4,7 +4,6 @@ import ch.fhnw.oop2.hydropowerfx.database.Database;
 import ch.fhnw.oop2.hydropowerfx.database.neo4j.Neo4j;
 import ch.fhnw.oop2.hydropowerfx.database.sqlite.SQLite;
 import ch.fhnw.oop2.hydropowerfx.view.preferences.PreferencesPanel;
-import com.oracle.tools.packager.IOUtils;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
@@ -21,10 +20,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
@@ -416,6 +413,18 @@ public class RootPM {
     }
 
     /************************************************ Property Methods ************************************************/
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public String getPowerStationFilePath() {
+        return powerStationFilePath;
+    }
+
+    public String getCantonFilePath() {
+        return cantonFilePath;
+    }
 
     public String getPreferencesTitle() {
         return preferencesTitle.get();
