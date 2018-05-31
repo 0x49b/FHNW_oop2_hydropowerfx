@@ -123,7 +123,7 @@ public class RootPM {
     private final StringProperty mapURL = new SimpleStringProperty("");
 
 
-    private final BooleanProperty saveShown = new SimpleBooleanProperty(true);
+    private final BooleanProperty disableSave = new SimpleBooleanProperty(true);
 
     public RootPM() {
         prefs = Preferences.userRoot().node(this.getClass().getName());
@@ -140,6 +140,10 @@ public class RootPM {
     }
 
     public void close() {
+        closeDatabase();
+    }
+
+    private void closeDatabase() {
         if (database != null) {
             database.close();
         }
@@ -150,20 +154,23 @@ public class RootPM {
         if (dbType == DATABASES.SQLITE) {
             database = new SQLite(cantons, powerStationList);
             prefs.putInt(DATABASETYPE, DATABASES.SQLITE.getValue());
-            saveShown.set(false);
+            disableSave.set(true);
         }
         else if (dbType == DATABASES.NEO4J) {
             database = new Neo4j(cantons, powerStationList);
             prefs.putInt(DATABASETYPE, DATABASES.NEO4J.getValue());
-            saveShown.set(false);
+            disableSave.set(true);
         }
         else {
             if (initial) {
                 cantons.addAll(readCantons());
                 powerStationList.addAll(readPowerStations());
             }
+            closeDatabase();
+            database = null;
+
             prefs.putInt(DATABASETYPE, DATABASES.CSV.getValue());
-            saveShown.set(true);
+            disableSave.set(false);
         }
     }
 
@@ -430,16 +437,16 @@ public class RootPM {
         this.dbNeo4jText.set(dbNeo4jText);
     }
 
-    public boolean isSaveShown() {
-        return saveShown.get();
+    public boolean getDisableSave() {
+        return disableSave.get();
     }
 
-    public BooleanProperty saveShownProperty() {
-        return saveShown;
+    public BooleanProperty disableSaveProperty() {
+        return disableSave;
     }
 
-    public void setSaveShown(boolean saveShown) {
-        this.saveShown.set(saveShown);
+    public void setDisableSave(boolean disableSave) {
+        this.disableSave.set(disableSave);
     }
 
     public PowerStation getPowerStationProxy() {
