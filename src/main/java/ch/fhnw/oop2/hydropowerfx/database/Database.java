@@ -6,6 +6,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.util.Collection;
+import java.util.Comparator;
 
 public abstract class Database {
 
@@ -32,6 +33,8 @@ public abstract class Database {
         else {
             this.getAllStations().stream().forEach(station -> stationList.add(station));
         }
+
+        stationList.sort(Comparator.comparing(PowerStation::getEntitiyID));
 
         this.addListeners();
     }
