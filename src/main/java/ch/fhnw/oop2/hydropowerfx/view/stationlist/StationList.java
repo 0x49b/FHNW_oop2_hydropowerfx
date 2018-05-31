@@ -22,7 +22,6 @@ public class StationList extends VBox implements ViewMixin {
         init();
     }
 
-
     @Override
     public void initializeSelf() {
         this.getStyleClass().add("stationlist");
@@ -61,11 +60,6 @@ public class StationList extends VBox implements ViewMixin {
                 rootPM.setActualPowerStation((PowerStation) newValue);
             }
         });
-    }
-
-    @Override
-    public void setupValueChangedListeners() {
-
     }
 
     @Override

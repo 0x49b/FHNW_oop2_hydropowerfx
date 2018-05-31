@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
 
@@ -18,21 +19,18 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static javafx.scene.layout.GridPane.setHgrow;
+
 public class Editor extends VBox implements ViewMixin {
 
     private RootPM rootPM;
-
 
     private BorderPane editorHead;
     private VBox title;
     private GridPane editor;
 
     private Label titleStationName;
-    private Label titlestationSite;
-    private Label titleStationCanton;
-    private Label titleStationPowerOutput;
-    private Label titleStationStartOperation;
-
+    private Label titleSubtitle;
 
     private Label labelName;
     private Label labelPlace;
@@ -56,7 +54,7 @@ public class Editor extends VBox implements ViewMixin {
     private TextField status;
     private TextField waterbodies;
     private TextField imageURL;
-    private ComboBox<Character> type;
+    private ComboBox<String> type;
     private ComboBox<String> canton;
     private TextField powerOutput;
     private TextField lastOperation;
@@ -93,11 +91,7 @@ public class Editor extends VBox implements ViewMixin {
 
         titleStationName = new Label();
         titleStationName.getStyleClass().addAll("editor-stationname-title");
-
-        titlestationSite = new Label();
-        titleStationCanton = new Label();
-        titleStationPowerOutput = new Label();
-        titleStationStartOperation = new Label();
+        titleSubtitle = new Label();
 
 
         stationImage = new ImageView();
@@ -105,8 +99,7 @@ public class Editor extends VBox implements ViewMixin {
         stationImage.setFitHeight(HEIGHT);
         stationImage.setFitWidth(WIDTH);
 
-        mapImageRaw = new Image(rootPM.getMapURL());
-        mapImage = new ImageView(mapImageRaw);
+        mapImage = new ImageView();
         mapImage.getStyleClass().add("editor-map-image");
         mapImage.setFitHeight(HEIGHT);
         mapImage.setFitWidth(WIDTH);
@@ -125,7 +118,7 @@ public class Editor extends VBox implements ViewMixin {
         mapTab.setContent(mapImage);
         mapTab.setText("Karte");
 
-        editorTab.getTabs().addAll(imageTab, mapTab);
+        editorTab.getTabs().addAll(mapTab, imageTab);
 
         labelName = new Label();
         labelPlace = new Label();
@@ -142,24 +135,44 @@ public class Editor extends VBox implements ViewMixin {
         labelLatitude = new Label();
 
         stationName = new TextField();
+        stationName.getStyleClass().add("editor-textfield");
         stationSite = new TextField();
+        stationSite.getStyleClass().add("editor-textfield");
         stationWaterflow = new TextField();
+        stationWaterflow.getStyleClass().add("editor-textfield");
         startOperation = new TextField();
+        startOperation.getStyleClass().add("editor-textfield");
         longitude = new TextField();
+        longitude.getStyleClass().add("editor-textfield");
         status = new TextField();
+        status.getStyleClass().add("editor-textfield");
         waterbodies = new TextField();
+        waterbodies.getStyleClass().add("editor-textfield");
         imageURL = new TextField();
+        imageURL.getStyleClass().add("editor-textfield");
+
         type = new ComboBox<>();
+        type.getStyleClass().add("editor-combobox");
+        type.getItems().addAll(rootPM.getTypes());
+
         canton = new ComboBox<>();
+        canton.getStyleClass().add("editor-combobox");
+        canton.getItems().addAll(rootPM.getCantonShort());
+
         powerOutput = new TextField();
+        powerOutput.getStyleClass().add("editor-textfield");
         lastOperation = new TextField();
+        lastOperation.getStyleClass().add("editor-textfield");
         latitude = new TextField();
+        latitude.getStyleClass().add("editor-textfield");
     }
 
     @Override
     public void layoutControls() {
         editor.setPadding(new Insets(10, 10, 10, 10));
-        title.getChildren().addAll(titleStationName, titlestationSite, titleStationCanton, titleStationPowerOutput, titleStationStartOperation);
+        title.getChildren().addAll(titleStationName, titleSubtitle);
+        title.setSpacing(15);
+
 
         editorHead.setCenter(title);
         editorHead.setRight(editorTab);
@@ -200,6 +213,9 @@ public class Editor extends VBox implements ViewMixin {
         editor.add(labelImageURL, 0, 7);
         editor.add(imageURL, 1, 7, 3, 1);
 
+        setHgrow(editor, Priority.ALWAYS);
+        setVgrow(editor, Priority.ALWAYS);
+
         getChildren().addAll(editorHead, editor);
     }
 
@@ -222,10 +238,7 @@ public class Editor extends VBox implements ViewMixin {
         labelLatitude.textProperty().bind(rootPM.labelLatitudeProperty());
 
         titleStationName.textProperty().bind(rootPM.getPowerStationProxy().nameProperty());
-        titlestationSite.textProperty().bind(rootPM.getPowerStationProxy().siteProperty());
-        titleStationCanton.textProperty().bind(rootPM.getPowerStationProxy().cantonProperty());
-        titleStationPowerOutput.textProperty().bind(rootPM.getPowerStationProxy().maxPowerProperty().asString());
-        titleStationStartOperation.textProperty().bind(rootPM.getPowerStationProxy().startOperationProperty().asString());
+        titleSubtitle.textProperty().bind(rootPM.subtitleProperty());
 
         /*********************************** TextField Bindings ***********************************/
         stationName.textProperty().bindBidirectional(rootPM.getPowerStationProxy().nameProperty());
@@ -240,7 +253,6 @@ public class Editor extends VBox implements ViewMixin {
         lastOperation.textProperty().bindBidirectional(rootPM.getPowerStationProxy().lastOperationProperty(), new NumberStringConverter());
         latitude.textProperty().bindBidirectional(rootPM.getPowerStationProxy().latitudeProperty(), new NumberStringConverter());
 
-
     }
 
     @Override
@@ -248,13 +260,17 @@ public class Editor extends VBox implements ViewMixin {
 
         titleStationName.textProperty().addListener((observable, oldValue, newValue) -> {
 
-            if (rootPM.getPowerStationProxy().getImgUrl() != "") {
-                stationImageRaw = new Image(rootPM.getPowerStationProxy().getImgUrl(), true);
+            if (rootPM.getImageURL() != "") {
+                editorTab.getTabs().add(imageTab);
+                stationImageRaw = new Image(rootPM.getImageURL(), true);
+                stationImage.setImage(stationImageRaw);
             } else {
-                stationImageRaw = new Image("http://placekitten.com/350/200", true);
+                if (editorTab.getTabs().size() > 1) {
+                    editorTab.getTabs().remove(1);
+                }
             }
-            stationImage.setImage(stationImageRaw);
 
+            mapImage.setImage(new Image(rootPM.getMapURL(), true));
         });
 
 

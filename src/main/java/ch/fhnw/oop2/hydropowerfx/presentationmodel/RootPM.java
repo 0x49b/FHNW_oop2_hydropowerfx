@@ -33,9 +33,7 @@ import java.util.stream.Stream;
 public class RootPM {
 
     public enum DATABASES {
-        CSV(0),
-        SQLITE(1),
-        NEO4J(2);
+        CSV(0), SQLITE(1), NEO4J(2);
 
         private int type;
 
@@ -73,26 +71,14 @@ public class RootPM {
     private final BooleanProperty searchpanelShown = new SimpleBooleanProperty(false);
     private final StringProperty stationListTitleText = new SimpleStringProperty("Kraftwerke");
     private final StringProperty currentMaxItemsText = new SimpleStringProperty("");
+    private final StringProperty subtitle = new SimpleStringProperty();
     private final ObjectProperty<PowerStation> actualPowerStation = new SimpleObjectProperty();
-    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(
-            station -> new Observable[]{
-                    station.nameProperty(),
-                    station.typeProperty(),
-                    station.siteProperty(),
-                    station.cantonProperty(),
-                    station.maxWaterProperty(),
-                    station.maxPowerProperty(),
-                    station.startOperationProperty(),
-                    station.lastOperationProperty(),
-                    station.latitudeProperty(),
-                    station.longitudeProperty(),
-                    station.statusProperty(),
-                    station.waterbodiesProperty(),
-                    station.imgUrlProperty()});
+    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(station -> new Observable[]{station.nameProperty(), station.typeProperty(), station.siteProperty(), station.cantonProperty(), station.maxWaterProperty(), station.maxPowerProperty(), station.startOperationProperty(), station.lastOperationProperty(), station.latitudeProperty(), station.longitudeProperty(), station.statusProperty(), station.waterbodiesProperty(), station.imgUrlProperty()});
     private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);
     private final IntegerBinding totalPowerStations = Bindings.size(powerStationList);
     private final IntegerBinding numberOfPowerStations = Bindings.size(powerStationFilterList);
     private final ObservableList<Canton> cantons = FXCollections.observableArrayList();
+
 
     /************************************************ Editor Labels ************************************************/
 
@@ -162,13 +148,11 @@ public class RootPM {
             database = new SQLite(this, cantons, powerStationList);
             prefs.putInt(DATABASETYPE, DATABASES.SQLITE.getValue());
             disableSave.set(true);
-        }
-        else if (dbType == DATABASES.NEO4J) {
+        } else if (dbType == DATABASES.NEO4J) {
             database = new Neo4j(this, cantons, powerStationList);
             prefs.putInt(DATABASETYPE, DATABASES.NEO4J.getValue());
             disableSave.set(true);
-        }
-        else {
+        } else {
             if (initial) {
                 cantons.addAll(readCantons());
                 powerStationList.addAll(readPowerStations());
@@ -242,8 +226,7 @@ public class RootPM {
                 if (powerStationFile.createNewFile()) {
                     copyFileFromRessources(POWERSTATIONS_FILE, powerStationFile);
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 // TODO: handle exceptions
             }
 
@@ -251,8 +234,7 @@ public class RootPM {
                 if (cantonFile.createNewFile()) {
                     copyFileFromRessources(CANTONS_FILE, cantonFile);
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 // TODO: handle exceptions
             }
         }
@@ -305,6 +287,10 @@ public class RootPM {
         return mapsURL;
     }
 
+    public String getImageURL() {
+        return getActualPowerStation().getImgUrl();
+    }
+
     public String getOnlineMapUrl() {
         StringBuilder map = new StringBuilder();
         map.append("https://www.google.com/maps/place/");
@@ -355,8 +341,6 @@ public class RootPM {
 
     private void setupBindings() {
         currentMaxItemsTextProperty().bind(numberOfPowerStationsProperty().asString().concat("/").concat(totalPowerStationsProperty()));
-
-
     }
 
     private void unbindFromProxy(PowerStation station) {
@@ -619,6 +603,7 @@ public class RootPM {
 
     public void setActualPowerStation(PowerStation actualPowerStation) {
         this.actualPowerStation.set(actualPowerStation);
+        this.createSubtitle();
     }
 
     /************************************************ Editor Label Property Functions ************************************************/
@@ -780,5 +765,40 @@ public class RootPM {
 
     public ObservableList<Canton> getCantons() {
         return cantons;
+    }
+
+    public List<String> getCantonShort() {
+        ObservableList<Canton> cantons = getCantons();
+        return cantons.stream().map(e -> e.getShortName()).collect(Collectors.toList());
+    }
+
+    public List<String> getTypes() {
+        ObservableList<PowerStation> powerstations = getPowerStationList();
+        return powerstations.stream().map(e -> e.getType()).distinct().collect(Collectors.toList());
+    }
+
+    public void createSubtitle() {
+        StringBuilder subtitle = new StringBuilder();
+        subtitle.append(getActualPowerStation().getSite());
+        subtitle.append(", ");
+        subtitle.append(getActualPowerStation().getCanton());
+        subtitle.append("  |  ");
+        subtitle.append(getActualPowerStation().getMaxPower());
+        subtitle.append(" MW");
+        subtitle.append("  |  ");
+        subtitle.append(getActualPowerStation().getStartOperation());
+        setSubtitle(subtitle.toString());
+    }
+
+    public String getSubtitle() {
+        return subtitle.get();
+    }
+
+    public StringProperty subtitleProperty() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle.set(subtitle);
     }
 }

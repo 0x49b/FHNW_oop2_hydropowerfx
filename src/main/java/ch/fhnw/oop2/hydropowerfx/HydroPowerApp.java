@@ -85,7 +85,7 @@ public class HydroPowerApp extends Application {
         primaryStage.setScene(scene);
 
         //Todo Width & Height has to be deleted when Application is fully Implemented
-        primaryStage.setWidth(1000);
+        primaryStage.setWidth(1100);
         primaryStage.setHeight(780);
         primaryStage.show();
     }
