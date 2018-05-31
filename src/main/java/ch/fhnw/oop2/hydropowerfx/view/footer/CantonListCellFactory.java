@@ -17,6 +17,7 @@ public class CantonListCellFactory extends ListCell<Canton> {
     private String canton;
     private Image cantonImage;
     private RootPM rootPM;
+    private Button filterButton;
 
 
     public CantonListCellFactory(RootPM rootPM) {
@@ -68,15 +69,21 @@ public class CantonListCellFactory extends ListCell<Canton> {
                 ImageView filterImage = new ImageView(new Image(this.getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/filter.png")));
                 filterImage.setFitHeight(15);
                 filterImage.setFitWidth(15);
-                Button button = new Button();
-                button.setGraphic(filterImage);
-                button.getStyleClass().add("canton-cell-filter");
+                filterButton = new Button();
+                filterButton.setGraphic(filterImage);
+                filterButton.getStyleClass().add("canton-cell-filter");
 
-                HBox hBox = new HBox(cantonView, stationName, cantonCountText, cantonPowerText, portionSwiss, cantonPowerCount, button);
+                HBox hBox = new HBox(cantonView, stationName, cantonCountText, cantonPowerText, portionSwiss, cantonPowerCount, filterButton);
                 hBox.setSpacing(10);
                 setGraphic(hBox);
+
+                setupBindings(field);
             }
         }
+    }
+
+    public void setupBindings(Canton canton) {
+        filterButton.setOnAction(ae -> rootPM.setCantonFilter(canton.getShortName()));
     }
 
     private double calcStationCountWidth(int numStations) {
