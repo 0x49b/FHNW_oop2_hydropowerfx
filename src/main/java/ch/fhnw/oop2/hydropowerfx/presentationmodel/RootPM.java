@@ -4,6 +4,7 @@ import ch.fhnw.oop2.hydropowerfx.database.Database;
 import ch.fhnw.oop2.hydropowerfx.database.neo4j.Neo4j;
 import ch.fhnw.oop2.hydropowerfx.database.sqlite.SQLite;
 import ch.fhnw.oop2.hydropowerfx.view.preferences.PreferencesPanel;
+import com.oracle.tools.packager.IOUtils;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
@@ -16,7 +17,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -55,6 +59,9 @@ public class RootPM {
     private static final String POWERSTATIONS_FILE = "/data/HYDRO_POWERSTATION.csv";
     private static final String CANTONS_FILE = "/data/cantons.csv";
     private static final String DELIMITER = ";";
+    private String filePath;
+    private String powerStationFilePath;
+    private String cantonFilePath;
 
     private final PowerStation powerStationProxy = new PowerStation();
 
@@ -127,8 +134,9 @@ public class RootPM {
 
     public RootPM() {
         prefs = Preferences.userRoot().node(this.getClass().getName());
-
         DATABASES db = DATABASES.fromInt(prefs.getInt(DATABASETYPE, DATABASES.CSV.getValue()));
+
+        moveCsvToUserFolder();
 
         initDatabase(db, true);
 
@@ -196,13 +204,13 @@ public class RootPM {
     /************************************************ File reading and writing ************************************************/
 
     private List<PowerStation> readPowerStations() {
-        try (Stream<String> stream = getStreamOfLines(POWERSTATIONS_FILE)) {
+        try (Stream<String> stream = getStreamOfLines(powerStationFilePath)) {
             return stream.skip(1).map(line -> new PowerStation(line.split(DELIMITER, 22))).collect(Collectors.toList());
         }
     }
 
     private List<Canton> readCantons() {
-        try (Stream<String> stream = getStreamOfLines(CANTONS_FILE)) {
+        try (Stream<String> stream = getStreamOfLines(cantonFilePath)) {
             return stream.skip(1).map(line -> new Canton(line.split(DELIMITER, 22), powerStationList)).collect(Collectors.toList());
         }
     }
@@ -211,19 +219,63 @@ public class RootPM {
         //TODO implement
     }
 
-    private Path getPath(String fileName) {
+    private Stream<String> getStreamOfLines(String fileName) {
         try {
-            return Paths.get(getClass().getResource(fileName).toURI());
-        } catch (URISyntaxException e) {
-            throw new IllegalArgumentException(e);
+            return Files.lines(Paths.get(fileName), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
         }
     }
 
-    private Stream<String> getStreamOfLines(String fileName) {
+    private void moveCsvToUserFolder() {
+        filePath = System.getProperty("user.home") + File.separator + "HydroPowerFX";
+        File directory = new File(filePath);
+
+        if (directory.exists() || directory.mkdirs()) {
+            powerStationFilePath = filePath + File.separator + "HYDRO_POWERSTATION.csv";
+            cantonFilePath = filePath + File.separator + "cantons.csv";
+
+            File powerStationFile = new File(powerStationFilePath);
+            File cantonFile = new File(cantonFilePath);
+
+            try {
+                if (powerStationFile.createNewFile()) {
+                    copyFileFromRessources(POWERSTATIONS_FILE, powerStationFile);
+                }
+            }
+            catch (IOException e) {
+                // TODO: handle exceptions
+            }
+
+            try {
+                if (cantonFile.createNewFile()) {
+                    copyFileFromRessources(CANTONS_FILE, cantonFile);
+                }
+            }
+            catch (IOException e) {
+                // TODO: handle exceptions
+            }
+        }
+    }
+
+    private void copyFileFromRessources(String source, File destination) {
         try {
-            return Files.lines(getPath(fileName), StandardCharsets.UTF_8);
+            InputStream in = getClass().getResourceAsStream(source);
+            if (in == null) {
+                return;
+            }
+
+            try (FileOutputStream out = new FileOutputStream(destination)) {
+                //copy stream
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    out.write(buffer, 0, bytesRead);
+                }
+                System.out.println("wrote data");
+            }
         } catch (IOException e) {
-            throw new IllegalStateException(e);
+            e.printStackTrace();
         }
     }
 
