@@ -20,12 +20,6 @@ public class Neo4j extends Database {
     public Neo4j(RootPM rootPM, ObservableList<Canton> cantons, ObservableList<PowerStation> stations) {
         super(rootPM, cantons, stations);
 
-        /*
-        Configuration configuration = new Configuration.Builder()
-                .uri("bolt://localhost")
-                .credentials("hydropower", "1234")
-                .build();
-                */
         Configuration configuration = new Configuration.Builder()
                 .uri(rootPM.getFilePathURI().toString() + "neo4j.db")
                 .build();
