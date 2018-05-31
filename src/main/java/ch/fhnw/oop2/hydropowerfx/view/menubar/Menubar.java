@@ -13,8 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-import javax.swing.event.ChangeListener;
-
 public class Menubar extends VBox implements ViewMixin {
 
     private RootPM rootPM;
@@ -141,15 +139,6 @@ public class Menubar extends VBox implements ViewMixin {
         deletestation.setOnAction(ae -> {
             rootPM.deletePowerStation();
         });
-
-        rootPM.saveShownProperty().addListener((observable, oldValue, newValue) -> {
-            if (!oldValue && newValue) {
-                savestation.setDisable(false);
-            }
-            else if (!newValue && oldValue) {
-                savestation.setDisable(true);
-            }
-        });
     }
 
     @Override
@@ -159,6 +148,8 @@ public class Menubar extends VBox implements ViewMixin {
 
     @Override
     public void setupBindings() {
+        savestation.disableProperty().bind(rootPM.disableSaveProperty());
+
         version.textProperty().bind(rootPM.versionInformationProperty());
         search.setOnAction(event -> {
             searchpanel.showhide();
