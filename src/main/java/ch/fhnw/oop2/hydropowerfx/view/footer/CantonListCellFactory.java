@@ -77,13 +77,13 @@ public class CantonListCellFactory extends ListCell<Canton> {
                 hBox.setSpacing(10);
                 setGraphic(hBox);
 
-                setupBindings();
+                setupBindings(field);
             }
         }
     }
 
-    public void setupBindings() {
-        filterButton.setOnAction(ae -> rootPM.setCantonFilter("AG"));
+    public void setupBindings(Canton canton) {
+        filterButton.setOnAction(ae -> rootPM.setCantonFilter(canton.getShortName()));
     }
 
     private double calcStationCountWidth(int numStations) {
