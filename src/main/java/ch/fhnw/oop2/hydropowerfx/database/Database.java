@@ -2,6 +2,7 @@ package ch.fhnw.oop2.hydropowerfx.database;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.Canton;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
+import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
@@ -10,10 +11,14 @@ import java.util.Comparator;
 
 public abstract class Database {
 
+    protected RootPM rootPM;
+
     protected ObservableList<Canton> cantonList;
     protected ObservableList<PowerStation> stationList;
 
-    public Database(ObservableList<Canton> cantonList, ObservableList<PowerStation> stationList) {
+    public Database(RootPM rootPM, ObservableList<Canton> cantonList, ObservableList<PowerStation> stationList) {
+
+        this.rootPM = rootPM;
 
         this.cantonList = cantonList;
         this.stationList = stationList;
