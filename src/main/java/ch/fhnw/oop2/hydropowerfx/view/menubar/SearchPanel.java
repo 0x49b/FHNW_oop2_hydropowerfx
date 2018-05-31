@@ -67,13 +67,16 @@ public class SearchPanel extends StackPane implements ViewMixin {
 
     @Override
     public void setupValueChangedListeners() {
+        /*
         searchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             rootPM.searchPowerStations(searchInput.getText());
         });
+        */
     }
 
     @Override
     public void setupBindings() {
+        searchInput.textProperty().bindBidirectional(rootPM.searchTextProperty());
     }
 
     public void showhide() {

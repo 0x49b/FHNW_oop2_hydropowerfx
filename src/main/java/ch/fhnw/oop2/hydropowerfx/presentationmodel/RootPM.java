@@ -94,6 +94,9 @@ public class RootPM {
     private final IntegerBinding numberOfPowerStations = Bindings.size(powerStationFilterList);
     private final ObservableList<Canton> cantons = FXCollections.observableArrayList();
 
+    private final StringProperty searchText = new SimpleStringProperty("");
+    private final StringProperty cantonFilter = new SimpleStringProperty("");
+
     /************************************************ Editor Labels ************************************************/
 
     private final StringProperty labelName = new SimpleStringProperty("Name");
@@ -395,6 +398,14 @@ public class RootPM {
     }
 
     private void setupListeners() {
+        searchText.addListener((observable, oldValue, newValue) -> {
+            filterPowerStations();
+        });
+
+        cantonFilter.addListener((observable, oldValue, newValue) -> {
+            filterPowerStations();
+        });
+
         actualPowerStationProperty().addListener(((observable, oldValue, newValue) -> {
 
             if (oldValue != null) {
@@ -407,11 +418,31 @@ public class RootPM {
         }));
     }
 
-    public void searchPowerStations(String search) {
+    public void filterPowerStations() {
+        String search = getSearchText();
+
         if (search == null || search.length() == 0) {
-            powerStationFilterList.setPredicate(s -> true);
+            powerStationFilterList.setPredicate(s -> {
+                boolean filter = true;
+
+                if (getCantonFilter() != "") {
+                    filter = s.getCanton().equals(getCantonFilter());
+                }
+
+                return filter;
+            });
         } else {
-            powerStationFilterList.setPredicate(s -> s.getCanton().contains(search) || s.getName().contains(search));
+            powerStationFilterList.setPredicate(s -> {
+                boolean filter = true;
+
+                filter = s.getName().contains(search);
+
+                if (getCantonFilter() != "") {
+                    filter = filter && s.getCanton().equals(getCantonFilter());
+                }
+
+                return filter;
+            });
         }
     }
 
@@ -555,6 +586,29 @@ public class RootPM {
         this.versionInformation.set(versionInformation);
     }
 
+    public String getSearchText() {
+        return searchText.get();
+    }
+
+    public StringProperty searchTextProperty() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText.set(searchText);
+    }
+
+    public String getCantonFilter() {
+        return cantonFilter.get();
+    }
+
+    public StringProperty cantonFilterProperty() {
+        return cantonFilter;
+    }
+
+    public void setCantonFilter(String cantonFilter) {
+        this.cantonFilter.set(cantonFilter);
+    }
 
     // searchpanel
     public boolean isSearchpanelShown() {
