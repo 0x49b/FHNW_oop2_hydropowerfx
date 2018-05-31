@@ -26,7 +26,6 @@ public class PreferencesPanel extends VBox implements ViewMixin {
 
     public PreferencesPanel(RootPM rootPM) {
         this.rootPM = rootPM;
-
         init();
     }
 

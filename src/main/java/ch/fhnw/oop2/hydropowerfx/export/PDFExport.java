@@ -2,6 +2,8 @@ package ch.fhnw.oop2.hydropowerfx.export;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
+import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
+import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import javafx.stage.DirectoryChooser;
@@ -25,13 +27,11 @@ public class PDFExport {
     private static Font smallFont = new Font(Font.FontFamily.HELVETICA, 7);
 
 
-    public PDFExport(PowerStation actualStation, RootPM rootPM) {
+    public PDFExport(PowerStation actualStation, RootPM rootPM, RootPanel rootPanel) {
         this.actualStation = actualStation;
         this.rootPM = rootPM;
-
-
-        System.out.println("generating PDF for Station: " + actualStation.getEntitiyID() + " NAME" + actualStation.getName());
         chooseFileSaveLocation();
+        new NotificationPanel(rootPanel, "PDF wird erstellt  ", NotificationPanel.Type.INFO).show();
     }
 
     private void chooseFileSaveLocation() {
@@ -39,7 +39,6 @@ public class PDFExport {
         directoryChooser.setTitle("Speicherort wählen ...");
         location = directoryChooser.showDialog(rootPM.getPrimaryStage());
         if (location != null) {
-            System.out.println(location.getAbsolutePath());
             createPDF();
         }
     }

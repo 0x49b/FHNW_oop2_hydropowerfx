@@ -144,18 +144,7 @@ public class Menubar extends VBox implements ViewMixin {
         deletestation.setOnAction(ae -> {
             rootPM.deletePowerStation();
         });
-    }
 
-    @Override
-    public void setupValueChangedListeners() {
-
-    }
-
-    @Override
-    public void setupBindings() {
-        savestation.disableProperty().bind(rootPM.disableSaveProperty());
-
-        version.textProperty().bind(rootPM.versionInformationProperty());
         search.setOnAction(event -> {
             searchpanel.showhide();
         });
@@ -164,9 +153,15 @@ public class Menubar extends VBox implements ViewMixin {
         });
 
         topdf.setOnAction(event -> {
-            PDFExport pdfwriter = new PDFExport(rootPM.getActualPowerStation(), rootPM);
-            new NotificationPanel(rootPanel, "PDF wird erstellt", NotificationPanel.Type.INFO).show();
+            PDFExport pdfwriter = new PDFExport(rootPM.getActualPowerStation(), rootPM, rootPanel);
         });
+    }
+
+
+    @Override
+    public void setupBindings() {
+        savestation.disableProperty().bind(rootPM.disableSaveProperty());
+        version.textProperty().bind(rootPM.versionInformationProperty());
     }
 
     //getter for searchbutton

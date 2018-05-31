@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -346,13 +347,14 @@ public class RootPM {
         Parent rootPanel = new PreferencesPanel(this);
         Scene scene = new Scene(rootPanel);
         Stage preferences = new Stage();
+        preferences.initModality(Modality.APPLICATION_MODAL);
         preferences.titleProperty().bind(preferencesTitleProperty());
         preferences.setScene(scene);
         preferences.setWidth(500);
         preferences.setHeight(300);
         preferences.setResizable(false);
         preferences.initStyle(StageStyle.UNDECORATED);
-        preferences.show();
+        preferences.showAndWait();
     }
 
     private void setupBindings() {
