@@ -258,7 +258,7 @@ public class Editor extends VBox implements ViewMixin {
     @Override
     public void setupValueChangedListeners() {
 
-        titleStationName.textProperty().addListener((observable, oldValue, newValue) -> {
+        latitude.textProperty().addListener((observable, oldValue, newValue) -> {
 
             if (rootPM.getImageURL() != "") {
                 editorTab.getTabs().add(imageTab);
