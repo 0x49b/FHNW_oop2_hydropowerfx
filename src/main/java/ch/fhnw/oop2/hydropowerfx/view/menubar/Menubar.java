@@ -13,9 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-
 public class Menubar extends VBox implements ViewMixin {
 
     private RootPM rootPM;
@@ -29,6 +26,7 @@ public class Menubar extends VBox implements ViewMixin {
     private Button deletestation;
     private Button savestation;
     private Button search;
+    private Button clearFilter;
     private Button topdf;
     private Button settings;
     private Label version;
@@ -39,6 +37,7 @@ public class Menubar extends VBox implements ViewMixin {
     private ImageView deletestationImage;
     private ImageView savestationImage;
     private ImageView searchImage;
+    private ImageView clearFilterImage;
     private ImageView topdfImage;
     private ImageView settingsImage;
     private SearchPanel searchpanel;
@@ -105,6 +104,13 @@ public class Menubar extends VBox implements ViewMixin {
         search.setGraphic(searchImage);
         searchpanel = new SearchPanel(rootPanel, rootPM, menubar);
 
+        // Delete Filter
+        clearFilterImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/clearfilter.png")));
+        clearFilter = new Button();
+        clearFilter.getStyleClass().addAll("menubar-item", "menubar-button", "clearfilter");
+        clearFilter.setGraphic(clearFilterImage);
+
+        // PDF Exporter
         topdfImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/topdf.png")));
         topdf = new Button();
         topdf.getStyleClass().addAll("menubar-item", "menubar-button", "topdf");
@@ -128,7 +134,7 @@ public class Menubar extends VBox implements ViewMixin {
 
     @Override
     public void layoutControls() {
-        this.getChildren().addAll(hpfxLogo, undo, redo, newstation, savestation, deletestation, search, topdf, settings, version);
+        this.getChildren().addAll(hpfxLogo, undo, redo, newstation, savestation, deletestation, search, clearFilter, topdf, settings, version);
     }
 
     @Override
@@ -149,12 +155,19 @@ public class Menubar extends VBox implements ViewMixin {
             searchpanel.showhide();
         });
         savestation.setOnAction(event -> {
-            new NotificationPanel(rootPanel, "gespeichert", NotificationPanel.Type.SUCCESS).show();
+            new NotificationPanel(rootPanel, "Daten gespeichert", NotificationPanel.Type.SUCCESS).show();
         });
 
         topdf.setOnAction(event -> {
-            PDFExport pdfwriter = new PDFExport(rootPM.getActualPowerStation(), rootPM, rootPanel);
+            new PDFExport(rootPM.getActualPowerStation(), rootPM, rootPanel);
         });
+
+        clearFilter.setOnAction(event -> {
+            rootPM.setCantonFilter("");
+            rootPM.setSearchText("");
+            new NotificationPanel(rootPanel, "Filter gelöscht", NotificationPanel.Type.SUCCESS).show();
+        });
+
     }
 
 
