@@ -1,6 +1,7 @@
 package ch.fhnw.oop2.hydropowerfx.view.stationlist;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,9 +27,10 @@ public class StationListCellFactory extends ListCell<PowerStation> {
         } else {
             if (field != null) {
 
-                Text stationName = new Text(field.getName());
+                Label stationName = new Label(field.getName());
                 stationName.getStyleClass().add("station-cell-name");
-                Text maxPower = new Text(field.getMaxPower() + " MW");
+
+                Label maxPower = new Label(field.getMaxPower() + " MW");
                 maxPower.getStyleClass().add("station-cell-maxpower");
 
                 VBox vBox = new VBox(stationName, maxPower);

@@ -22,7 +22,7 @@ public class Menubar extends VBox implements ViewMixin {
     private VBox buttonCol;
     private VBox footerCol;
 
-    private Button hpfxlogobtn;
+
     private Button undo;
     private Button redo;
     private Button newstation;
@@ -34,7 +34,7 @@ public class Menubar extends VBox implements ViewMixin {
     private Button settings;
     private Label version;
 
-    private ImageView hpfxLogo;
+    private ImageView hpfxlogo;
     private ImageView undoImage;
     private ImageView redoImage;
     private ImageView newstationImage;
@@ -60,13 +60,6 @@ public class Menubar extends VBox implements ViewMixin {
 
     @Override
     public void initializeControls() {
-
-        // Logo
-        hpfxLogo = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/hpfxlogo.png")));
-        hpfxLogo.getStyleClass().addAll("menubar-item", "menubar-button", "logo");
-        hpfxlogobtn = new Button();
-        hpfxlogobtn.setGraphic(hpfxLogo);
-
         // undo Button
         undoImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/undo.png")));
         undo = new Button();
@@ -144,7 +137,7 @@ public class Menubar extends VBox implements ViewMixin {
 
     @Override
     public void layoutControls() {
-        buttonCol.getChildren().addAll(hpfxlogobtn, undo, redo, newstation, savestation, deletestation, search, clearFilter, topdf);
+        buttonCol.getChildren().addAll(undo, redo, newstation, savestation, deletestation, search, clearFilter, topdf);
         footerCol.getChildren().addAll(settings, version);
         this.getChildren().addAll(buttonCol, footerCol);
         this.setVgrow(buttonCol, Priority.ALWAYS);
@@ -152,13 +145,9 @@ public class Menubar extends VBox implements ViewMixin {
 
     @Override
     public void setupEventHandlers() {
-        settings.setOnAction(event -> {
-            rootPM.openPreferences();
-        });
+        settings.setOnAction(event -> rootPM.openPreferences());
+        newstation.setOnAction(event -> rootPM.addPowerStation());
 
-        newstation.setOnAction(ae -> {
-            rootPM.addPowerStation();
-        });
 
         deletestation.setOnAction(ae -> {
             String name = rootPM.getActualPowerStation().getName();
@@ -166,16 +155,13 @@ public class Menubar extends VBox implements ViewMixin {
             new NotificationPanel(rootPanel, name + " gelöscht", NotificationPanel.Type.SUCCESS).show();
         });
 
-        search.setOnAction(event -> {
-            searchpanel.showhide();
-        });
+
         savestation.setOnAction(event -> {
             new NotificationPanel(rootPanel, "Daten gespeichert", NotificationPanel.Type.SUCCESS).show();
         });
 
-        topdf.setOnAction(event -> {
-            new PDFExport(rootPM.getActualPowerStation(), rootPM, rootPanel);
-        });
+        search.setOnAction(event -> searchpanel.showhide());
+        topdf.setOnAction(event -> new PDFExport(rootPM.getActualPowerStation(), rootPM, rootPanel));
 
         clearFilter.setOnAction(event -> {
             rootPM.setCantonFilter("");

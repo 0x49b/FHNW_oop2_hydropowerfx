@@ -46,82 +46,113 @@
     -fx-font-size: 30;
     -fx-font-family: Montserrat;
 }
+
+.button-primary {
+    -fx-background-color: #3399CC;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-border-radius: 0, 0, 0, 0;
+}
+
+.button-light {
+    -fx-background-color: #91C9E8;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-border-radius: 0, 0, 0, 0;
+}
+
+.button-light:hover {
+    -fx-background-color: #3399CC;
+}
+
 /***********************************************************************************************************************
     scrollbar
  **********************************************************************************************************************/
-.scroll-bar{
+.scroll-bar {
     -fx-background-color: rgb(45, 83, 115);
     -fx-background-radius: 2em;
 }
+
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track {
     -fx-background-color: transparent;
-    -fx-border-color:transparent;
+    -fx-border-color: transparent;
     -fx-background-radius: 2em;
 }
+
 .scroll-bar:vertical .track-background,
 .scroll-bar:horizontal .track-background {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-background-radius: 2em;
 }
+
 .scroll-bar:horizontal .thumb {
-    -fx-background-color: rgb(211,211,211);
+    -fx-background-color: rgb(211, 211, 211);
     -fx-background-insets: 4 0 4 0;
     -fx-background-radius: 2em;
 }
+
 .scroll-bar:vertical .thumb {
-    -fx-background-color: rgb(211,211,211);
+    -fx-background-color: rgb(211, 211, 211);
     -fx-background-insets: 0 4 0 4;
     -fx-background-radius: 2em;
 }
+
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover {
-    -fx-background-color: rgb(231,231,231);
+    -fx-background-color: rgb(231, 231, 231);
 }
+
 .scroll-bar:horizontal .thumb:pressed,
 .scroll-bar:vertical .thumb:pressed {
-    -fx-background-color: rgb(255,255,255);
+    -fx-background-color: rgb(255, 255, 255);
 }
+
 .scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
-    -fx-background-color:transparent;
+    -fx-background-color: transparent;
     -fx-background-radius: 2em;
     -fx-padding: 5;
 }
+
 .scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
-    -fx-background-color:transparent;
+    -fx-background-color: transparent;
     -fx-background-radius: 2em;
     -fx-padding: 5;
 }
+
 .scroll-bar:horizontal .increment-arrow {
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-background-color: rgb(211,211,211);
     -fx-padding: 0.25em;
     -fx-rotate: -90;
 }
+
 .scroll-bar:vertical .increment-arrow {
     -fx-background-color: rgb(211,211,211);
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-padding: 0.25em;
     -fx-rotate: 0;
 }
+
 .scroll-bar:horizontal .decrement-arrow {
-    -fx-background-color: rgb(211,211,211);
+    -fx-background-color: rgb(211, 211, 211);
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-padding: 0.25em;
     -fx-rotate: 90;
 }
+
 .scroll-bar:vertical .decrement-arrow {
-    -fx-background-color: rgb(211,211,211);
+    -fx-background-color: rgb(211, 211, 211);
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-padding: 0.25em;
     -fx-rotate: -180;
 }
+
 .scroll-bar:vertical:focused,
 .scroll-bar:horizontal:focused {
-    -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
+    -fx-background-color: transparent, rgb(96, 96, 96), rgb(96, 96, 96);
 }
-.scroll-bar .corner{
+
+.scroll-bar .corner {
     -fx-background-color: transparent;
 }
 
@@ -143,7 +174,7 @@
 }
 
 .button {
-    -fx-background-color: #2D5373;
+    -fx-background-color: #2e5274;
     -fx-background-radius: 0, 0, 0, 0;
     -fx-border-radius: 0, 0, 0, 0;
 }
@@ -152,27 +183,6 @@
     -fx-background-color: #91C9E8;
     -fx-background-radius: 0, 0, 0, 0;
     -fx-border-radius: 0, 0, 0, 0;
-}
-
-.button-primary {
-    -fx-background-color: #3399CC;
-    -fx-background-radius: 0, 0, 0, 0;
-    -fx-border-radius: 0, 0, 0, 0;
-}
-
-.button-light {
-    -fx-background-color: #91C9E8;
-    -fx-background-radius: 0, 0, 0, 0;
-    -fx-border-radius: 0, 0, 0, 0;
-}
-
-.button-light:hover {
-    -fx-background-color: #3399CC;
-}
-
-.logo {
-    -fx-padding: 10;
-    -fx-border-color: #E8F8FF;
 }
 
 .version {
@@ -185,7 +195,9 @@
     -fx-background-radius: 0 10 10 0;
     -fx-padding: 10;
 }
+.logo{
 
+}
 /***********************************************************************************************************************
     Editor
  **********************************************************************************************************************/
@@ -243,6 +255,12 @@
     -fx-font-family: Rubik;
 }
 
+.station-cell-maxpower {
+    -fx-text-fill: #E8F8FF;
+    -fx-font-family: Rubik;
+    -fx-font-size: 12px;
+}
+
 .list-cell {
     -fx-background-color: #67B8DE;
     -fx-font-family: Rubik;
@@ -297,7 +315,7 @@
     -fx-border-color: transparent;
 }
 
-.tab-pane .tab:focused .tab:armed{
+.tab-pane .tab:focused .tab:armed {
     -fx-background-color: #2D5373;
     -fx-border-color: transparent;
 }
@@ -322,7 +340,11 @@
 /***********************************************************************************************************************
     PreferencePane
  **********************************************************************************************************************/
-.preference-panel, .tab-pane {
+.preferences-panel {
+    -fx-background-color: #67B8DE;
+}
+
+.tab-pane {
     -fx-background-color: #67B8DE;
     -fx-border-color: none;
 }
@@ -372,6 +394,30 @@
     -fx-padding: 6px;
     -fx-mark-highlight-color: #3399CC;
     -fx-mark-color: #3399CC;
+}
+
+.preferences-buttonbox {
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+}
+
+.preferences-cancel {
+    -fx-background-color: #E8F8FF;
+}
+
+.preferences-cancel:hover {
+    -fx-background-color: #2D5373;
+    -fx-text-fill: #E8F8FF;
+}
+
+.preferences-save {
+    -fx-background-color: #2D5373;
+    -fx-text-fill: #E8F8FF;
+}
+
+.preferences-save:hover {
+    -fx-background-color: #E8F8FF;
+    -fx-text-fill: #161616;
 }
 
 /***********************************************************************************************************************

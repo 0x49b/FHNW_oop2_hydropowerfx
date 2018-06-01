@@ -4,6 +4,7 @@ import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class PreferencesPanel extends VBox implements ViewMixin {
@@ -37,8 +38,7 @@ public class PreferencesPanel extends VBox implements ViewMixin {
 
     @Override
     public void initializeControls() {
-        getStyleClass().add("preference-panel");
-
+        this.getStyleClass().add("preferences-panel");
         tabPane = new TabPane();
         tabPane.setPrefSize(400, 250);
         tabPane.setMinSize(TabPane.USE_PREF_SIZE, TabPane.USE_PREF_SIZE);
@@ -83,10 +83,14 @@ public class PreferencesPanel extends VBox implements ViewMixin {
 
         tabPane.getTabs().add(dbTab);
         buttonBox = new HBox();
+        buttonBox.getStyleClass().add("preferences-buttonbox");
         cancel = new Button("Abbrechen");
-        cancel.getStyleClass().add("button-primary");
+        cancel.getStyleClass().add("preferences-cancel");
+
         save = new Button("Speichern");
-        save.getStyleClass().add("button-light");
+        save.getStyleClass().add("preferences-save");
+
+        this.setVgrow(buttonBox, Priority.ALWAYS);
 
     }
 
