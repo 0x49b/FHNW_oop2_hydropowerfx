@@ -142,6 +142,8 @@ public class RootPM {
 
         initDatabase(db, true);
 
+        cantons.sort(Comparator.comparing(Canton::getCantonName));
+
         setActualPowerStation(powerStationList.get(0));
         setupBindings();
         setupListeners();
