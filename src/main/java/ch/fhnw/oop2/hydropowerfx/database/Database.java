@@ -25,20 +25,24 @@ public abstract class Database {
     }
 
     protected void init() {
-        if (this.cantonList.size() > 0) {
-            this.cantonList.forEach(canton -> this.addCanton(canton));
+        if (this.cantonList.size() > 0 || this.stationList.size() > 0) {
+            addAllCantonsAndStations();
         }
         else {
             this.getAllCantons().stream().forEach(canton -> cantonList.add(canton));
+            this.getAllStations().stream().forEach(station -> stationList.add(station));
         }
 
+        /*
         if (this.stationList.size() > 0) {
             this.stationList.forEach(station -> this.addStation(station));
         }
         else {
             this.getAllStations().stream().forEach(station -> stationList.add(station));
         }
+        */
 
+        cantonList.sort(Comparator.comparing(Canton::getCantonName));
         stationList.sort(Comparator.comparing(PowerStation::getEntitiyID));
 
         this.addListeners();
@@ -108,6 +112,8 @@ public abstract class Database {
             }
         });
     }
+
+    protected abstract void addAllCantonsAndStations();
 
     protected abstract Collection<Canton> getAllCantons();
 

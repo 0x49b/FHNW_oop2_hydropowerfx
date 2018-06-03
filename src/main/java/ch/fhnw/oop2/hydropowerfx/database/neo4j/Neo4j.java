@@ -11,7 +11,9 @@ import org.neo4j.ogm.session.SessionFactory;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Neo4j extends Database {
 
@@ -32,6 +34,32 @@ public class Neo4j extends Database {
     @Override
     public void close() {
         sessionFactory.close();
+    }
+
+    @Override
+    protected void addAllCantonsAndStations() {
+        Session session = sessionFactory.openSession();
+
+        for (Canton canton : cantonList) {
+
+            CantonNode cn = new CantonNode(canton);
+
+            for (PowerStation station : canton.getCantonStationsList()) {
+                StationNode sn = new StationNode(station);
+
+                sn.setCantonNode(cn);
+            }
+
+            session.save(cn);
+        }
+
+        List<PowerStation> psList = stationList.stream().filter(station -> station.getCanton().equals("")).collect(Collectors.toList());
+
+        for (PowerStation station : psList) {
+            StationNode sn = new StationNode(station);
+
+            session.save(sn);
+        }
     }
 
     @Override

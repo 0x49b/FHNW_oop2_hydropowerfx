@@ -89,7 +89,11 @@ public class RootPM {
     private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);
     private final IntegerBinding totalPowerStations = Bindings.size(powerStationList);
     private final IntegerBinding numberOfPowerStations = Bindings.size(powerStationFilterList);
-    private final ObservableList<Canton> cantons = FXCollections.observableArrayList();
+    private final ObservableList<Canton> cantons = FXCollections.observableArrayList(
+            canton -> new Observable[]{
+                    canton.totalPowerProperty()
+            }
+    );
 
     private final StringProperty searchText = new SimpleStringProperty("");
     private final StringProperty cantonFilter = new SimpleStringProperty("");
