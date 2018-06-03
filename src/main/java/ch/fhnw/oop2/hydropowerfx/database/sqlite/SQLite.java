@@ -17,6 +17,10 @@ public class SQLite extends Database {
         init();
     }
 
+    @Override protected void addAllCantonsAndStations() {
+
+    }
+
     @Override protected Collection<Canton> getAllCantons() {
         return null;
     }
