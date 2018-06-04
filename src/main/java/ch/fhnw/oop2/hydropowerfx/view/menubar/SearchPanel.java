@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 
+import java.util.Date;
 
 public class SearchPanel extends StackPane implements ViewMixin {
 
@@ -90,17 +91,19 @@ public class SearchPanel extends StackPane implements ViewMixin {
 
     //get that search visible
     public void show() {
-        this.setLayoutY(this.menubar.getSearch().getLayoutY());
-        this.setLayoutX(50);
+        if ((rootPM.getSearchLastVisible() + 500) <= new Date().getTime()) {
+            this.setLayoutY(this.menubar.getSearch().getLayoutY());
+            this.setLayoutX(50);
 
-        Platform.runLater(() -> {
-            searchInput.selectAll();
-            searchInput.requestFocus();
-            searchInput.isFocused();
-        });
+            Platform.runLater(() -> {
+                searchInput.selectAll();
+                searchInput.requestFocus();
+                searchInput.isFocused();
+            });
 
-        rootPanel.getChildren().add(this);
-        rootPM.setSearchpanelShown(true);
+            rootPanel.getChildren().add(this);
+            rootPM.setSearchpanelShown(true);
+        }
     }
 
     // empty that search and hide it
@@ -109,5 +112,6 @@ public class SearchPanel extends StackPane implements ViewMixin {
         this.setLayoutX(-(this.SPWIDTH));
         rootPM.setSearchpanelShown(false);
         rootPanel.getChildren().remove(this);
+        rootPM.setSearchLastVisible(new Date().getTime());
     }
 }
