@@ -10,6 +10,9 @@ import javafx.stage.DirectoryChooser;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -55,6 +58,7 @@ public class PDFExport {
             addMetaData(document);
             addHeader(document);
             addContent(document);
+            addImage(document);
             document.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,6 +174,21 @@ public class PDFExport {
 
         subCatPart.add(table);
 
+    }
+
+    private void addImage(Document document) throws DocumentException, MalformedURLException, IOException {
+
+        Paragraph paragraph = new Paragraph();
+
+        URL imageURL = new URL(rootPM.getMapURL());
+        Image image = Image.getInstance(imageURL);
+        image.setAlignment(Image.ALIGN_RIGHT);
+
+        Chunk chunk = new Chunk(image, 0, -20);
+        paragraph.add("\n\n\n\n\n\n\n\n\n\n\n");
+        paragraph.add(chunk);
+
+        document.add(paragraph);
     }
 
 
