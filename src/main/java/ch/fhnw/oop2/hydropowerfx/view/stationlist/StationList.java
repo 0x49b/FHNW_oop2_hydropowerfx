@@ -16,6 +16,7 @@ public class StationList extends VBox implements ViewMixin {
     private Label stationListTitle;
     private ListView<PowerStation> stationList;
     private Label currentMaxItems;
+    private Label activeFilters;
 
     public StationList(RootPM rootPM) {
         this.rootPM = rootPM;
@@ -31,6 +32,9 @@ public class StationList extends VBox implements ViewMixin {
     public void initializeControls() {
         stationListTitle = new Label();
         stationListTitle.getStyleClass().addAll("stationlist-title", "title");
+
+        activeFilters = new Label();
+        activeFilters.getStyleClass().addAll("stationlist-filter");
 
         stationList = new ListView<>();
         stationList.getStyleClass().add("stationlist-listview");
@@ -50,7 +54,7 @@ public class StationList extends VBox implements ViewMixin {
     @Override
     public void layoutControls() {
 
-        this.getChildren().addAll(stationListTitle, stationList, currentMaxItems);
+        this.getChildren().addAll(stationListTitle, activeFilters, stationList, currentMaxItems);
     }
 
     @Override
@@ -65,6 +69,7 @@ public class StationList extends VBox implements ViewMixin {
     @Override
     public void setupBindings() {
         stationListTitle.textProperty().bind(rootPM.stationListTitleTextProperty());
+        activeFilters.textProperty().bind(rootPM.activeFiltersProperty());
         currentMaxItems.textProperty().bind(rootPM.currentMaxItemsTextProperty());
     }
 }

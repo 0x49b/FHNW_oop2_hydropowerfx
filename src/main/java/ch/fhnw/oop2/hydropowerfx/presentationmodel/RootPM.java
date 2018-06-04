@@ -155,7 +155,6 @@ public class RootPM {
             filterString = filterString + "Suche: " + searchText.get() + " | Kanton: " + cantonFilter.get() + " ]";
         }
 
-        System.out.println(filterString);
         setActiveFilters(filterString);
     };
 
