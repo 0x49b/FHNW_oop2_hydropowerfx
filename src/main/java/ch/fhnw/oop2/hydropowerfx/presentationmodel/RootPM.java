@@ -76,32 +76,15 @@ public class RootPM {
     private final StringProperty currentMaxItemsText = new SimpleStringProperty("");
     private final StringProperty subtitle = new SimpleStringProperty();
     private final ObjectProperty<PowerStation> actualPowerStation = new SimpleObjectProperty();
-    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(
-            station -> new Observable[]{
-                    station.nameProperty(),
-                    station.typeProperty(),
-                    station.siteProperty(),
-                    station.cantonProperty(),
-                    station.maxWaterProperty(),
-                    station.maxPowerProperty(),
-                    station.startOperationProperty(),
-                    station.lastOperationProperty(),
-                    station.latitudeProperty(),
-                    station.longitudeProperty(),
-                    station.statusProperty(),
-                    station.waterbodiesProperty(),
-                    station.imgUrlProperty()});
+    private final ObservableList<PowerStation> powerStationList = FXCollections.observableArrayList(station -> new Observable[]{station.nameProperty(), station.typeProperty(), station.siteProperty(), station.cantonProperty(), station.maxWaterProperty(), station.maxPowerProperty(), station.startOperationProperty(), station.lastOperationProperty(), station.latitudeProperty(), station.longitudeProperty(), station.statusProperty(), station.waterbodiesProperty(), station.imgUrlProperty()});
     private final FilteredList<PowerStation> powerStationFilterList = new FilteredList<>(powerStationList);
     private final IntegerBinding totalPowerStations = Bindings.size(powerStationList);
     private final IntegerBinding numberOfPowerStations = Bindings.size(powerStationFilterList);
-    private final ObservableList<Canton> cantons = FXCollections.observableArrayList(
-            canton -> new Observable[]{
-                    canton.totalPowerProperty()
-            }
-    );
+    private final ObservableList<Canton> cantons = FXCollections.observableArrayList(canton -> new Observable[]{canton.totalPowerProperty()});
 
     private final StringProperty searchText = new SimpleStringProperty("");
     private final StringProperty cantonFilter = new SimpleStringProperty("");
+    private final DoubleProperty totalSwissPowerOutput = new SimpleDoubleProperty();
 
     /************************************************ Editor Labels ************************************************/
 
@@ -169,6 +152,7 @@ public class RootPM {
         setupListeners();
 
         setActualPowerStation(powerStationList.get(0));
+        setTotalSwissPowerOutput(calcSwissPowerOutput());
         bindToProxy(powerStationList.get(0));
     }
 
@@ -494,24 +478,24 @@ public class RootPM {
 
     /************************************************ Undo/Redo ************************************************/
 
-    void setPropertyValue(Property property, Object newValue){
+    void setPropertyValue(Property property, Object newValue) {
         property.removeListener(propertyChangeListenerForUndoSupport);
         property.setValue(newValue);
         property.addListener(propertyChangeListenerForUndoSupport);
     }
 
-    void addToList(int position, PowerStation station){
+    void addToList(int position, PowerStation station) {
         powerStationList.add(position, station);
         setActualPowerStation(station);
     }
 
-    void removeFromList(PowerStation station){
+    void removeFromList(PowerStation station) {
         unbindFromProxy(station);
         disableUndoSupport(station);
 
         powerStationList.remove(station);
 
-        if(!powerStationFilterList.isEmpty()){
+        if (!powerStationFilterList.isEmpty()) {
             setActualPowerStation(powerStationFilterList.get(0));
         }
     }
@@ -828,11 +812,17 @@ public class RootPM {
         this.createSubtitle();
     }
 
-    public String getAboutText() { return aboutText.get(); }
+    public String getAboutText() {
+        return aboutText.get();
+    }
 
-    public StringProperty aboutTextProperty() { return aboutText; }
+    public StringProperty aboutTextProperty() {
+        return aboutText;
+    }
 
-    public void setAboutText(String aboutText) { this.aboutText.set(aboutText); }
+    public void setAboutText(String aboutText) {
+        this.aboutText.set(aboutText);
+    }
 
     /************************************************ Editor Label Property Functions ************************************************/
     public String getLabelName() {
@@ -1028,5 +1018,21 @@ public class RootPM {
 
     public void setSubtitle(String subtitle) {
         this.subtitle.set(subtitle);
+    }
+
+    public double calcSwissPowerOutput() {
+        return getPowerStationList().stream().mapToDouble(e -> e.getMaxPower()).sum();
+    }
+
+    public double getTotalSwissPowerOutput() {
+        return totalSwissPowerOutput.get();
+    }
+
+    public DoubleProperty totalSwissPowerOutputProperty() {
+        return totalSwissPowerOutput;
+    }
+
+    public void setTotalSwissPowerOutput(double totalSwissPowerOutput) {
+        this.totalSwissPowerOutput.set(totalSwissPowerOutput);
     }
 }
