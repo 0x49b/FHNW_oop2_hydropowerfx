@@ -25,7 +25,8 @@ import java.util.Random;
 public class EEgg extends StackPane {
 
     // Constants
-    private final int INTRO_DURATION = 6;
+    private final int INTRO_DURATION = 6000;
+    private final int LOGO_DURATION = 9000;
     private final int CRAWL_TEXT_DURATION = 75;
     private final String INTRO_TEXT = "Es war einmal vor langer Zeit\nin einer weit, weit\nentfernten Galaxis....";
     private final String CRAWL_TEXT = "\n\n\n\n\n\nEpisode FS-XVIII\n\n\nDAS ERWACHEN VON JUNIT\n\n\nEs herrscht Semesterkrieg. Die Studenten, deren Repos von einem geheimen " + "Rechenzentrum aus betrieben werden, haben ihren ersten Sieg gegen den grossen galaktischen Dozenten gewonnen.\n\n" + "Während der Schlacht um MSP ist es den Studenten gelungen, einen Push auf den Masterbranch vorzunehmen " + "und ihr Projekt rechtzeitig abzugeben.\n\n" + "Verfolgt von BufferOverflow und NullpointerException jagen die Studenten mit einer Flotte Debugger den Sommerferien entgegen....";
@@ -50,7 +51,7 @@ public class EEgg extends StackPane {
 
         /************************************************* Intro Text ************************************************/
         Text introNode = createIntroText();
-        FadeTransition introNodeFade = new FadeTransition(Duration.millis(6000), introNode);
+        FadeTransition introNodeFade = new FadeTransition(Duration.millis(INTRO_DURATION), introNode);
 
         introNodeFade.setFromValue(1.0);
         introNodeFade.setToValue(0.0);
@@ -62,7 +63,7 @@ public class EEgg extends StackPane {
         ImageView logoNode = createLogo();
         logoNode.setVisible(false);
 
-        ScaleTransition logoNodeScale = new ScaleTransition(Duration.millis(9000), logoNode);
+        ScaleTransition logoNodeScale = new ScaleTransition(Duration.millis(LOGO_DURATION), logoNode);
         logoNodeScale.setByX(-1.001f);
         logoNodeScale.setByY(-1.001f);
 
