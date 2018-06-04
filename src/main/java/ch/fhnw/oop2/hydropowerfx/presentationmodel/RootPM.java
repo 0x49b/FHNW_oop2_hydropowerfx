@@ -312,7 +312,6 @@ public class RootPM {
                 while ((bytesRead = in.read(buffer)) != -1) {
                     out.write(buffer, 0, bytesRead);
                 }
-                System.out.println("wrote data");
             }
         } catch (IOException e) {
             e.printStackTrace();
