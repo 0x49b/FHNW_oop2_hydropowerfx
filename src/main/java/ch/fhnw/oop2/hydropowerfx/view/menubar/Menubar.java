@@ -160,7 +160,7 @@ public class Menubar extends VBox implements ViewMixin {
 
 
         savestation.setOnAction(event -> {
-            new NotificationPanel(rootPanel, "Daten gespeichert", NotificationPanel.Type.SUCCESS).show();
+            rootPM.save();
         });
 
         search.setOnAction(event -> searchpanel.showhide());

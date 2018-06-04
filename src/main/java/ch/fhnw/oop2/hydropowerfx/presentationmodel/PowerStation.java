@@ -39,6 +39,25 @@ public class PowerStation {
         setImgUrl(fields[13]);
     }
 
+    public String infoAsLine(String delimiter) {
+        return String.join(delimiter,
+                Integer.toString(getEntitiyID()),
+                getName(),
+                getType(),
+                getSite(),
+                getCanton(),
+                Double.toString(getMaxWater()),
+                Double.toString(getMaxPower()),
+                Integer.toString(getStartOperation()),
+                Integer.toString(getLastOperation()),
+                Double.toString(getLatitude()),
+                Double.toString(getLongitude()),
+                getStatus(),
+                getWaterbodies(),
+                getImgUrl()
+        );
+    }
+
     public int getEntitiyID() {
         return entitiyID.get();
     }
