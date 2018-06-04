@@ -3,6 +3,8 @@ package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 import ch.fhnw.oop2.hydropowerfx.database.Database;
 import ch.fhnw.oop2.hydropowerfx.database.neo4j.Neo4j;
 import ch.fhnw.oop2.hydropowerfx.database.sqlite.SQLite;
+import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
+import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
 import ch.fhnw.oop2.hydropowerfx.view.preferences.PreferencesPanel;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -18,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,6 +28,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
@@ -235,7 +239,25 @@ public class RootPM {
     }
 
     public void save() {
-        //TODO implement
+        Path filePath = new File(powerStationFilePath).toPath();
+        try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+
+            writer.write("ENTITY_ID;NAME;TYPE;SITE;CANTON;MAX_WATER_VOLUME_M3_S;MAX_POWER_MW;START_OF_OPERATION_FIRST;START_OF_OPERATION_LAST;LATITUDE;LONGITUDE;STATUS;WATERBODIES;IMAGE_URL"); writer.newLine();
+            powerStationList.stream()
+                    .map(resultat -> resultat.infoAsLine(DELIMITER))
+                    .forEach(line -> {
+                        try {
+                            writer.write(line);
+                            writer.newLine();
+                        } catch (IOException e) {
+                            throw new IllegalStateException(e);
+                        }
+                    });
+            new NotificationPanel((RootPanel) primaryStage.getScene().getRoot(), "Daten gespeichert", NotificationPanel.Type.SUCCESS).show();
+
+        } catch (IOException e) {
+            new NotificationPanel((RootPanel) primaryStage.getScene().getRoot(), "Speichern fehlgeschlagen", NotificationPanel.Type.ERROR).show();
+            throw new IllegalStateException("save failed"); }
     }
 
     private Stream<String> getStreamOfLines(String fileName) {
