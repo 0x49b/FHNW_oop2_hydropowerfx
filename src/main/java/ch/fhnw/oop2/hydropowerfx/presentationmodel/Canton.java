@@ -25,7 +25,7 @@ public class Canton {
     private StringProperty language = new SimpleStringProperty();
 
     private FilteredList<PowerStation> cantonStationsList;
-    private DoubleBinding totalPower;
+    private DoubleProperty totalPower = new SimpleDoubleProperty();
 
     private IntegerBinding totatStations;
 
@@ -59,10 +59,10 @@ public class Canton {
     private void setupBinding() {
         totatStations = Bindings.size(cantonStationsList);
 
-        totalPower = Bindings.createDoubleBinding(
+        totalPower.bind(Bindings.createDoubleBinding(
                 () -> cantonStationsList.stream()
                         .collect(Collectors.summingDouble(PowerStation::getMaxPower)), cantonStationsList
-        );
+        ));
     }
 
     public Number getTotatStations() {
@@ -225,11 +225,11 @@ public class Canton {
         this.cantonStationsList = cantonStationsList;
     }
 
-    public Number getTotalPower() {
+    public double getTotalPower() {
         return totalPower.get();
     }
 
-    public DoubleBinding totalPowerProperty() {
+    public DoubleProperty totalPowerProperty() {
         return totalPower;
     }
 }

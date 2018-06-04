@@ -12,8 +12,10 @@ import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
@@ -81,6 +83,7 @@ public class RootPM {
     private final IntegerBinding totalPowerStations = Bindings.size(powerStationList);
     private final IntegerBinding numberOfPowerStations = Bindings.size(powerStationFilterList);
     private final ObservableList<Canton> cantons = FXCollections.observableArrayList(canton -> new Observable[]{canton.totalPowerProperty()});
+    private final SortedList<Canton> sortedCantons = new SortedList<>(cantons, Comparator.comparing(Canton::getTotalPower).reversed());
 
     private final StringProperty searchText = new SimpleStringProperty("");
     private final StringProperty cantonFilter = new SimpleStringProperty("");
@@ -147,14 +150,11 @@ public class RootPM {
 
         initDatabase(db, true);
 
-        cantons.sort(Comparator.comparing(Canton::getCantonName));
-
         setupBindings();
         setupListeners();
 
         setActualPowerStation(powerStationList.get(0));
         setTotalSwissPowerOutput(calcSwissPowerOutput());
-        bindToProxy(powerStationList.get(0));
     }
 
     public void close() {
@@ -984,6 +984,10 @@ public class RootPM {
 
     public ObservableList<Canton> getCantons() {
         return cantons;
+    }
+
+    public SortedList<Canton> getSortedCantons() {
+        return sortedCantons;
     }
 
     public List<String> getCantonShort() {

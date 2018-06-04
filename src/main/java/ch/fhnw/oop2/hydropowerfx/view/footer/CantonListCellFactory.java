@@ -61,7 +61,7 @@ public class CantonListCellFactory extends ListCell<Canton> {
                 DecimalFormat df = new DecimalFormat("0.00");
                 sb = new StringBuilder();
                 sb.append("Max. Leistung: ");
-                sb.append(df.format(field.getTotalPower().doubleValue()));
+                sb.append(df.format(field.getTotalPower()));
                 sb.append(" MW");
 
                 cantonPowerText = new Label(sb.toString());
