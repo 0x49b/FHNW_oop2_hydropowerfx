@@ -992,12 +992,12 @@ public class RootPM {
 
     public List<String> getCantonShort() {
         ObservableList<Canton> cantons = getCantons();
-        return cantons.stream().map(e -> e.getShortName()).collect(Collectors.toList());
+        return cantons.stream().map(e -> e.getShortName()).sorted().collect(Collectors.toList());
     }
 
     public List<String> getTypes() {
         ObservableList<PowerStation> powerstations = getPowerStationList();
-        return powerstations.stream().map(e -> e.getType()).distinct().collect(Collectors.toList());
+        return powerstations.stream().map(e -> e.getType()).distinct().sorted().collect(Collectors.toList());
     }
 
     public void createSubtitle() {

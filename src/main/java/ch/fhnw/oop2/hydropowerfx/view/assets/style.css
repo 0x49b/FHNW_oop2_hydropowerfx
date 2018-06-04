@@ -156,6 +156,10 @@
     -fx-background-color: transparent;
 }
 
+.corner {
+    -fx-background-color: transparent;
+}
+
 /***********************************************************************************************************************
     MenuBar implemented in a VBox
  **********************************************************************************************************************/
@@ -233,23 +237,54 @@
     -fx-cursor: hand;
 }
 
-
-
-.editor-combobox{
-    -fx-cursor: pointer;
-}
-.editor-combobox .list-cell {
-    -fx-background-color: #67B8DE;
+.combo-box .list-cell {
+    -fx-background: #91C9E8;
+    -fx-background-color: transparent;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 1.66667em;
     -fx-pref-width: 50;
+    -fx-cursor: pointer;
+    -fx-text-fill: #E8F8FF;
 }
 
-.editor-combobox .list-cell:selected {
+
+.combo-box-popup .list-view {
+    -fx-background-color: #67B8DE;
+    -fx-background-insets: 0, 1;
+    -fx-text-fill: #E8F8FF;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 8, 0.0, 0, 0);
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: #67B8DE;
+    -fx-text-fill: #E8F8FF;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
     -fx-background-color: #91C9E8;
 }
 
-.editor-combobox > scroll-bar {
-    -fx-padding: 1;
-    -fx-background-color: red;
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover {
+    -fx-background: -fx-accent;
+    -fx-background-color: -fx-selection-bar;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
+.combo-box-base, .combo-box-base:armed, .combo-box-base:focused {
+    -fx-background-color: #67B8DE;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-border-insets: 0;
+    -fx-border-width: 2px;
+    -fx-border-color: #67B8DE #67B8DE #3399CC #67B8DE;
+    -fx-padding: 2;
+}
+
+.combo-box-base:hover {
+    -fx-color: -fx-hover-base;
+}
+
+.combo-box-base:showing {
+    -fx-color: -fx-pressed-base;
 }
 
 /***********************************************************************************************************************
@@ -472,6 +507,10 @@
 
 .canton-cell-filter {
     -fx-background-color: transparent;
+}
+
+.canton-cell-filter:hover {
+    -fx-background-color: #2D5373;
 }
 
 .canton-cell-name {
