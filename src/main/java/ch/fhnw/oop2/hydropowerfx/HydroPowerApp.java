@@ -40,9 +40,6 @@ public class HydroPowerApp extends Application {
         Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Montserrat-Bold.ttf").toExternalForm(), 10);
         Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Rubik-Regular.ttf").toExternalForm(), 10);
 
-        locale = new Locale("de-CH");
-        Locale.setDefault(locale);
-
         splashStage = new Stage();
         showSplash(splashStage);
         FadeTransition fadeSplash = new FadeTransition(Duration.seconds(2.0), splashLayout);
@@ -81,6 +78,10 @@ public class HydroPowerApp extends Application {
         Parent rootPanel = new RootPanel(rootPM);
         rootPM.setPrimaryStage(primaryStage);
         Scene scene = new Scene(rootPanel);
+
+        locale = new Locale("de-CH");
+        Locale.setDefault(locale);
+
         primaryStage.titleProperty().bind(rootPM.applicationTitleProperty());
         primaryStage.setScene(scene);
 

@@ -5,12 +5,14 @@ import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -170,6 +172,15 @@ public class Menubar extends VBox implements ViewMixin {
             rootPM.setCantonFilter("");
             rootPM.setSearchText("");
             new NotificationPanel(rootPanel, "Filter gelöscht", NotificationPanel.Type.SUCCESS).show();
+        });
+
+        version.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 4) {
+                    rootPM.openEgg();
+                }
+            }
         });
 
     }

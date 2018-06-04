@@ -31,10 +31,10 @@ public class StationList extends VBox implements ViewMixin {
     @Override
     public void initializeControls() {
         stationListTitle = new Label();
-        stationListTitle.getStyleClass().addAll("stationlist-title", "title");
+        stationListTitle.getStyleClass().add("stationlist-title");
 
         activeFilters = new Label();
-        activeFilters.getStyleClass().addAll("stationlist-filter");
+        activeFilters.getStyleClass().add("stationlist-filter");
 
         stationList = new ListView<>();
         stationList.getStyleClass().add("stationlist-listview");

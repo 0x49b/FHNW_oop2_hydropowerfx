@@ -4,6 +4,7 @@ import ch.fhnw.oop2.hydropowerfx.database.Database;
 import ch.fhnw.oop2.hydropowerfx.database.neo4j.Neo4j;
 import ch.fhnw.oop2.hydropowerfx.database.sqlite.SQLite;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
+import ch.fhnw.oop2.hydropowerfx.view.menubar.EEgg;
 import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
 import ch.fhnw.oop2.hydropowerfx.view.preferences.PreferencesPanel;
 import javafx.beans.Observable;
@@ -17,6 +18,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -393,13 +395,27 @@ public class RootPM {
         Scene scene = new Scene(rootPanel);
         Stage preferences = new Stage();
         preferences.initModality(Modality.APPLICATION_MODAL);
-        preferences.titleProperty().bind(preferencesTitleProperty());
         preferences.setScene(scene);
         preferences.setWidth(500);
         preferences.setHeight(300);
         preferences.setResizable(false);
         preferences.initStyle(StageStyle.UNDECORATED);
         preferences.showAndWait();
+    }
+
+    public void openEgg() {
+        EEgg eeggroot = new EEgg(primaryStage);
+        Scene scene = eeggroot.createScene(eeggroot);
+        Stage eegg = new Stage();
+        eegg.initModality(Modality.APPLICATION_MODAL);
+        eegg.setWidth(primaryStage.getWidth());
+        eegg.setHeight(primaryStage.getHeight());
+        eegg.setX(primaryStage.getX());
+        eegg.setY(primaryStage.getY());
+        eegg.setResizable(false);
+        eegg.initStyle(StageStyle.UNDECORATED);
+        eegg.setScene(scene);
+        eegg.showAndWait();
     }
 
     private void setupBindings() {
