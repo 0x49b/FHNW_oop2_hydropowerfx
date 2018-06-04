@@ -118,7 +118,7 @@ public class Editor extends VBox implements ViewMixin {
         mapTab.setContent(mapImage);
         mapTab.setText("Karte");
 
-        editorTab.getTabs().addAll(mapTab, imageTab);
+        editorTab.getTabs().addAll(mapTab);
 
         labelName = new Label();
         labelPlace = new Label();
