@@ -72,7 +72,7 @@ public class CantonListCellFactory extends ListCell<Canton> {
                 portionSwiss = new Label("Anteil Schweiz MW (" + percent + "%): ");
                 portionSwiss.getStyleClass().add("canton-cell-swiss");
 
-                cantonPowerCount = new ProgressBar((calcStationPowerWidth(field.getShortName()) * 2));
+                cantonPowerCount = new ProgressBar((calcStationPowerWidth(field.getShortName()) * 4));
                 cantonPowerCount.getStyleClass().add("canton-cell-bar");
 
                 ImageView filterImage = new ImageView(new Image(this.getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/filter.png")));
