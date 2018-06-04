@@ -113,6 +113,7 @@ public class RootPM {
     private final StringProperty dbSqliteText = new SimpleStringProperty("Speichern in SQLite Datenbank");
     private final StringProperty dbNeo4jText = new SimpleStringProperty("Speichern in Neo4j Datenbank");
     private final StringProperty aboutText = new SimpleStringProperty("");
+    private final StringProperty aboutTitle = new SimpleStringProperty("Über diese App");
 
     /************************************************ Map Properties ************************************************/
     private final String GMAPS_API_KEY = "AIzaSyAjogSXUchu1pQFS3ZqjF06WYfYSGZZb-M";
@@ -1034,5 +1035,17 @@ public class RootPM {
 
     public void setTotalSwissPowerOutput(double totalSwissPowerOutput) {
         this.totalSwissPowerOutput.set(totalSwissPowerOutput);
+    }
+
+    public String getAboutTitle() {
+        return aboutTitle.get();
+    }
+
+    public StringProperty aboutTitleProperty() {
+        return aboutTitle;
+    }
+
+    public void setAboutTitle(String aboutTitle) {
+        this.aboutTitle.set(aboutTitle);
     }
 }

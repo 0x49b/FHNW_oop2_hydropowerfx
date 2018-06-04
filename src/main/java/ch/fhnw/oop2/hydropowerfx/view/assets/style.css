@@ -121,13 +121,13 @@
 
 .scroll-bar:horizontal .increment-arrow {
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-    -fx-background-color: rgb(211,211,211);
+    -fx-background-color: rgb(211, 211, 211);
     -fx-padding: 0.25em;
     -fx-rotate: -90;
 }
 
 .scroll-bar:vertical .increment-arrow {
-    -fx-background-color: rgb(211,211,211);
+    -fx-background-color: rgb(211, 211, 211);
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-padding: 0.25em;
     -fx-rotate: 0;
@@ -195,9 +195,11 @@
     -fx-background-radius: 0 10 10 0;
     -fx-padding: 10;
 }
-.logo{
+
+.logo {
 
 }
+
 /***********************************************************************************************************************
     Editor
  **********************************************************************************************************************/
@@ -231,10 +233,11 @@
     -fx-cursor: hand;
 }
 
-.editor-combobox {
 
+
+.editor-combobox{
+    -fx-cursor: pointer;
 }
-
 .editor-combobox .list-cell {
     -fx-background-color: #67B8DE;
     -fx-pref-width: 50;
@@ -242,6 +245,11 @@
 
 .editor-combobox .list-cell:selected {
     -fx-background-color: #91C9E8;
+}
+
+.editor-combobox > scroll-bar {
+    -fx-padding: 1;
+    -fx-background-color: red;
 }
 
 /***********************************************************************************************************************
@@ -434,12 +442,12 @@
     -fx-text-fill: #E8F8FF;
 }
 
-.preferences-save {
+.preferences-save, .preferences-close {
     -fx-background-color: #2D5373;
     -fx-text-fill: #E8F8FF;
 }
 
-.preferences-save:hover {
+.preferences-save:hover, .preferences-close:hover {
     -fx-background-color: #E8F8FF;
     -fx-text-fill: #161616;
 }
