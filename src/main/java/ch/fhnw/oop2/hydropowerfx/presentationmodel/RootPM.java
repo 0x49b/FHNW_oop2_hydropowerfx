@@ -33,6 +33,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
@@ -137,11 +138,38 @@ public class RootPM {
         undoStack.add(0, new ValueChangeCommand(this, (Property) observable, oldValue, newValue));
     };
 
+
+    /************************************************ Menubar properties and variables ************************************************/
     private final BooleanProperty disableSave = new SimpleBooleanProperty(true);
+    private final BooleanProperty disabledClearFilter = new SimpleBooleanProperty(true);
+    private Long searchLastVisible = new Date().getTime();
+    private final StringProperty activeFilters = new SimpleStringProperty("Aktive Filter: [ keine ]");
+
+    private final ChangeListener<Object> filterChangeListener = (observable, oldValue, newValue) -> {
+        String filterString = "Aktive Filter: [ ";
+        if (getSearchText().equals("") && getCantonFilter().equals("")) {
+            filterString = filterString + "keine ]";
+        }
+        else if (!getSearchText().equals("") && getCantonFilter().equals("")) {
+            filterString = filterString + "Suche: " + searchText.get() + " ]";
+        }
+        else if (getSearchText().equals("") && !getCantonFilter().equals("")) {
+            filterString = filterString + "Kanton: " + cantonFilter.get() + " ]";
+        }
+        else {
+            filterString = filterString + "Suche: " + searchText.get() + " | Kanton: " + cantonFilter.get() + " ]";
+        }
+
+        System.out.println(filterString);
+        setActiveFilters(filterString);
+    };
+
 
     public RootPM() {
         undoDisabled.bind(Bindings.isEmpty(undoStack));
         redoDisabled.bind(Bindings.isEmpty(redoStack));
+
+        disabledClearFilter.bind(Bindings.equal("", searchTextProperty()).and(Bindings.equal("", cantonFilterProperty())));
 
         prefs = Preferences.userRoot().node(this.getClass().getName());
         DATABASES db = DATABASES.fromInt(prefs.getInt(DATABASETYPE, DATABASES.CSV.getValue()));
@@ -432,6 +460,8 @@ public class RootPM {
 
     private void setupListeners() {
         searchText.addListener((observable, oldValue, newValue) -> filterPowerStations());
+        searchText.addListener(filterChangeListener);
+        cantonFilter.addListener(filterChangeListener);
 
         cantonFilter.addListener((observable, oldValue, newValue) -> filterPowerStations());
 
@@ -1051,5 +1081,41 @@ public class RootPM {
 
     public void setAboutTitle(String aboutTitle) {
         this.aboutTitle.set(aboutTitle);
+    }
+
+    public boolean isDisableSave() {
+        return disableSave.get();
+    }
+
+    public boolean isDisabledClearFilter() {
+        return disabledClearFilter.get();
+    }
+
+    public BooleanProperty disabledClearFilterProperty() {
+        return disabledClearFilter;
+    }
+
+    public void setDisabledClearFilter(boolean disabledClearFilter) {
+        this.disabledClearFilter.set(disabledClearFilter);
+    }
+
+    public Long getSearchLastVisible() {
+        return searchLastVisible;
+    }
+
+    public void setSearchLastVisible(Long searchLastVisible) {
+        this.searchLastVisible = searchLastVisible;
+    }
+
+    public String getActiveFilters() {
+        return activeFilters.get();
+    }
+
+    public StringProperty activeFiltersProperty() {
+        return activeFilters;
+    }
+
+    public void setActiveFilters(String activeFilters) {
+        this.activeFilters.set(activeFilters);
     }
 }

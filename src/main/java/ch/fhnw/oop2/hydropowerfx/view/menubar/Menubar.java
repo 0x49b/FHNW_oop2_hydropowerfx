@@ -179,6 +179,7 @@ public class Menubar extends VBox implements ViewMixin {
     public void setupBindings() {
         undo.disableProperty().bind(rootPM.undoDisabledProperty());
         redo.disableProperty().bind(rootPM.redoDisabledProperty());
+        clearFilter.disableProperty().bind(rootPM.disabledClearFilterProperty());
         savestation.disableProperty().bind(rootPM.disableSaveProperty());
         version.textProperty().bind(rootPM.versionInformationProperty());
     }
