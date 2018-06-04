@@ -300,18 +300,6 @@ public class RootPM {
 
     /************************************************ Helper functions ************************************************/
 
-    private void refreshMapURL() {
-
-        StringBuilder coords = new StringBuilder();
-        coords.append(getActualPowerStation().getLatitude());
-        coords.append(",");
-        coords.append(getActualPowerStation().getLongitude());
-
-        String mapsURL = String.format("https://maps.googleapis.com/maps/api/staticmap?center=%s&markers=color:red%7Clabel:%s7C%s&zoom=%s&size=%s&maptype=%s&key=%s", coords.toString(), getActualPowerStation().getName(), coords.toString(), ZOOM, SIZE, MAPTYPE, GMAPS_API_KEY);
-        setMapURL(mapsURL);
-    }
-
-    //TODO Funktion kann gelöscht werden wenn PropertyBinding korrekt implementiert ist
     public String getMapURL() {
         StringBuilder coords = new StringBuilder();
         coords.append(getActualPowerStation().getLatitude());
