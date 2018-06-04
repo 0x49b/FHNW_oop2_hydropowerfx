@@ -1,6 +1,5 @@
 package ch.fhnw.oop2.hydropowerfx.view;
 
-import java.io.IOException;
 import java.util.List;
 
 /**

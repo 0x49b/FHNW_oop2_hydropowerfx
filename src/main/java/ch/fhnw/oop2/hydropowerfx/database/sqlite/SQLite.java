@@ -7,11 +7,7 @@ import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import javafx.collections.ObservableList;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;

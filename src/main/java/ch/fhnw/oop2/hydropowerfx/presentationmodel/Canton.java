@@ -1,7 +1,6 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
