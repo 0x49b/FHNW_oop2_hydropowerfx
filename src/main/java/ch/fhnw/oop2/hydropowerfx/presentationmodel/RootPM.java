@@ -12,7 +12,6 @@ import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -22,11 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -1022,12 +1017,12 @@ public class RootPM {
 
     public List<String> getCantonShort() {
         ObservableList<Canton> cantons = getCantons();
-        return cantons.stream().map(e -> e.getShortName()).collect(Collectors.toList());
+        return cantons.stream().map(e -> e.getShortName()).sorted().collect(Collectors.toList());
     }
 
     public List<String> getTypes() {
         ObservableList<PowerStation> powerstations = getPowerStationList();
-        return powerstations.stream().map(e -> e.getType()).distinct().collect(Collectors.toList());
+        return powerstations.stream().map(e -> e.getType()).distinct().sorted().collect(Collectors.toList());
     }
 
     public void createSubtitle() {
