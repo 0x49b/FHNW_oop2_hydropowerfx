@@ -8,6 +8,7 @@ import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -135,10 +136,24 @@ public class RootPM {
     private final String MAPTYPE = "satellite";
     private final StringProperty mapURL = new SimpleStringProperty("");
 
+    /************************************************ Undo/Redo ************************************************/
+    private final ObservableList<Command> undoStack = FXCollections.observableArrayList();
+    private final ObservableList<Command> redoStack = FXCollections.observableArrayList();
+
+    private final BooleanProperty undoDisabled = new SimpleBooleanProperty();
+    private final BooleanProperty redoDisabled = new SimpleBooleanProperty();
+
+    private final ChangeListener<Object> propertyChangeListenerForUndoSupport = (observable, oldValue, newValue) -> {
+        redoStack.clear();
+        undoStack.add(0, new ValueChangeCommand(this, (Property) observable, oldValue, newValue));
+    };
 
     private final BooleanProperty disableSave = new SimpleBooleanProperty(true);
 
     public RootPM() {
+        undoDisabled.bind(Bindings.isEmpty(undoStack));
+        redoDisabled.bind(Bindings.isEmpty(redoStack));
+
         prefs = Preferences.userRoot().node(this.getClass().getName());
         DATABASES db = DATABASES.fromInt(prefs.getInt(DATABASETYPE, DATABASES.CSV.getValue()));
 
@@ -148,10 +163,10 @@ public class RootPM {
 
         cantons.sort(Comparator.comparing(Canton::getCantonName));
 
-        setActualPowerStation(powerStationList.get(0));
         setupBindings();
         setupListeners();
 
+        setActualPowerStation(powerStationList.get(0));
         bindToProxy(powerStationList.get(0));
     }
 
@@ -338,15 +353,25 @@ public class RootPM {
         int id = powerStationList.stream().max(Comparator.comparing(PowerStation::getEntitiyID)).get().getEntitiyID();
         id++;
         ps.setEntitiyID(id);
-        powerStationList.add(ps);
+        // powerStationList.add(ps);
+        addToList(powerStationList.size(), ps);
         actualPowerStation.set(ps);
+
+        redoStack.clear();
+        undoStack.add(0, new AddCommand(this, ps, powerStationList.size() - 1));
     }
 
     public void deletePowerStation() {
         PowerStation ps = getActualPowerStation();
-        powerStationList.remove(ps);
+
+        int index = powerStationList.indexOf(ps);
+        // powerStationList.remove(ps);
+        removeFromList(ps);
 
         actualPowerStation.set(powerStationFilterList.get(0));
+
+        redoStack.clear();
+        undoStack.add(0, new RemoveCommand(this, ps, index));
     }
 
     public void openPreferences() {
@@ -414,10 +439,12 @@ public class RootPM {
 
             if (oldValue != null) {
                 unbindFromProxy((PowerStation) oldValue);
+                disableUndoSupport((PowerStation) oldValue);
             }
 
             if (newValue != null) {
                 bindToProxy((PowerStation) newValue);
+                enableUndoSupport((PowerStation) newValue);
             }
         }));
     }
@@ -450,7 +477,112 @@ public class RootPM {
         }
     }
 
+    /************************************************ Undo/Redo ************************************************/
+
+    void setPropertyValue(Property property, Object newValue){
+        property.removeListener(propertyChangeListenerForUndoSupport);
+        property.setValue(newValue);
+        property.addListener(propertyChangeListenerForUndoSupport);
+    }
+
+    void addToList(int position, PowerStation station){
+        powerStationList.add(position, station);
+        setActualPowerStation(station);
+    }
+
+    void removeFromList(PowerStation station){
+        unbindFromProxy(station);
+        disableUndoSupport(station);
+
+        powerStationList.remove(station);
+
+        if(!powerStationFilterList.isEmpty()){
+            setActualPowerStation(powerStationFilterList.get(0));
+        }
+    }
+
+    public void undo() {
+        if (undoStack.isEmpty()) {
+            return;
+        }
+        Command cmd = undoStack.get(0);
+        undoStack.remove(0);
+        redoStack.add(0, cmd);
+
+        cmd.undo();
+    }
+
+    public void redo() {
+        if (redoStack.isEmpty()) {
+            return;
+        }
+        Command cmd = redoStack.get(0);
+        redoStack.remove(0);
+        undoStack.add(0, cmd);
+
+        cmd.redo();
+    }
+
+    private void disableUndoSupport(PowerStation station) {
+        station.entitiyIDProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.nameProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.typeProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.siteProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.cantonProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.maxWaterProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.maxPowerProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.startOperationProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.lastOperationProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.latitudeProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.longitudeProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.statusProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.waterbodiesProperty().removeListener(propertyChangeListenerForUndoSupport);
+        station.imgUrlProperty().removeListener(propertyChangeListenerForUndoSupport);
+    }
+
+    private void enableUndoSupport(PowerStation station) {
+        station.entitiyIDProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.nameProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.typeProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.siteProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.cantonProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.maxWaterProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.maxPowerProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.startOperationProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.lastOperationProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.latitudeProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.longitudeProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.statusProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.waterbodiesProperty().addListener(propertyChangeListenerForUndoSupport);
+        station.imgUrlProperty().addListener(propertyChangeListenerForUndoSupport);
+    }
+
+
     /************************************************ Property Methods ************************************************/
+
+    public boolean isUndoDisabled() {
+        return undoDisabled.get();
+    }
+
+    public BooleanProperty undoDisabledProperty() {
+        return undoDisabled;
+    }
+
+    public void setUndoDisabled(boolean undoDisabled) {
+        this.undoDisabled.set(undoDisabled);
+    }
+
+    public boolean isRedoDisabled() {
+        return redoDisabled.get();
+    }
+
+    public BooleanProperty redoDisabledProperty() {
+        return redoDisabled;
+    }
+
+    public void setRedoDisabled(boolean redoDisabled) {
+        this.redoDisabled.set(redoDisabled);
+    }
 
     public String getFilePath() {
         return filePath;

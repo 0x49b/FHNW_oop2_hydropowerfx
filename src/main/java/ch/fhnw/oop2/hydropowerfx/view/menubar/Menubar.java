@@ -145,6 +145,9 @@ public class Menubar extends VBox implements ViewMixin {
 
     @Override
     public void setupEventHandlers() {
+        undo.setOnAction(event -> rootPM.undo());
+        redo.setOnAction(event -> rootPM.redo());
+
         settings.setOnAction(event -> rootPM.openPreferences());
         newstation.setOnAction(event -> rootPM.addPowerStation());
 
@@ -174,6 +177,8 @@ public class Menubar extends VBox implements ViewMixin {
 
     @Override
     public void setupBindings() {
+        undo.disableProperty().bind(rootPM.undoDisabledProperty());
+        redo.disableProperty().bind(rootPM.redoDisabledProperty());
         savestation.disableProperty().bind(rootPM.disableSaveProperty());
         version.textProperty().bind(rootPM.versionInformationProperty());
     }
