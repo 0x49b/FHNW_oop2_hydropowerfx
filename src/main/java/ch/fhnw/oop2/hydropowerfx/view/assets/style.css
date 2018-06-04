@@ -231,6 +231,19 @@
     -fx-cursor: hand;
 }
 
+.editor-combobox {
+
+}
+
+.editor-combobox .list-cell {
+    -fx-background-color: #67B8DE;
+    -fx-pref-width: 50;
+}
+
+.editor-combobox .list-cell:selected {
+    -fx-background-color: #91C9E8;
+}
+
 /***********************************************************************************************************************
     StationList
  **********************************************************************************************************************/
