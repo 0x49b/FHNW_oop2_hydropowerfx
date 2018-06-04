@@ -1,14 +1,9 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
-import ch.fhnw.oop2.hydropowerfx.view.footer.CantonList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.neo4j.cypher.internal.runtime.planDescription.Root;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RootPMTest {
 

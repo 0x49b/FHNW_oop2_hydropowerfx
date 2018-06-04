@@ -1,9 +1,6 @@
 package ch.fhnw.oop2.hydropowerfx.view.menubar;
 
-import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
 import javafx.animation.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.DepthTest;
 import javafx.scene.PerspectiveCamera;
