@@ -63,11 +63,8 @@ public class RootPM {
     private String cantonFilePath;
 
     private final PowerStation powerStationProxy = new PowerStation();
-
     private Database database;
-
     private Stage primaryStage;
-
     private final StringProperty applicationTitle = new SimpleStringProperty("HydroPowerFX");
     private final StringProperty versionInformation = new SimpleStringProperty("V0.1");
     private final BooleanProperty searchpanelShown = new SimpleBooleanProperty(false);
@@ -128,6 +125,7 @@ public class RootPM {
     private final StringProperty dbCsvText = new SimpleStringProperty("Speichern als CSV");
     private final StringProperty dbSqliteText = new SimpleStringProperty("Speichern in SQLite Datenbank");
     private final StringProperty dbNeo4jText = new SimpleStringProperty("Speichern in Neo4j Datenbank");
+    private final StringProperty aboutText = new SimpleStringProperty("");
 
     /************************************************ Map Properties ************************************************/
     private final String GMAPS_API_KEY = "AIzaSyAjogSXUchu1pQFS3ZqjF06WYfYSGZZb-M";
@@ -427,13 +425,9 @@ public class RootPM {
     }
 
     private void setupListeners() {
-        searchText.addListener((observable, oldValue, newValue) -> {
-            filterPowerStations();
-        });
+        searchText.addListener((observable, oldValue, newValue) -> filterPowerStations());
 
-        cantonFilter.addListener((observable, oldValue, newValue) -> {
-            filterPowerStations();
-        });
+        cantonFilter.addListener((observable, oldValue, newValue) -> filterPowerStations());
 
         actualPowerStationProperty().addListener(((observable, oldValue, newValue) -> {
 
@@ -812,6 +806,12 @@ public class RootPM {
         this.actualPowerStation.set(actualPowerStation);
         this.createSubtitle();
     }
+
+    public String getAboutText() { return aboutText.get(); }
+
+    public StringProperty aboutTextProperty() { return aboutText; }
+
+    public void setAboutText(String aboutText) { this.aboutText.set(aboutText); }
 
     /************************************************ Editor Label Property Functions ************************************************/
     public String getLabelName() {

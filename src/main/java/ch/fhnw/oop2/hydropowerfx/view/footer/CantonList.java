@@ -19,7 +19,7 @@ public class CantonList extends StackPane implements ViewMixin {
 
     @Override
     public void initializeSelf() {
-        this.getStyleClass().add("footer");
+        this.getStyleClass().add("cantonlist");
     }
 
     @Override

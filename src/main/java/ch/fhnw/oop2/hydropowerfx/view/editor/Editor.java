@@ -199,10 +199,11 @@ public class Editor extends VBox implements ViewMixin {
         editor.add(labelLastOperation, 2, 3);
         editor.add(lastOperation, 3, 3);
 
-        editor.add(labelLongitude, 0, 4);
-        editor.add(longitude, 1, 4);
-        editor.add(labelLatitude, 2, 4);
-        editor.add(latitude, 3, 4);
+        editor.add(labelLatitude, 0, 4);
+        editor.add(latitude, 1, 4);
+
+        editor.add(labelLongitude, 2, 4);
+        editor.add(longitude, 3, 4);
 
         editor.add(labelStatus, 0, 5);
         editor.add(status, 1, 5);
