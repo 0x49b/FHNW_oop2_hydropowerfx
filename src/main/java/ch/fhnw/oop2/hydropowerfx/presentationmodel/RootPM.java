@@ -153,7 +153,6 @@ public class RootPM {
 
         setActualPowerStation(powerStationList.get(0));
         setTotalSwissPowerOutput(calcSwissPowerOutput());
-        bindToProxy(powerStationList.get(0));
     }
 
     public void close() {
