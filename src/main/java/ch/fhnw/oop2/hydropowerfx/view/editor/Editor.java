@@ -254,6 +254,8 @@ public class Editor extends VBox implements ViewMixin {
         lastOperation.textProperty().bindBidirectional(rootPM.getPowerStationProxy().lastOperationProperty(), new NumberStringConverter());
         latitude.textProperty().bindBidirectional(rootPM.getPowerStationProxy().latitudeProperty(), new NumberStringConverter());
 
+        type.valueProperty().bindBidirectional(rootPM.getPowerStationProxy().typeProperty());
+        canton.valueProperty().bindBidirectional(rootPM.getPowerStationProxy().cantonProperty());
     }
 
     @Override
