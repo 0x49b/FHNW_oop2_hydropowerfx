@@ -70,7 +70,7 @@ public class Menubar extends VBox implements ViewMixin {
         undo.getStyleClass().addAll("menubar-item", "menubar-button", "undo");
         undo.setGraphic(undoImage);
         undo.setTooltip(new Tooltip("Widerrufen"));
-        rootPM.getIntroItems().add(new IntroItem(undo, IntroItem.ARROW.UPLEFT, "Undo button"));
+        rootPM.getIntroItems().add(new IntroItem(undo, IntroItem.ARROW.UPLEFT, "Mache ungewollte Änderungen rückgängig"));
 
         // redo Button
         redoImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/redo.png")));
@@ -78,7 +78,7 @@ public class Menubar extends VBox implements ViewMixin {
         redo.getStyleClass().addAll("menubar-item", "menubar-button", "redo");
         redo.setGraphic(redoImage);
         redo.setTooltip(new Tooltip("Wiederholen"));
-        rootPM.getIntroItems().add(new IntroItem(redo, IntroItem.ARROW.UPLEFT, "Redo button"));
+        rootPM.getIntroItems().add(new IntroItem(redo, IntroItem.ARROW.UPLEFT, "Stelle rückgängig gemacht Änderungen wieder her"));
 
         // new station
         newstationImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/new.png")));
@@ -86,7 +86,7 @@ public class Menubar extends VBox implements ViewMixin {
         newstation.getStyleClass().addAll("menubar-item", "menubar-button", "newstation");
         newstation.setGraphic(newstationImage);
         newstation.setTooltip(new Tooltip("Neue Station einfügen"));
-        rootPM.getIntroItems().add(new IntroItem(newstation, IntroItem.ARROW.UPLEFT, "newStation button"));
+        rootPM.getIntroItems().add(new IntroItem(newstation, IntroItem.ARROW.UPLEFT, "Erstelle eine neue Station"));
 
         // savestation
         savestationImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/save.png")));
@@ -94,7 +94,7 @@ public class Menubar extends VBox implements ViewMixin {
         savestation.getStyleClass().addAll("menubar-item", "menubar-button", "savestation");
         savestation.setGraphic(savestationImage);
         savestation.setTooltip(new Tooltip("Station speichern"));
-        rootPM.getIntroItems().add(new IntroItem(savestation, IntroItem.ARROW.UPLEFT, "Save button"));
+        rootPM.getIntroItems().add(new IntroItem(savestation, IntroItem.ARROW.UPLEFT, "Speichere deine Änderungen"));
 
         // delete Station
         deletestationImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/delete.png")));
@@ -102,7 +102,7 @@ public class Menubar extends VBox implements ViewMixin {
         deletestation.getStyleClass().addAll("menubar-item", "menubar-button", "deletestation");
         deletestation.setGraphic(deletestationImage);
         deletestation.setTooltip(new Tooltip("Station löschen"));
-        rootPM.getIntroItems().add(new IntroItem(deletestation, IntroItem.ARROW.UPLEFT, "Delete button"));
+        rootPM.getIntroItems().add(new IntroItem(deletestation, IntroItem.ARROW.UPLEFT, "Lösche eine Station"));
 
         // search Button
         searchImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/search.png")));
@@ -111,7 +111,7 @@ public class Menubar extends VBox implements ViewMixin {
         search.setGraphic(searchImage);
         searchpanel = new SearchPanel(rootPanel, rootPM, menubar);
         search.setTooltip(new Tooltip("Station suchen"));
-        rootPM.getIntroItems().add(new IntroItem(search, IntroItem.ARROW.UPLEFT, "Search button"));
+        rootPM.getIntroItems().add(new IntroItem(search, IntroItem.ARROW.UPLEFT, "Suche nach Stationen"));
 
         // Delete Filter
         clearFilterImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/clearfilter.png")));
@@ -119,7 +119,7 @@ public class Menubar extends VBox implements ViewMixin {
         clearFilter.getStyleClass().addAll("menubar-item", "menubar-button", "clearfilter");
         clearFilter.setGraphic(clearFilterImage);
         clearFilter.setTooltip(new Tooltip("Filter löschen"));
-        rootPM.getIntroItems().add(new IntroItem(clearFilter, IntroItem.ARROW.UPLEFT, "clearFilter button"));
+        rootPM.getIntroItems().add(new IntroItem(clearFilter, IntroItem.ARROW.UPLEFT, "Lösche aktive Filter"));
 
         // PDF Exporter
         topdfImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/topdf.png")));
@@ -127,7 +127,7 @@ public class Menubar extends VBox implements ViewMixin {
         topdf.getStyleClass().addAll("menubar-item", "menubar-button", "topdf");
         topdf.setGraphic(topdfImage);
         topdf.setTooltip(new Tooltip("Station als PDF speichern"));
-        rootPM.getIntroItems().add(new IntroItem(topdf, IntroItem.ARROW.UPLEFT, "PDF export"));
+        rootPM.getIntroItems().add(new IntroItem(topdf, IntroItem.ARROW.UPLEFT, "Exportiere eine Station als PDF"));
 
         // settings Button
         settingsImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/settings.png")));
@@ -135,7 +135,7 @@ public class Menubar extends VBox implements ViewMixin {
         settings.getStyleClass().addAll("menubar-item", "menubar-button", "settings");
         settings.setGraphic(settingsImage);
         settings.setTooltip(new Tooltip("Einstellungen öffnen"));
-        rootPM.getIntroItems().add(new IntroItem(settings, IntroItem.ARROW.DOWMLEFT, "Einstellungen"));
+        rootPM.getIntroItems().add(new IntroItem(settings, IntroItem.ARROW.DOWMLEFT, "Nimm Einstellungen vor"));
 
         // version Label
         version = new Label();

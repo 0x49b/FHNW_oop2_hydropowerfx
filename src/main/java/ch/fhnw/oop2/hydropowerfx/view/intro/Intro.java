@@ -236,7 +236,7 @@ public class Intro extends Pane implements ViewMixin {
             textLabel.setLayoutY(boundsInScene.getMaxY() - textLabel.getHeight());
         }
         else if (item.getArrow() == IntroItem.ARROW.RIGHTDOWN) {
-            textLabel.setTranslateX(boundsInScene.getMaxX() - 500);
+            textLabel.setTranslateX(boundsInScene.getMaxX() - 960);
             textLabel.setLayoutY(boundsInScene.getMinY() - 15);
         }
         else if (item.getArrow() == IntroItem.ARROW.RIGHTUP) {
@@ -248,7 +248,7 @@ public class Intro extends Pane implements ViewMixin {
             textLabel.setLayoutY(boundsInScene.getMaxY());
         }
         else {
-            textLabel.setLayoutX(boundsInScene.getMaxX() - 300);
+            textLabel.setLayoutX(boundsInScene.getMaxX() - 350);
             textLabel.setLayoutY(boundsInScene.getMinY() + 160);
         }
 
