@@ -87,6 +87,11 @@ public class RootPM {
     private final StringProperty cantonFilter = new SimpleStringProperty("");
     private final DoubleProperty totalSwissPowerOutput = new SimpleDoubleProperty();
 
+    /************************************************ SplashScreen *************************************************/
+    private final FloatProperty waterValue = new SimpleFloatProperty(0.0f);
+    private final FloatProperty powerValue = new SimpleFloatProperty(0.0f);
+    private final BooleanProperty isOnValue = new SimpleBooleanProperty(true);
+
     /************************************************ Editor Labels ************************************************/
 
     private final StringProperty labelName = new SimpleStringProperty("Name");
@@ -146,14 +151,11 @@ public class RootPM {
         String filterString = "Aktive Filter: [ ";
         if (getSearchText().equals("") && getCantonFilter().equals("")) {
             filterString = filterString + "keine ]";
-        }
-        else if (!getSearchText().equals("") && getCantonFilter().equals("")) {
+        } else if (!getSearchText().equals("") && getCantonFilter().equals("")) {
             filterString = filterString + "Suche: " + searchText.get() + " ]";
-        }
-        else if (getSearchText().equals("") && !getCantonFilter().equals("")) {
+        } else if (getSearchText().equals("") && !getCantonFilter().equals("")) {
             filterString = filterString + "Kanton: " + cantonFilter.get() + " ]";
-        }
-        else {
+        } else {
             filterString = filterString + "Suche: " + searchText.get() + " | Kanton: " + cantonFilter.get() + " ]";
         }
 
@@ -251,22 +253,22 @@ public class RootPM {
         Path filePath = new File(powerStationFilePath).toPath();
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
 
-            writer.write("ENTITY_ID;NAME;TYPE;SITE;CANTON;MAX_WATER_VOLUME_M3_S;MAX_POWER_MW;START_OF_OPERATION_FIRST;START_OF_OPERATION_LAST;LATITUDE;LONGITUDE;STATUS;WATERBODIES;IMAGE_URL"); writer.newLine();
-            powerStationList.stream()
-                    .map(resultat -> resultat.infoAsLine(DELIMITER))
-                    .forEach(line -> {
-                        try {
-                            writer.write(line);
-                            writer.newLine();
-                        } catch (IOException e) {
-                            throw new IllegalStateException(e);
-                        }
-                    });
+            writer.write("ENTITY_ID;NAME;TYPE;SITE;CANTON;MAX_WATER_VOLUME_M3_S;MAX_POWER_MW;START_OF_OPERATION_FIRST;START_OF_OPERATION_LAST;LATITUDE;LONGITUDE;STATUS;WATERBODIES;IMAGE_URL");
+            writer.newLine();
+            powerStationList.stream().map(resultat -> resultat.infoAsLine(DELIMITER)).forEach(line -> {
+                try {
+                    writer.write(line);
+                    writer.newLine();
+                } catch (IOException e) {
+                    throw new IllegalStateException(e);
+                }
+            });
             new NotificationPanel((RootPanel) primaryStage.getScene().getRoot(), "Daten gespeichert", NotificationPanel.Type.SUCCESS).show();
 
         } catch (IOException e) {
             new NotificationPanel((RootPanel) primaryStage.getScene().getRoot(), "Speichern fehlgeschlagen", NotificationPanel.Type.ERROR).show();
-            throw new IllegalStateException("save failed"); }
+            throw new IllegalStateException("save failed");
+        }
     }
 
     private Stream<String> getStreamOfLines(String fileName) {
@@ -1115,5 +1117,42 @@ public class RootPM {
 
     public void setActiveFilters(String activeFilters) {
         this.activeFilters.set(activeFilters);
+    }
+
+    public double getWaterValue() {
+        return waterValue.get();
+    }
+
+    public FloatProperty waterValueProperty() {
+        return waterValue;
+    }
+
+    public void setWaterValue(float waterValue) {
+        this.waterValue.set(waterValue);
+    }
+
+    public double getPowerValue() {
+        return powerValue.get();
+    }
+
+    public FloatProperty powerValueProperty() {
+        return powerValue;
+    }
+
+    public void setPowerValue(float powerValue) {
+        this.powerValue.set(powerValue);
+    }
+
+
+    public boolean isIsOnValue() {
+        return isOnValue.get();
+    }
+
+    public BooleanProperty isOnValueProperty() {
+        return isOnValue;
+    }
+
+    public void setIsOnValue(boolean isOnValue) {
+        this.isOnValue.set(isOnValue);
     }
 }

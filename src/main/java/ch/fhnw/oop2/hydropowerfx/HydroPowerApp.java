@@ -2,19 +2,12 @@ package ch.fhnw.oop2.hydropowerfx;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
+import ch.fhnw.oop2.hydropowerfx.view.splashloader.LoaderPane;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -23,12 +16,9 @@ import java.util.Locale;
 
 public class HydroPowerApp extends Application {
 
-    private Pane splashLayout;
-    private Stage splashStage;
-    private int splash_width;
-    private int splash_height;
+    private Parent loaderPane;
     private RootPM rootPM;
-    private Locale locale;
+    private static final Locale CH = new Locale("de", "CH");
 
     public static void main(String[] args) {
         launch(args);
@@ -39,38 +29,32 @@ public class HydroPowerApp extends Application {
 
         Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Montserrat-Bold.ttf").toExternalForm(), 10);
         Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Rubik-Regular.ttf").toExternalForm(), 10);
+        Locale.setDefault(CH);
 
-        splashStage = new Stage();
-        showSplash(splashStage);
-        FadeTransition fadeSplash = new FadeTransition(Duration.seconds(2.0), splashLayout);
+        Stage loaderStage = new Stage();
+        showSplash(loaderStage);
+
+        FadeTransition fadeSplash = new FadeTransition(Duration.seconds(8.0), loaderPane);
         fadeSplash.play();
+
         fadeSplash.setOnFinished(event -> {
-            splashStage.hide();
+            loaderStage.hide();
             showMainStage(primaryStage);
         });
 
     }
 
-    @Override
-    public void init() {
-        Image splashImage = new Image(this.getClass().getResource("view/assets/images/hydrofx-splash.png").toExternalForm());
-        ImageView splash = new ImageView(splashImage);
-        splash_width = (int) splashImage.getWidth();
-        splash_height = (int) splashImage.getHeight();
-        splashLayout = new VBox();
-        splashLayout.getChildren().addAll(splash);
-        splashLayout.setEffect(new DropShadow());
-    }
 
-    private void showSplash(Stage initStage) {
-        Scene splashScene = new Scene(splashLayout);
-        initStage.initStyle(StageStyle.TRANSPARENT);
-        splashScene.setFill(Color.TRANSPARENT);
-        initStage.setScene(splashScene);
-        final Rectangle2D bounds = Screen.getPrimary().getBounds();
-        initStage.setX(bounds.getMinX() + bounds.getWidth() / 2 - splash_width / 2);
-        initStage.setY(bounds.getMinY() + bounds.getHeight() / 2 - splash_height / 2);
-        initStage.show();
+    private void showSplash(Stage loaderStage) {
+       loaderPane = new LoaderPane(rootPM);
+       Scene scene = new Scene(loaderPane);
+
+       loaderStage.setScene(scene);
+       loaderStage.setWidth(300);
+       loaderStage.setHeight(450);
+       loaderStage.initStyle(StageStyle.UNDECORATED);
+       loaderStage.show();
+
     }
 
     private void showMainStage(Stage primaryStage) {
@@ -79,8 +63,7 @@ public class HydroPowerApp extends Application {
         rootPM.setPrimaryStage(primaryStage);
         Scene scene = new Scene(rootPanel);
 
-        locale = new Locale("de-CH");
-        Locale.setDefault(locale);
+
 
         primaryStage.titleProperty().bind(rootPM.applicationTitleProperty());
         primaryStage.setScene(scene);
@@ -94,5 +77,13 @@ public class HydroPowerApp extends Application {
     public void stop() throws Exception {
         rootPM.close();
         super.stop();
+    }
+
+    public RootPM getRootPM() {
+        return rootPM;
+    }
+
+    public void setRootPM(RootPM rootPM) {
+        this.rootPM = rootPM;
     }
 }
