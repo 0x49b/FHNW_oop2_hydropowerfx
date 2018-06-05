@@ -1,12 +1,12 @@
 package ch.fhnw.oop2.hydropowerfx.view.stationlist;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class StationListCellFactory extends ListCell<PowerStation> {
 
@@ -26,20 +26,21 @@ public class StationListCellFactory extends ListCell<PowerStation> {
         } else {
             if (field != null) {
 
-                Text stationName = new Text(field.getName());
+                Label stationName = new Label(field.getName());
                 stationName.getStyleClass().add("station-cell-name");
-                Text maxPower = new Text(field.getMaxPower() + " MW");
+
+                Label maxPower = new Label(field.getMaxPower() + " MW");
                 maxPower.getStyleClass().add("station-cell-maxpower");
 
                 VBox vBox = new VBox(stationName, maxPower);
 
                 // ToDo Very Bad Code..... Must be changed
                 try {
-                    canton = String.format("../assets/cantons/%s.png", field.getCanton());
+                    canton = String.format("/ch/fhnw/oop2/hydropowerfx/view/assets/cantons/%s.png", field.getCanton());
                     cantonImage = new Image(getClass().getResource(canton).toExternalForm());
                 } catch (Exception e) {
                     canton = "../assets/cantons/ZZ.png";
-                    cantonImage = new Image(getClass().getResource(canton).toExternalForm());
+                    cantonImage = new Image(getClass().getResourceAsStream(canton));
                 }
                 ImageView cantonView = new ImageView(cantonImage);
                 cantonView.setFitWidth(30);

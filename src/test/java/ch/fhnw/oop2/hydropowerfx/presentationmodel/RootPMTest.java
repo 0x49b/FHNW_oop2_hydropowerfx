@@ -1,18 +1,22 @@
 package ch.fhnw.oop2.hydropowerfx.presentationmodel;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
 
 class RootPMTest {
 
     @Test
-    void testSetup(){
+    void testGetCantons(){
         //given
+        RootPM rootpm = new RootPM();
 
         //when
+        List<Canton> canton = rootpm.getCantons();
 
         //then
-        assertTrue(0 == 0);
+        Assertions.assertEquals(26, canton.size());
     }
+
 }

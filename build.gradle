@@ -2,6 +2,7 @@ group 'ch.fhnw'
 version '0.1-SNAPSHOT'
 
 
+
 apply plugin: 'java'
 apply plugin: 'idea'
 //apply plugin: 'com.github.johnrengelman.shadow'
@@ -44,11 +45,12 @@ dependencies {
     testCompile("org.junit.jupiter:junit-jupiter-api:5.0.3")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.3")
     compile 'org.xerial:sqlite-jdbc:3.21.0.1'
+    compile "org.neo4j:neo4j:3.4.0"
     compile 'org.neo4j:neo4j-ogm-core:3.1.0'
-    //runtime 'org.neo4j:neo4j-ogm-embedded-driver:3.1.0'
-    runtime 'org.neo4j:neo4j-ogm-bolt-driver:3.1.0'
+    runtime 'org.neo4j:neo4j-ogm-embedded-driver:3.1.0'
     runtime 'org.slf4j:slf4j-simple:1.7.25'
     compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
 }
 
 junitPlatform {
@@ -85,6 +87,7 @@ task fatJar(type: Jar) {
     manifest.from jar.manifest
     classifier = 'all'
     baseName = rootProject.name
+    zip64 true
     from {
         configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
     } {

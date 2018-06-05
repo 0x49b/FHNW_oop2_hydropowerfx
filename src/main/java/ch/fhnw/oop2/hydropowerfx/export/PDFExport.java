@@ -2,12 +2,17 @@ package ch.fhnw.oop2.hydropowerfx.export;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
+import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
+import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import javafx.stage.DirectoryChooser;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,13 +30,11 @@ public class PDFExport {
     private static Font smallFont = new Font(Font.FontFamily.HELVETICA, 7);
 
 
-    public PDFExport(PowerStation actualStation, RootPM rootPM) {
+    public PDFExport(PowerStation actualStation, RootPM rootPM, RootPanel rootPanel) {
         this.actualStation = actualStation;
         this.rootPM = rootPM;
-
-
-        System.out.println("generating PDF for Station: " + actualStation.getEntitiyID() + " NAME" + actualStation.getName());
         chooseFileSaveLocation();
+        new NotificationPanel(rootPanel, "PDF wird erstellt  ", NotificationPanel.Type.INFO).show();
     }
 
     private void chooseFileSaveLocation() {
@@ -39,7 +42,6 @@ public class PDFExport {
         directoryChooser.setTitle("Speicherort wählen ...");
         location = directoryChooser.showDialog(rootPM.getPrimaryStage());
         if (location != null) {
-            System.out.println(location.getAbsolutePath());
             createPDF();
         }
     }
@@ -56,6 +58,7 @@ public class PDFExport {
             addMetaData(document);
             addHeader(document);
             addContent(document);
+            addImage(document);
             document.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -171,6 +174,21 @@ public class PDFExport {
 
         subCatPart.add(table);
 
+    }
+
+    private void addImage(Document document) throws DocumentException, MalformedURLException, IOException {
+
+        Paragraph paragraph = new Paragraph();
+
+        URL imageURL = new URL(rootPM.getMapURL());
+        Image image = Image.getInstance(imageURL);
+        image.setAlignment(Image.ALIGN_RIGHT);
+
+        Chunk chunk = new Chunk(image, 0, -20);
+        paragraph.add("\n\n\n\n\n\n\n\n\n\n\n");
+        paragraph.add(chunk);
+
+        document.add(paragraph);
     }
 
 

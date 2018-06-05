@@ -19,14 +19,14 @@ public class CantonList extends StackPane implements ViewMixin {
 
     @Override
     public void initializeSelf() {
-        this.getStyleClass().add("footer");
+        this.getStyleClass().add("cantonlist");
     }
 
     @Override
     public void initializeControls() {
         cantonList = new ListView<>();
         cantonList.getStyleClass().add("cantonlist-listview");
-        cantonList.setItems(rootPM.getCantons());
+        cantonList.setItems(rootPM.getSortedCantons());
         cantonList.setCellFactory(param -> new CantonListCellFactory(rootPM));
         cantonList.scrollTo(0);
     }

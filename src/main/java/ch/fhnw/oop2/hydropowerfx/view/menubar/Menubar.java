@@ -5,45 +5,48 @@ import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
-import javax.swing.event.ChangeListener;
 
 public class Menubar extends VBox implements ViewMixin {
 
     private RootPM rootPM;
     private RootPanel rootPanel;
     private Menubar menubar;
+    private VBox buttonCol;
+    private VBox footerCol;
 
-    private ImageView hpfxLogo;
+
     private Button undo;
     private Button redo;
     private Button newstation;
     private Button deletestation;
     private Button savestation;
     private Button search;
+    private Button clearFilter;
     private Button topdf;
     private Button settings;
     private Label version;
 
+    private ImageView hpfxlogo;
     private ImageView undoImage;
     private ImageView redoImage;
     private ImageView newstationImage;
     private ImageView deletestationImage;
     private ImageView savestationImage;
     private ImageView searchImage;
+    private ImageView clearFilterImage;
     private ImageView topdfImage;
     private ImageView settingsImage;
     private SearchPanel searchpanel;
-
-    private Tooltip toPDFTooltip;
-
 
     public Menubar(RootPM rootPM, RootPanel rootPanel) {
         this.rootPM = rootPM;
@@ -59,118 +62,137 @@ public class Menubar extends VBox implements ViewMixin {
 
     @Override
     public void initializeControls() {
-        // Logo
-        Image logo = new Image(this.getClass().getResource("../assets/images/hpfxlogo.png").toExternalForm());
-        hpfxLogo = new ImageView(logo);
-        hpfxLogo.setFitHeight(35);
-        hpfxLogo.setFitWidth(35);
-        hpfxLogo.getStyleClass().addAll("menubar-item", "logo");
-
         // undo Button
-        undoImage = new ImageView(new Image(this.getClass().getResource("../assets/images/undo.png").toExternalForm()));
+        undoImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/undo.png")));
         undo = new Button();
         undo.getStyleClass().addAll("menubar-item", "menubar-button", "undo");
         undo.setGraphic(undoImage);
+        undo.setTooltip(new Tooltip("Widerrufen"));
+
 
         // redo Button
-        redoImage = new ImageView(new Image(this.getClass().getResource("../assets/images/redo.png").toExternalForm()));
+        redoImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/redo.png")));
         redo = new Button();
         redo.getStyleClass().addAll("menubar-item", "menubar-button", "redo");
         redo.setGraphic(redoImage);
+        redo.setTooltip(new Tooltip("Wiederholen"));
 
         // new station
-        newstationImage = new ImageView(new Image(this.getClass().getResource("../assets/images/new.png").toExternalForm()));
+        newstationImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/new.png")));
         newstation = new Button();
         newstation.getStyleClass().addAll("menubar-item", "menubar-button", "newstation");
         newstation.setGraphic(newstationImage);
+        newstation.setTooltip(new Tooltip("Neue Station einfügen"));
 
         // delete Station
-        deletestationImage = new ImageView(new Image(this.getClass().getResource("../assets/images/delete.png").toExternalForm()));
+        deletestationImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/delete.png")));
         deletestation = new Button();
         deletestation.getStyleClass().addAll("menubar-item", "menubar-button", "deletestation");
         deletestation.setGraphic(deletestationImage);
+        deletestation.setTooltip(new Tooltip("Station löschen"));
 
         // savestation
-        savestationImage = new ImageView(new Image(this.getClass().getResource("../assets/images/save.png").toExternalForm()));
+        savestationImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/save.png")));
         savestation = new Button();
         savestation.getStyleClass().addAll("menubar-item", "menubar-button", "savestation");
         savestation.setGraphic(savestationImage);
+        savestation.setTooltip(new Tooltip("Station speichern"));
 
         // search Button
-        searchImage = new ImageView(new Image(this.getClass().getResource("../assets/images/search.png").toExternalForm()));
+        searchImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/search.png")));
         search = new Button();
         search.getStyleClass().addAll("menubar-item", "menubar-button", "search");
         search.setGraphic(searchImage);
         searchpanel = new SearchPanel(rootPanel, rootPM, menubar);
+        search.setTooltip(new Tooltip("Station suchen"));
 
-        topdfImage = new ImageView(new Image(this.getClass().getResource("../assets/images/topdf.png").toExternalForm()));
+        // Delete Filter
+        clearFilterImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/clearfilter.png")));
+        clearFilter = new Button();
+        clearFilter.getStyleClass().addAll("menubar-item", "menubar-button", "clearfilter");
+        clearFilter.setGraphic(clearFilterImage);
+        clearFilter.setTooltip(new Tooltip("Filter löschen"));
+
+        // PDF Exporter
+        topdfImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/topdf.png")));
         topdf = new Button();
         topdf.getStyleClass().addAll("menubar-item", "menubar-button", "topdf");
         topdf.setGraphic(topdfImage);
-        toPDFTooltip = new Tooltip();
-        toPDFTooltip.setText("Station als PDF speichern");
-        topdf.setTooltip(toPDFTooltip);
+        topdf.setTooltip(new Tooltip("Station als PDF speichern"));
 
         // settings Button
-        settingsImage = new ImageView(new Image(this.getClass().getResource("../assets/images/settings.png").toExternalForm()));
+        settingsImage = new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/images/settings.png")));
         settings = new Button();
         settings.getStyleClass().addAll("menubar-item", "menubar-button", "settings");
         settings.setGraphic(settingsImage);
+        settings.setTooltip(new Tooltip("Einstellungen öffnen"));
 
         // version Label
         version = new Label();
         version.getStyleClass().addAll("menubar-item", "version");
         version.setAlignment(Pos.CENTER);
+
+        buttonCol = new VBox();
+        footerCol = new VBox();
+
     }
 
     @Override
     public void layoutControls() {
-        this.getChildren().addAll(hpfxLogo, undo, redo, newstation, savestation, deletestation, search, topdf, settings, version);
+        buttonCol.getChildren().addAll(undo, redo, newstation, savestation, deletestation, search, clearFilter, topdf);
+        footerCol.getChildren().addAll(settings, version);
+        this.getChildren().addAll(buttonCol, footerCol);
+        this.setVgrow(buttonCol, Priority.ALWAYS);
     }
 
     @Override
     public void setupEventHandlers() {
-        settings.setOnAction(event -> {
-            rootPM.openPreferences();
-        });
+        undo.setOnAction(event -> rootPM.undo());
+        redo.setOnAction(event -> rootPM.redo());
 
-        newstation.setOnAction(ae -> {
-            rootPM.addPowerStation();
-        });
+        settings.setOnAction(event -> rootPM.openPreferences());
+        newstation.setOnAction(event -> rootPM.addPowerStation());
+
 
         deletestation.setOnAction(ae -> {
+            String name = rootPM.getActualPowerStation().getName();
             rootPM.deletePowerStation();
+            new NotificationPanel(rootPanel, name + " gelöscht", NotificationPanel.Type.SUCCESS).show();
         });
 
-        rootPM.saveShownProperty().addListener((observable, oldValue, newValue) -> {
-            if (!oldValue && newValue) {
-                savestation.setDisable(false);
-            }
-            else if (!newValue && oldValue) {
-                savestation.setDisable(true);
+
+        savestation.setOnAction(event -> {
+            rootPM.save();
+        });
+
+        search.setOnAction(event -> searchpanel.showhide());
+        topdf.setOnAction(event -> new PDFExport(rootPM.getActualPowerStation(), rootPM, rootPanel));
+
+        clearFilter.setOnAction(event -> {
+            rootPM.setCantonFilter("");
+            rootPM.setSearchText("");
+            new NotificationPanel(rootPanel, "Filter gelöscht", NotificationPanel.Type.SUCCESS).show();
+        });
+
+        version.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 4) {
+                    rootPM.openEgg();
+                }
             }
         });
-    }
-
-    @Override
-    public void setupValueChangedListeners() {
 
     }
+
 
     @Override
     public void setupBindings() {
+        undo.disableProperty().bind(rootPM.undoDisabledProperty());
+        redo.disableProperty().bind(rootPM.redoDisabledProperty());
+        clearFilter.disableProperty().bind(rootPM.disabledClearFilterProperty());
+        savestation.disableProperty().bind(rootPM.disableSaveProperty());
         version.textProperty().bind(rootPM.versionInformationProperty());
-        search.setOnAction(event -> {
-            searchpanel.showhide();
-        });
-        savestation.setOnAction(event -> {
-            new NotificationPanel(rootPanel, "gespeichert", NotificationPanel.Type.SUCCESS).show();
-        });
-
-        topdf.setOnAction(event -> {
-            PDFExport pdfwriter = new PDFExport(rootPM.getActualPowerStation(), rootPM);
-            new NotificationPanel(rootPanel, "PDF wird erstellt", NotificationPanel.Type.INFO).show();
-        });
     }
 
     //getter for searchbutton

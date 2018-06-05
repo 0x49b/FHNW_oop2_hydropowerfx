@@ -2,36 +2,48 @@ package ch.fhnw.oop2.hydropowerfx.database;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.Canton;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
+import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.util.Collection;
+import java.util.Comparator;
 
 public abstract class Database {
+
+    protected RootPM rootPM;
 
     protected ObservableList<Canton> cantonList;
     protected ObservableList<PowerStation> stationList;
 
-    public Database(ObservableList<Canton> cantonList, ObservableList<PowerStation> stationList) {
+    public Database(RootPM rootPM, ObservableList<Canton> cantonList, ObservableList<PowerStation> stationList) {
+
+        this.rootPM = rootPM;
 
         this.cantonList = cantonList;
         this.stationList = stationList;
     }
 
     protected void init() {
-        if (this.cantonList.size() > 0) {
-            this.cantonList.forEach(canton -> this.addCanton(canton));
+        if (this.cantonList.size() > 0 || this.stationList.size() > 0) {
+            addAllCantonsAndStations();
         }
         else {
             this.getAllCantons().stream().forEach(canton -> cantonList.add(canton));
+            this.getAllStations().stream().forEach(station -> stationList.add(station));
         }
 
+        /*
         if (this.stationList.size() > 0) {
             this.stationList.forEach(station -> this.addStation(station));
         }
         else {
             this.getAllStations().stream().forEach(station -> stationList.add(station));
         }
+        */
+
+        cantonList.sort(Comparator.comparing(Canton::getCantonName));
+        stationList.sort(Comparator.comparing(PowerStation::getEntitiyID));
 
         this.addListeners();
     }
@@ -100,6 +112,8 @@ public abstract class Database {
             }
         });
     }
+
+    protected abstract void addAllCantonsAndStations();
 
     protected abstract Collection<Canton> getAllCantons();
 

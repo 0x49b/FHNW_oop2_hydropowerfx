@@ -3,6 +3,7 @@ package ch.fhnw.oop2.hydropowerfx.database.neo4j;
 import ch.fhnw.oop2.hydropowerfx.database.Database;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.Canton;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.PowerStation;
+import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import javafx.collections.ObservableList;
 import org.neo4j.ogm.config.Configuration;
 import org.neo4j.ogm.session.Session;
@@ -10,18 +11,19 @@ import org.neo4j.ogm.session.SessionFactory;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Neo4j extends Database {
 
     private SessionFactory sessionFactory;
 
-    public Neo4j(ObservableList<Canton> cantons, ObservableList<PowerStation> stations) {
-        super(cantons, stations);
+    public Neo4j(RootPM rootPM, ObservableList<Canton> cantons, ObservableList<PowerStation> stations) {
+        super(rootPM, cantons, stations);
 
         Configuration configuration = new Configuration.Builder()
-                .uri("bolt://localhost")
-                .credentials("hydropower", "1234")
+                .uri(rootPM.getFilePathURI().toString() + "neo4j.db")
                 .build();
 
         sessionFactory = new SessionFactory(configuration, "ch.fhnw.oop2.hydropowerfx");
@@ -32,6 +34,32 @@ public class Neo4j extends Database {
     @Override
     public void close() {
         sessionFactory.close();
+    }
+
+    @Override
+    protected void addAllCantonsAndStations() {
+        Session session = sessionFactory.openSession();
+
+        for (Canton canton : cantonList) {
+
+            CantonNode cn = new CantonNode(canton);
+
+            for (PowerStation station : canton.getCantonStationsList()) {
+                StationNode sn = new StationNode(station);
+
+                sn.setCantonNode(cn);
+            }
+
+            session.save(cn);
+        }
+
+        List<PowerStation> psList = stationList.stream().filter(station -> station.getCanton().equals("")).collect(Collectors.toList());
+
+        for (PowerStation station : psList) {
+            StationNode sn = new StationNode(station);
+
+            session.save(sn);
+        }
     }
 
     @Override
