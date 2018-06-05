@@ -18,6 +18,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -380,7 +381,6 @@ public class RootPM {
         PowerStation ps = getActualPowerStation();
 
         int index = powerStationList.indexOf(ps);
-        // powerStationList.remove(ps);
         removeFromList(ps);
 
         actualPowerStation.set(powerStationFilterList.get(0));
@@ -394,6 +394,7 @@ public class RootPM {
         Scene scene = new Scene(rootPanel);
         Stage preferences = new Stage();
         preferences.initModality(Modality.APPLICATION_MODAL);
+        rootPanel.setEffect(new DropShadow());
         preferences.setScene(scene);
         preferences.setWidth(500);
         preferences.setHeight(300);
