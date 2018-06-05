@@ -8,10 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.util.converter.NumberStringConverter;
 
 import java.awt.*;
@@ -88,6 +85,19 @@ public class Editor extends VBox implements ViewMixin {
         editorHead = new BorderPane();
         title = new VBox();
         editor = new GridPane();
+        editor.getStyleClass().add("editor-grid");
+        GridPane.setHgrow(editor, Priority.ALWAYS);
+        GridPane.setVgrow(editor, Priority.ALWAYS);
+
+        ColumnConstraints columnConstraints = new ColumnConstraints();
+        columnConstraints.setHgrow(Priority.ALWAYS);
+
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setVgrow(Priority.ALWAYS);
+
+        editor.getColumnConstraints().addAll(columnConstraints,columnConstraints,columnConstraints,columnConstraints);
+        editor.getRowConstraints().addAll(rowConstraints,rowConstraints,rowConstraints,rowConstraints,rowConstraints,rowConstraints,rowConstraints,rowConstraints);
+
 
         titleStationName = new Label();
         titleStationName.getStyleClass().addAll("editor-stationname-title");
@@ -124,15 +134,22 @@ public class Editor extends VBox implements ViewMixin {
         labelPlace = new Label();
         labelWaterflow = new Label();
         labelstartOperation = new Label();
-        labelLongitude = new Label();
+        labelLatitude = new Label();
         labelStatus = new Label();
         labelwaterbodies = new Label();
         labelImageURL = new Label();
+
         labelType = new Label();
+        labelType.setPadding(new Insets(0,0,0,5));
         labelCanton = new Label();
+        labelCanton.setPadding(new Insets(0,0,0,5));
         labelPowerOutput = new Label();
+        labelPowerOutput.setPadding(new Insets(0,0,0,5));
         labelLastOperation = new Label();
-        labelLatitude = new Label();
+        labelLastOperation.setPadding(new Insets(0,0,0,5));
+        labelLongitude = new Label();
+        labelLongitude.setPadding(new Insets(0,0,0,5));
+
 
         stationName = new TextField();
         stationName.getStyleClass().add("editor-textfield");
@@ -169,7 +186,7 @@ public class Editor extends VBox implements ViewMixin {
 
     @Override
     public void layoutControls() {
-        editor.setPadding(new Insets(10, 10, 10, 10));
+        editor.setPadding(new Insets(0, 10, 10, 10));
         title.getChildren().addAll(titleStationName, titleSubtitle);
         title.setSpacing(15);
 
