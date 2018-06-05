@@ -1,6 +1,5 @@
 @font-face {
-    font-family: 'HandOfSean';
-    src: url(./fonts/HandofSean.ttf);
+    src: url(fonts/HandofSean.ttf);
 }
 
 /***********************************************************************************************************************
@@ -544,7 +543,7 @@
 
 .intro-text {
     -fx-text-fill: #F2B324;
-    -fx-font-family: 'Hand of Sean';
+    -fx-font-family: 'HandOfSean';
     -fx-font-size: 36;
 }
 
