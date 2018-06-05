@@ -31,7 +31,7 @@ public class EEgg extends StackPane {
     private final int LOGO_DURATION = 9000;
     private final int CRAWL_TEXT_DURATION = 75;
     private final String INTRO_TEXT = "Es war einmal vor langer Zeit\nin einer weit, weit\nentfernten Galaxis....";
-    private final String CRAWL_TEXT = "\n\n\n\n\n\nEpisode FS-XVIII\n\n\nDAS ERWACHEN VON JUNIT\n\n\nEs herrscht Semesterkrieg. Die Studenten, deren Repos von einem geheimen " + "Rechenzentrum aus betrieben werden, haben ihren ersten Sieg gegen den grossen galaktischen Dozenten gewonnen.\n\n" + "Während der Schlacht um MSP ist es den Studenten gelungen, einen Push auf den Masterbranch vorzunehmen " + "und ihr Projekt rechtzeitig abzugeben.\n\n" + "Verfolgt von BufferOverflow und NullpointerException jagen die Studenten mit einer Flotte Debugger den Sommerferien entgegen....";
+    private final String CRAWL_TEXT = "\n\n\n\n\n\nEpisode FS-XVIII\n\n\nDAS ERWACHEN VON JUNIT\n\n\nEs herrscht Semesterkrieg. Die Studenten, deren Repos von einem geheimen " + "Rechenzentrum aus betrieben werden, haben ihren ersten Sieg gegen den grossen galaktischen Dozenten gewonnen.\n\n" + "Während der Schlacht um MSP ist es den Studenten gelungen, einen Push auf den Masterbranch vorzunehmen " + "und ihr Projekt rechtzeitig abzugeben.\n\n" + "Verfolgt vom bösen BufferOverflow und seinen NullpointerException jagen die Studenten mit einer Flotte Debugger den Sommerferien entgegen um für den nächsten Kampf bereit zu sein....";
 
     private int width;
     private int height;
