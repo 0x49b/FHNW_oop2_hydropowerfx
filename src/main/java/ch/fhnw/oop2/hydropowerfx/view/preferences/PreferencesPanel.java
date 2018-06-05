@@ -30,6 +30,8 @@ public class PreferencesPanel extends VBox implements ViewMixin {
     private ToggleButton sqliteButton;
     private ToggleButton neo4jButton;
 
+    private CheckBox showIntro;
+
     private HBox buttonBox;
 
     public PreferencesPanel(RootPM rootPM) {
@@ -87,6 +89,9 @@ public class PreferencesPanel extends VBox implements ViewMixin {
         neo4jButton.getStyleClass().add("preference-radio");
         vbox.getChildren().addAll(dbLabel, csvButton, sqliteButton, neo4jButton);
 
+        showIntro = new CheckBox("Intro beim nächsten Start anzeigen");
+        showIntro.setSelected(rootPM.getShowIntro());
+
         /*********************************************** Tab 2 - About ************************************************/
         aboutTab = new Tab();
 
@@ -124,7 +129,7 @@ public class PreferencesPanel extends VBox implements ViewMixin {
     @Override
     public void layoutControls() {
         buttonBox.getChildren().addAll(cancel, save);
-        getChildren().addAll(tabPane, buttonBox);
+        getChildren().addAll(tabPane, showIntro, buttonBox);
     }
 
     @Override
@@ -139,6 +144,8 @@ public class PreferencesPanel extends VBox implements ViewMixin {
             } else {
                 rootPM.updateDatabaseType(RootPM.DATABASES.CSV);
             }
+
+            rootPM.setShowIntro(showIntro.isSelected());
 
             cancel.getScene().getWindow().hide();
         });
