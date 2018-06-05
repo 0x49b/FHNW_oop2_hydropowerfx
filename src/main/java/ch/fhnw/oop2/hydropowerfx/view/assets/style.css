@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'HandOfSean';
+    src: url(fonts/HandofSean.ttf);
+}
+
 /***********************************************************************************************************************
     Root Styles
  **********************************************************************************************************************/
@@ -515,4 +520,32 @@
 
 .canton-cell-name {
     -fx-margin: 50, 10, 0, 0;
+}
+
+/***********************************************************************************************************************
+    Intro
+ **********************************************************************************************************************/
+.intro-transparent {
+    -fx-fill: transparent;
+}
+
+.intro-overlay {
+    -fx-fill: rgba(0, 0, 0, 0.8);
+}
+
+.intro-controls {
+}
+
+.intro-button {
+    -fx-background-color: transparent;
+}
+
+.intro-button:hover {
+    -fx-background-color: transparent;
+}
+
+.intro-text {
+    -fx-text-fill: #F2B324;
+    -fx-font-family: 'HandOfSean';
+    -fx-font-size: 36;
 }
