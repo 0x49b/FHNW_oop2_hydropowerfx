@@ -4,6 +4,7 @@ import ch.fhnw.oop2.hydropowerfx.database.Database;
 import ch.fhnw.oop2.hydropowerfx.database.neo4j.Neo4j;
 import ch.fhnw.oop2.hydropowerfx.database.sqlite.SQLite;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
+import ch.fhnw.oop2.hydropowerfx.view.menubar.EEgg;
 import ch.fhnw.oop2.hydropowerfx.view.intro.Intro;
 import ch.fhnw.oop2.hydropowerfx.view.intro.IntroItem;
 import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
@@ -345,18 +346,6 @@ public class RootPM {
 
     /************************************************ Helper functions ************************************************/
 
-    private void refreshMapURL() {
-
-        StringBuilder coords = new StringBuilder();
-        coords.append(getActualPowerStation().getLatitude());
-        coords.append(",");
-        coords.append(getActualPowerStation().getLongitude());
-
-        String mapsURL = String.format("https://maps.googleapis.com/maps/api/staticmap?center=%s&markers=color:red%7Clabel:%s7C%s&zoom=%s&size=%s&maptype=%s&key=%s", coords.toString(), getActualPowerStation().getName(), coords.toString(), ZOOM, SIZE, MAPTYPE, GMAPS_API_KEY);
-        setMapURL(mapsURL);
-    }
-
-    //TODO Funktion kann gelöscht werden wenn PropertyBinding korrekt implementiert ist
     public String getMapURL() {
         StringBuilder coords = new StringBuilder();
         coords.append(getActualPowerStation().getLatitude());
@@ -423,13 +412,27 @@ public class RootPM {
         Scene scene = new Scene(rootPanel);
         Stage preferences = new Stage();
         preferences.initModality(Modality.APPLICATION_MODAL);
-        preferences.titleProperty().bind(preferencesTitleProperty());
         preferences.setScene(scene);
         preferences.setWidth(500);
         preferences.setHeight(300);
         preferences.setResizable(false);
         preferences.initStyle(StageStyle.UNDECORATED);
         preferences.showAndWait();
+    }
+
+    public void openEgg() {
+        EEgg eeggroot = new EEgg(primaryStage);
+        Scene scene = eeggroot.createScene(eeggroot);
+        Stage eegg = new Stage();
+        eegg.initModality(Modality.APPLICATION_MODAL);
+        eegg.setWidth(primaryStage.getWidth());
+        eegg.setHeight(primaryStage.getHeight());
+        eegg.setX(primaryStage.getX());
+        eegg.setY(primaryStage.getY());
+        eegg.setResizable(false);
+        eegg.initStyle(StageStyle.UNDECORATED);
+        eegg.setScene(scene);
+        eegg.showAndWait();
     }
 
     private void setupBindings() {

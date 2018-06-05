@@ -46,12 +46,6 @@
     -fx-background-color: #E8F8FF;
 }
 
-.title {
-    -fx-padding: 10 0 10 10;
-    -fx-font-size: 30;
-    -fx-font-family: Montserrat;
-}
-
 .button-primary {
     -fx-background-color: #3399CC;
     -fx-background-radius: 0, 0, 0, 0;
@@ -205,10 +199,6 @@
     -fx-padding: 10;
 }
 
-.logo {
-
-}
-
 /***********************************************************************************************************************
     Editor
  **********************************************************************************************************************/
@@ -250,6 +240,7 @@
     -fx-pref-width: 50;
     -fx-cursor: pointer;
     -fx-text-fill: #E8F8FF;
+    -fx-font-size: 16;
 }
 
 
@@ -258,11 +249,13 @@
     -fx-background-insets: 0, 1;
     -fx-text-fill: #E8F8FF;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 8, 0.0, 0, 0);
+    -fx-font-size: 16;
 }
 
 .combo-box-popup .list-view .list-cell {
     -fx-background-color: #67B8DE;
     -fx-text-fill: #E8F8FF;
+    -fx-font-size: 16;
 }
 
 .combo-box-popup .list-view .list-cell:hover {
@@ -299,49 +292,48 @@
     -fx-background-color: #67B8DE;
     -fx-border-color: #67B8DE;
 }
-
+.stationlist-title {
+    -fx-padding: 10 0 3 10;
+    -fx-font-size: 30;
+    -fx-font-family: Montserrat;
+}
+.stationlist-filter{
+    -fx-padding: 10 0 10 10;
+}
 .stationlist-listview {
     -fx-background-color: #67B8DE;
     -fx-border-color: #67B8DE;
     -fx-padding: 1;
 }
-
 .stationlist-cell {
     -fx-text-fill: #E8F8FF;
     -fx-font-family: Rubik;
 }
-
 .station-cell-name {
     -fx-text-fill: #E8F8FF;
     -fx-font-family: Rubik;
 }
-
 .station-cell-maxpower {
     -fx-text-fill: #E8F8FF;
     -fx-font-family: Rubik;
     -fx-font-size: 12px;
 }
-
 .list-cell {
     -fx-background-color: #67B8DE;
     -fx-font-family: Rubik;
     -fx-padding: 5;
 }
-
 .list-cell:selected {
     -fx-background-color: #91C9E8;
     -fx-font-family: Rubik;
     -fx-padding: 5;
 }
-
 .station-cell-title {
     -fx-font-size: 14;
 }
-
 .station-cell-subline {
     -fx-font-size: 12;
 }
-
 /***********************************************************************************************************************
     CantonList
  **********************************************************************************************************************/
