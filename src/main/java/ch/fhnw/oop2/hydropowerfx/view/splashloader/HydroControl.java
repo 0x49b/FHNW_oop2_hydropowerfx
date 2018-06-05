@@ -54,12 +54,6 @@ public class HydroControl extends GridPane {
     private ImageView smokeView;
     private Image car;
     private ImageView carView;
-    private URL carSound;
-    private AudioClip carClip;
-    private URL waterSound;
-    private AudioClip waterClip;
-    private URL electricitySound;
-    private AudioClip elecricityClip;
 
     private static final CssMetaData<HydroControl, Color> BASE_COLOR_META_DATA = FACTORY.createColorCssMetaData("-base-color", s -> s.baseColor);
 
@@ -94,8 +88,8 @@ public class HydroControl extends GridPane {
         String fonts = getClass().getResource("/hydrocontrol/fonts/fonts.css").toExternalForm();
         getStylesheets().add(fonts);
 
-        String stylesheet = getClass().getResource("style.css").toExternalForm();
-        getStylesheets().add(stylesheet);
+        //String stylesheet = getClass().getResource("style.css").toExternalForm();
+        //getStylesheets().add(stylesheet);
 
         getStyleClass().add("hydro-control");
     }
@@ -147,7 +141,6 @@ public class HydroControl extends GridPane {
 
         ///////////////////
 
-
         smoke = new Image(HydroControl.class.getResource("/hydrocontrol//imgs/smoke.png").toExternalForm());
         smokeView = new ImageView(smoke);
         smokeView.setX(-190);
@@ -156,6 +149,7 @@ public class HydroControl extends GridPane {
         Path path3 = new Path();
         path3.getElements().add(new MoveTo(1, 75));
         path3.getElements().add(new CubicCurveTo(0, 0, 0, 0, 0, 0));
+
         pathTransition3 = new PathTransition();
         pathTransition3.setDuration(Duration.millis(2000));
         pathTransition3.setCycleCount(Timeline.INDEFINITE);
@@ -179,19 +173,6 @@ public class HydroControl extends GridPane {
         pathTransition5.setPath(path5);
         pathTransition5.setNode(carView);//
         pathTransition5.play();
-
-        ///////////////////SOUND
-
-        carSound = getClass().getResource("/hydrocontrol//sounds/car.wav");
-        carClip = new AudioClip(carSound.toExternalForm());
-
-
-        waterSound = getClass().getResource("/hydrocontrol//sounds/waterfall.wav");
-        waterClip = new AudioClip(waterSound.toExternalForm());
-
-
-        electricitySound = getClass().getResource("/hydrocontrol//sounds/electricity.wav");
-        elecricityClip = new AudioClip(electricitySound.toExternalForm());
 
     }
 

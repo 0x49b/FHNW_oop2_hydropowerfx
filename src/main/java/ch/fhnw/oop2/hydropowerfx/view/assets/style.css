@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'HandOfSean';
-    src: url(fonts/HandofSean.ttf);
+    src: url(./fonts/HandofSean.ttf);
 }
 
 /***********************************************************************************************************************
@@ -544,6 +544,32 @@
 
 .intro-text {
     -fx-text-fill: #F2B324;
-    -fx-font-family: 'HandOfSean';
+    -fx-font-family: 'Hand of Sean';
     -fx-font-size: 36;
 }
+
+
+/***********************************************************************************************************************
+    Splashloader
+ **********************************************************************************************************************/
+.hydro-control{
+    -fx-text-fill: #ffffff;
+
+}
+.splashloader-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.70);
+    -fx-text-fill: #ffffff;
+}
+
+.splashloader-inner {
+    -fx-background-color: rgba(0, 0, 0, 0.70);
+    -fx-text-fill: #ffffff;
+}
+
+.splashloader-label {
+    -fx-text-fill: #ffffff;
+}
+.drawing-pane{
+    -fx-background-color: transparent;
+}
+

@@ -94,6 +94,7 @@ public class RootPM {
     private final FloatProperty waterValue = new SimpleFloatProperty(0.0f);
     private final FloatProperty powerValue = new SimpleFloatProperty(0.0f);
     private final BooleanProperty isOnValue = new SimpleBooleanProperty(true);
+    private final SimpleStringProperty loaderText = new SimpleStringProperty("Blello");
 
     /************************************************ Editor Labels ************************************************/
 
@@ -1277,5 +1278,17 @@ public class RootPM {
 
     public void setIsOnValue(boolean isOnValue) {
         this.isOnValue.set(isOnValue);
+    }
+
+    public String getLoaderText() {
+        return loaderText.get();
+    }
+
+    public SimpleStringProperty loaderTextProperty() {
+        return loaderText;
+    }
+
+    public void setLoaderText(String loaderText) {
+        this.loaderText.set(loaderText);
     }
 }

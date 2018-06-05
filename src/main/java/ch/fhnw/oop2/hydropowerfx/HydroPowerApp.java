@@ -7,6 +7,7 @@ import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -26,6 +27,8 @@ public class HydroPowerApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+        rootPM = new RootPM();
 
         Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Montserrat-Bold.ttf").toExternalForm(), 10);
         Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Rubik-Regular.ttf").toExternalForm(), 10);
@@ -54,17 +57,15 @@ public class HydroPowerApp extends Application {
        loaderStage.setWidth(300);
        loaderStage.setHeight(450);
        loaderStage.initStyle(StageStyle.UNDECORATED);
+       scene.setFill(Color.TRANSPARENT);
        loaderStage.show();
 
     }
 
     private void showMainStage(Stage primaryStage) {
-        rootPM = new RootPM();
         Parent rootPanel = new RootPanel(rootPM);
         rootPM.setPrimaryStage(primaryStage);
         Scene scene = new Scene(rootPanel);
-
-
 
         primaryStage.titleProperty().bind(rootPM.applicationTitleProperty());
         primaryStage.setScene(scene);
