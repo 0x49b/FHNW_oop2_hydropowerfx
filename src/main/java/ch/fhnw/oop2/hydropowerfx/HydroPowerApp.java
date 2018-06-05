@@ -2,7 +2,6 @@ package ch.fhnw.oop2.hydropowerfx;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
-import ch.fhnw.oop2.hydropowerfx.view.intro.Intro;
 import ch.fhnw.oop2.hydropowerfx.view.splashloader.LoaderPane;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
