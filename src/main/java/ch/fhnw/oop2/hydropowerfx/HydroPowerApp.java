@@ -2,6 +2,7 @@ package ch.fhnw.oop2.hydropowerfx;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
+import ch.fhnw.oop2.hydropowerfx.view.intro.Intro;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -39,6 +40,7 @@ public class HydroPowerApp extends Application {
 
         Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Montserrat-Bold.ttf").toExternalForm(), 10);
         Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Rubik-Regular.ttf").toExternalForm(), 10);
+        Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/HandofSean.ttf").toExternalForm(), 10);
 
         locale = new Locale("de-CH");
         Locale.setDefault(locale);
@@ -87,6 +89,8 @@ public class HydroPowerApp extends Application {
         primaryStage.setMinWidth(1100);
         primaryStage.setHeight(780);
         primaryStage.show();
+
+        rootPM.initIntro();
     }
 
     @Override
