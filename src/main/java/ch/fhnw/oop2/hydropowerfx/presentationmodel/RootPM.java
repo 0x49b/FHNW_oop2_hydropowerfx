@@ -4,6 +4,8 @@ import ch.fhnw.oop2.hydropowerfx.database.Database;
 import ch.fhnw.oop2.hydropowerfx.database.neo4j.Neo4j;
 import ch.fhnw.oop2.hydropowerfx.database.sqlite.SQLite;
 import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
+import ch.fhnw.oop2.hydropowerfx.view.intro.Intro;
+import ch.fhnw.oop2.hydropowerfx.view.intro.IntroItem;
 import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
 import ch.fhnw.oop2.hydropowerfx.view.preferences.PreferencesPanel;
 import javafx.beans.Observable;
@@ -15,11 +17,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 import java.io.*;
 import java.net.URI;
@@ -29,6 +37,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
@@ -158,6 +167,15 @@ public class RootPM {
         setActiveFilters(filterString);
     };
 
+    /************************************************ Intro ************************************************/
+    private final List<IntroItem> introItems = new LinkedList();
+    private final String SHOWINTRO = "ShowIntro";
+    private ObjectProperty<IntroItem> actualIntroItem = new SimpleObjectProperty<>();
+
+    private final BooleanProperty hasNoNextIntroItem = new SimpleBooleanProperty(false);
+    private final BooleanProperty hasNoPreviousIntroItem = new SimpleBooleanProperty(true);
+
+    private Intro intro;
 
     public RootPM() {
         undoDisabled.bind(Bindings.isEmpty(undoStack));
@@ -579,6 +597,68 @@ public class RootPM {
         station.statusProperty().addListener(propertyChangeListenerForUndoSupport);
         station.waterbodiesProperty().addListener(propertyChangeListenerForUndoSupport);
         station.imgUrlProperty().addListener(propertyChangeListenerForUndoSupport);
+    }
+
+    /************************************************ Intro ************************************************/
+
+    public void initIntro() {
+
+        if (introItems.size() != 0 && prefs.getBoolean(SHOWINTRO, true)) {
+
+            primaryStage.setResizable(false);
+
+            intro = new Intro(this);
+
+            nextIntroItem();
+            setupIntroChangeListener();
+
+            ((RootPanel) primaryStage.getScene().getRoot()).addIntro(intro);
+        }
+    }
+
+    public void closeIntro() {
+
+        ((RootPanel) primaryStage.getScene().getRoot()).removeIntro(intro);
+        primaryStage.setResizable(true);
+
+    }
+
+    public void nextIntroItem() {
+        if (getActualIntroItem() == null) {
+            IntroItem item = introItems.get(0);
+            intro.updateUI(item);
+            setActualIntroItem(item);
+        }
+        else {
+            int index = introItems.indexOf(getActualIntroItem()) + 1;
+            setActualIntroItem(introItems.get(index));
+        }
+    }
+
+    public void previousIntroItem() {
+        int index = introItems.indexOf(getActualIntroItem()) - 1;
+        setActualIntroItem(introItems.get(index));
+    }
+
+    private void setupIntroChangeListener() {
+        actualIntroItem.addListener((observable, oldValue, newValue) -> {
+            if (introItems.indexOf(newValue) == 0) {
+                setHasNoPreviousIntroItem(true);
+            }
+            else {
+                setHasNoPreviousIntroItem(false);
+            }
+
+            if (introItems.indexOf(newValue)+1 == introItems.size()) {
+                setHasNoNextIntroItem(true);
+            }
+            else {
+                setHasNoNextIntroItem(false);
+            }
+
+            IntroItem item = (IntroItem) newValue;
+            intro.updateUI(item);
+        });
     }
 
 
@@ -1111,5 +1191,45 @@ public class RootPM {
 
     public void setActiveFilters(String activeFilters) {
         this.activeFilters.set(activeFilters);
+    }
+
+    public List<IntroItem> getIntroItems() {
+        return introItems;
+    }
+
+    public IntroItem getActualIntroItem() {
+        return actualIntroItem.get();
+    }
+
+    public ObjectProperty<IntroItem> actualIntroItemProperty() {
+        return actualIntroItem;
+    }
+
+    public void setActualIntroItem(IntroItem actualIntroItem) {
+        this.actualIntroItem.set(actualIntroItem);
+    }
+
+    public boolean getHasNoNextIntroItem() {
+        return hasNoNextIntroItem.get();
+    }
+
+    public BooleanProperty hasNoNextIntroItemProperty() {
+        return hasNoNextIntroItem;
+    }
+
+    public void setHasNoNextIntroItem(boolean hasNoNextIntroItem) {
+        this.hasNoNextIntroItem.set(hasNoNextIntroItem);
+    }
+
+    public boolean getHasNoPreviousIntroItem() {
+        return hasNoPreviousIntroItem.get();
+    }
+
+    public BooleanProperty hasNoPreviousIntroItemProperty() {
+        return hasNoPreviousIntroItem;
+    }
+
+    public void setHasNoPreviousIntroItem(boolean hasNoPreviousIntroItem) {
+        this.hasNoPreviousIntroItem.set(hasNoPreviousIntroItem);
     }
 }
