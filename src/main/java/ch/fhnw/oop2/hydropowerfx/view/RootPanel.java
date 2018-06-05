@@ -3,6 +3,8 @@ package ch.fhnw.oop2.hydropowerfx.view;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.editor.Editor;
 import ch.fhnw.oop2.hydropowerfx.view.footer.CantonList;
+import ch.fhnw.oop2.hydropowerfx.view.intro.Intro;
+import ch.fhnw.oop2.hydropowerfx.view.intro.IntroItem;
 import ch.fhnw.oop2.hydropowerfx.view.menubar.Menubar;
 import ch.fhnw.oop2.hydropowerfx.view.stationlist.StationList;
 import javafx.geometry.Orientation;
@@ -49,6 +51,10 @@ public class RootPanel extends HBox implements ViewMixin {
         stationList = new StationList(rootPM);
         cantonList = new CantonList(rootPM);
 
+        rootPM.getIntroItems().add(new IntroItem(stationList, IntroItem.ARROW.UPLEFT, "Alle Stationen auf einen Blick"));
+        rootPM.getIntroItems().add(new IntroItem(editor, IntroItem.ARROW.UPRIGHT, "Editier eine Station"));
+        rootPM.getIntroItems().add(new IntroItem(cantonList, IntroItem.ARROW.RIGHTDOWN, "Hier hast du einen Überblick über alle Kantone"));
+
         innerSplitPane.getItems().addAll(stationList, editor);
         outerSplitPane.getItems().addAll(innerSplitPane, cantonList);
         setHgrow(outerSplitPane, Priority.ALWAYS);
@@ -67,5 +73,13 @@ public class RootPanel extends HBox implements ViewMixin {
     @Override
     public void setupEventHandlers() {
 
+    }
+
+    public void addIntro(Intro intro) {
+        getChildren().add(intro);
+    }
+
+    public void removeIntro(Intro intro) {
+        getChildren().remove(intro);
     }
 }
