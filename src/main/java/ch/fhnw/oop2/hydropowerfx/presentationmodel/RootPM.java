@@ -666,6 +666,13 @@ public class RootPM {
         });
     }
 
+    public void setShowIntro(boolean show) {
+        prefs.putBoolean(SHOWINTRO, show);
+    }
+
+    public boolean getShowIntro() {
+        return prefs.getBoolean(SHOWINTRO, true);
+    }
 
     /************************************************ Property Methods ************************************************/
 
