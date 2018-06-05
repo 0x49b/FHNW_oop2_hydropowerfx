@@ -6,7 +6,6 @@ import ch.fhnw.oop2.hydropowerfx.view.RootPanel;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import ch.fhnw.oop2.hydropowerfx.view.intro.IntroItem;
 import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
-import javafx.geometry.Bounds;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

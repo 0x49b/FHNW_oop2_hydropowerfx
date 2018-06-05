@@ -141,9 +141,6 @@ public class SQLite extends Database {
                     + ")";
         }
 
-        System.out.println(cantonQuery);
-        System.out.println(stationQuery);
-
         try {
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);

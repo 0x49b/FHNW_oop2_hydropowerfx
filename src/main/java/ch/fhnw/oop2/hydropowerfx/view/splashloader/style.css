@@ -1,0 +1,10 @@
+
+.hydro-control, .loaderpane {
+    -fx-background-color: black;
+}
+
+.hydro-control .display {
+    -fx-font-family: 'Lato Light';
+    -fx-font-size: 24;
+    -fx-fill: derive(-base-color, 90%);
+}

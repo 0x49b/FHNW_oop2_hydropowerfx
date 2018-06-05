@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -20,19 +21,23 @@ import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.net.URL;
 import java.util.Random;
 
 public class EEgg extends StackPane {
 
     // Constants
-    private final int INTRO_DURATION = 6000;
+    private final int INTRO_DURATION = 8000;
     private final int LOGO_DURATION = 9000;
     private final int CRAWL_TEXT_DURATION = 75;
     private final String INTRO_TEXT = "Es war einmal vor langer Zeit\nin einer weit, weit\nentfernten Galaxis....";
-    private final String CRAWL_TEXT = "\n\n\n\n\n\nEpisode FS-XVIII\n\n\nDAS ERWACHEN VON JUNIT\n\n\nEs herrscht Semesterkrieg. Die Studenten, deren Repos von einem geheimen " + "Rechenzentrum aus betrieben werden, haben ihren ersten Sieg gegen den grossen galaktischen Dozenten gewonnen.\n\n" + "Während der Schlacht um MSP ist es den Studenten gelungen, einen Push auf den Masterbranch vorzunehmen " + "und ihr Projekt rechtzeitig abzugeben.\n\n" + "Verfolgt von BufferOverflow und NullpointerException jagen die Studenten mit einer Flotte Debugger den Sommerferien entgegen....";
+    private final String CRAWL_TEXT = "\n\n\n\n\n\nEpisode FS-XVIII\n\n\nDAS ERWACHEN VON JUNIT\n\n\nEs herrscht Semesterkrieg. Die Studenten, deren Repos von einem geheimen " + "Rechenzentrum aus betrieben werden, haben ihren ersten Sieg gegen den grossen galaktischen Dozenten gewonnen.\n\n" + "Während der Schlacht um MSP ist es den Studenten gelungen, einen Push auf den Masterbranch vorzunehmen " + "und ihr Projekt rechtzeitig abzugeben.\n\n" + "Verfolgt vom bösen BufferOverflow und seinen NullpointerException jagen die Studenten mit einer Flotte Debugger den Sommerferien entgegen um für den nächsten Kampf bereit zu sein....";
 
     private int width;
     private int height;
+
+    private URL starwarsSound;
+    private AudioClip starwarsClip;
 
     public EEgg(Stage primaryStage) {
         this.getStyleClass().add("stack-pane");
@@ -48,6 +53,11 @@ public class EEgg extends StackPane {
 
         generateStarBackground(this);
 
+        /************************************************* StarWars Sound ********************************************/
+
+        starwarsSound = getClass().getResource("/hydrocontrol/sounds/starwars.wav");
+        starwarsClip = new AudioClip(starwarsSound.toExternalForm());
+        starwarsClip.play();
 
         /************************************************* Intro Text ************************************************/
         Text introNode = createIntroText();
@@ -74,7 +84,7 @@ public class EEgg extends StackPane {
         textNode.getTransforms().add(new Rotate(-60, 300, height / 2, height / 30, Rotate.X_AXIS));
         textNode.getTransforms().add(crawlTextTranslate);
 
-        Timeline crawlTextTimeline = new Timeline(new KeyFrame(Duration.seconds(CRAWL_TEXT_DURATION), new KeyValue(crawlTextTranslate.yProperty(), -10 * height)));
+        Timeline crawlTextTimeline = new Timeline(new KeyFrame(Duration.seconds(CRAWL_TEXT_DURATION), new KeyValue(crawlTextTranslate.yProperty(), -7 * height)));
         textNode.setTranslateY(2 * height);
 
         Label escape = new Label("press esc to quit");
@@ -102,6 +112,7 @@ public class EEgg extends StackPane {
             KeyCode key = e.getCode();
             if (key == KeyCode.ESCAPE) {
                 scene.getWindow().hide();
+                starwarsClip.stop();
             }
         });
 
