@@ -619,7 +619,9 @@ public class RootPM {
         }
     }
 
-    public void closeIntro() {
+    public void closeIntro(boolean showAgain) {
+
+        prefs.putBoolean(SHOWINTRO, showAgain);
 
         ((RootPanel) primaryStage.getScene().getRoot()).removeIntro(intro);
         primaryStage.setResizable(true);

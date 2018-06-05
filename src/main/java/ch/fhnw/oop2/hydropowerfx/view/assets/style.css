@@ -526,6 +526,8 @@
 }
 
 .intro-controls {
+    -fx-text-fill: rgb(255,255,255);
+    -fx-border-radius: 10, 10, 0, 0;
 }
 
 .intro-button {
@@ -534,6 +536,10 @@
 
 .intro-button:hover {
     -fx-background-color: transparent;
+}
+
+.intro-checkbox {
+    -fx-text-fill: rgb(255,255,255);
 }
 
 .intro-text {

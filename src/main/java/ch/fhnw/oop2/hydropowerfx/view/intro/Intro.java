@@ -4,7 +4,9 @@ import ch.fhnw.oop2.hydropowerfx.HydroPowerApp;
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import javafx.geometry.Bounds;
+import javafx.geometry.HPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -30,6 +32,7 @@ public class Intro extends Pane implements ViewMixin {
     private Button forward;
     private Button backward;
     private Button close;
+    private CheckBox dontShowAgain;
 
     public Intro(RootPM rootPM) {
         this.rootPM = rootPM;
@@ -64,6 +67,10 @@ public class Intro extends Pane implements ViewMixin {
         backward.setTooltip(new Tooltip("Zurück"));
 
         close = new Button("Schliessen");
+
+        dontShowAgain = new CheckBox();
+        dontShowAgain.setText("nicht erneut anzeigen");
+        dontShowAgain.getStyleClass().add("intro-checkbox");
     }
 
     @Override
@@ -74,11 +81,17 @@ public class Intro extends Pane implements ViewMixin {
 
         ColumnConstraints cc = new ColumnConstraints();
         cc.setMinWidth(100.0);
+        cc.setHalignment(HPos.CENTER);
 
         controls.setManaged(false);
-        controls.add(backward,0, 0,1,1);
-        controls.add(close, 2,0, 2, 1);
-        controls.add(forward, 3, 0,2,1);
+
+        controls.setHgap(5);
+        controls.setVgap(5);
+
+        controls.add(backward,0, 0,1,2);
+        controls.add(close, 1,0, 2, 1);
+        controls.add(dontShowAgain, 1,1, 2, 1);
+        controls.add(forward, 3, 0,2,2);
 
         controls.getColumnConstraints().addAll(cc, cc, cc, cc);
 
@@ -98,7 +111,7 @@ public class Intro extends Pane implements ViewMixin {
     public void setupEventHandlers() {
         forward.setOnAction(event -> rootPM.nextIntroItem());
         backward.setOnAction(event -> rootPM.previousIntroItem());
-        close.setOnAction(event -> rootPM.closeIntro());
+        close.setOnAction(event -> rootPM.closeIntro(!dontShowAgain.isSelected()));
     }
 
     public void updateUI(IntroItem item) {
