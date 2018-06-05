@@ -52,7 +52,7 @@ public class RootPanel extends HBox implements ViewMixin {
         cantonList = new CantonList(rootPM);
 
         rootPM.getIntroItems().add(new IntroItem(stationList, IntroItem.ARROW.UPLEFT, "Alle Stationen auf einen Blick"));
-        rootPM.getIntroItems().add(new IntroItem(editor, IntroItem.ARROW.UPRIGHT, "Editier eine Station"));
+        rootPM.getIntroItems().add(new IntroItem(editor, IntroItem.ARROW.UPRIGHT, "Editiere eine Station"));
         rootPM.getIntroItems().add(new IntroItem(cantonList, IntroItem.ARROW.RIGHTDOWN, "Hier hast du einen Überblick über alle Kantone"));
 
         innerSplitPane.getItems().addAll(stationList, editor);

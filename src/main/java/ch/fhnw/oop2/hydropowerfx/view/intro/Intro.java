@@ -67,6 +67,7 @@ public class Intro extends Pane implements ViewMixin {
         backward.setTooltip(new Tooltip("Zurück"));
 
         close = new Button("Schliessen");
+        close.getStyleClass().add("intro-close");
 
         dontShowAgain = new CheckBox();
         dontShowAgain.setText("nicht erneut anzeigen");

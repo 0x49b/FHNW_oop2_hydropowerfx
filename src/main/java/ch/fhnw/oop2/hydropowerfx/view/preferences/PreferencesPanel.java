@@ -2,6 +2,7 @@ package ch.fhnw.oop2.hydropowerfx.view.preferences;
 
 import ch.fhnw.oop2.hydropowerfx.presentationmodel.RootPM;
 import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -17,6 +18,7 @@ public class PreferencesPanel extends VBox implements ViewMixin {
     private RootPM rootPM;
 
     private TabPane tabPane;
+    private Tab generalTab;
     private Tab dbTab;
     private Tab aboutTab;
 
@@ -53,8 +55,20 @@ public class PreferencesPanel extends VBox implements ViewMixin {
         tabPane.setMinSize(TabPane.USE_PREF_SIZE, TabPane.USE_PREF_SIZE);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
+        /*********************************************** Tab 1 - Allgemein *********************************************/
+        generalTab = new Tab();
 
-        /*********************************************** Tab 1 - Database *********************************************/
+        VBox generalBox = new VBox();
+        generalBox.setPadding(new Insets(10));
+
+        showIntro = new CheckBox("Intro beim nächsten Start anzeigen");
+        showIntro.setSelected(rootPM.getShowIntro());
+        showIntro.getStyleClass().add("preference-showintro");
+        generalBox.getChildren().add(showIntro);
+
+
+        generalTab.setContent(generalBox);
+        /*********************************************** Tab 2 - Database *********************************************/
         dbTab = new Tab();
         final VBox vbox = new VBox();
         vbox.setSpacing(10);
@@ -89,10 +103,7 @@ public class PreferencesPanel extends VBox implements ViewMixin {
         neo4jButton.getStyleClass().add("preference-radio");
         vbox.getChildren().addAll(dbLabel, csvButton, sqliteButton, neo4jButton);
 
-        showIntro = new CheckBox("Intro beim nächsten Start anzeigen");
-        showIntro.setSelected(rootPM.getShowIntro());
-
-        /*********************************************** Tab 2 - About ************************************************/
+        /*********************************************** Tab 3 - About ************************************************/
         aboutTab = new Tab();
 
         WebView webview = new WebView();
@@ -110,7 +121,7 @@ public class PreferencesPanel extends VBox implements ViewMixin {
         aboutTab.setContent(webview);
 
         /*********************************************** Set Window up* ***********************************************/
-        tabPane.getTabs().addAll(dbTab, aboutTab);
+        tabPane.getTabs().addAll(generalTab, dbTab, aboutTab);
 
         buttonBox = new HBox();
         buttonBox.getStyleClass().add("preferences-buttonbox");
@@ -118,9 +129,6 @@ public class PreferencesPanel extends VBox implements ViewMixin {
         cancel.getStyleClass().add("preferences-cancel");
         save = new Button("Speichern");
         save.getStyleClass().add("preferences-save");
-        close = new Button("schliessen");
-        close.getStyleClass().add("preferences-close");
-
 
         this.setVgrow(buttonBox, Priority.ALWAYS);
 
@@ -129,7 +137,7 @@ public class PreferencesPanel extends VBox implements ViewMixin {
     @Override
     public void layoutControls() {
         buttonBox.getChildren().addAll(cancel, save);
-        getChildren().addAll(tabPane, showIntro, buttonBox);
+        getChildren().addAll(tabPane, buttonBox);
     }
 
     @Override
@@ -150,30 +158,17 @@ public class PreferencesPanel extends VBox implements ViewMixin {
             cancel.getScene().getWindow().hide();
         });
 
-        close.setOnAction(event -> close.getScene().getWindow().hide());
     }
 
     @Override
     public void setupValueChangedListeners() {
-
-        tabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-
-            switch (newValue.getText()) {
-                case "Datenbank":
-                    buttonBox.getChildren().removeAll(close);
-                    buttonBox.getChildren().addAll(cancel, save);
-                    break;
-                default:
-                    buttonBox.getChildren().removeAll(cancel, save);
-                    buttonBox.getChildren().add(close);
-                    break;
-            }
-        });
-
     }
 
     @Override
     public void setupBindings() {
+
+        generalTab.textProperty().bind(rootPM.generalTitleProperty());
+
         dbTab.textProperty().bind(rootPM.dbTitleProperty());
         aboutTab.textProperty().bind(rootPM.aboutTitleProperty());
 

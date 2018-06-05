@@ -116,6 +116,7 @@ public class RootPM {
 
     private Preferences prefs;
 
+    private final StringProperty generalTitle = new SimpleStringProperty("Allgemein");
     private final StringProperty preferencesTitle = new SimpleStringProperty("Einstellungen");
     private final StringProperty dbTitle = new SimpleStringProperty("Datenbank");
     private final StringProperty dbText = new SimpleStringProperty("Wie sollen die Daten gespeichert werden?");
@@ -1290,5 +1291,17 @@ public class RootPM {
 
     public void setLoaderText(String loaderText) {
         this.loaderText.set(loaderText);
+    }
+
+    public String getGeneralTitle() {
+        return generalTitle.get();
+    }
+
+    public StringProperty generalTitleProperty() {
+        return generalTitle;
+    }
+
+    public void setGeneralTitle(String generalTitle) {
+        this.generalTitle.set(generalTitle);
     }
 }

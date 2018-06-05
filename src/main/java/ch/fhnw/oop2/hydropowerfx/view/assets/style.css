@@ -482,6 +482,11 @@
     -fx-background-color: #E8F8FF;
     -fx-text-fill: #161616;
 }
+.preference-showintro{
+    -fx-text-fill: #E8F8FF;
+    -fx-font-family: Rubik;
+    -fx-font-size: 16;
+}
 
 /***********************************************************************************************************************
     Footer
@@ -531,6 +536,13 @@
 
 .intro-button {
     -fx-background-color: transparent;
+}
+
+.intro-close{
+    -fx-text-fill: #ffffff;
+}
+.intro-close:hover{
+    -fx-text-fill: #161616;
 }
 
 .intro-button:hover {
