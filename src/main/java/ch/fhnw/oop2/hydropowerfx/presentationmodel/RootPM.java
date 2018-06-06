@@ -512,7 +512,8 @@ public class RootPM {
             powerStationFilterList.setPredicate(s -> {
                 boolean filter = true;
 
-                filter = s.getName().contains(search);
+                // filter = s.getName().contains(search);
+                filter = s.getName().toLowerCase().contains(search.toLowerCase());
 
                 if (getCantonFilter() != "") {
                     filter = filter && s.getCanton().equals(getCantonFilter());
