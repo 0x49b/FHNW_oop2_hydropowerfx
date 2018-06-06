@@ -3,6 +3,10 @@
 ## Bearbeitet von
  - Roger Kreienbühl
  - Florian Thiévent
+ 
+## CUIE Komponente
+- Daniel Yarza Navarro
+- Arbnor Aliaj
 
 ## Abgabe
 - Mittwoch, 6.6.2018, 18:00 Uhr
