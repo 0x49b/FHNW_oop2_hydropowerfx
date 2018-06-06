@@ -32,10 +32,6 @@ public class HydroPowerApp extends Application {
 
         Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Montserrat-Bold.ttf").toExternalForm(), 10);
         Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/Rubik-Regular.ttf").toExternalForm(), 10);
-        // Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/HandofSean.ttf").toExternalForm(), 10);
-        Font.loadFont( HydroPowerApp.class.getResourceAsStream( "/ch/fhnw/oop2/hydropowerfx/view/assets/fonts/HandofSean.ttf"), 10);
-        // System.out.println(font);
-        Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/HandofSean.ttf").toExternalForm(), 10);
         Locale.setDefault(CH);
 
         Stage loaderStage = new Stage();
