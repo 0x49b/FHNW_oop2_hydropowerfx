@@ -51,7 +51,7 @@ public class PreferencesPanel extends VBox implements ViewMixin {
     public void initializeControls() {
         this.getStyleClass().add("preferences-panel");
         tabPane = new TabPane();
-        tabPane.setPrefSize(400, 250);
+        tabPane.setPrefSize(400, 260);
         tabPane.setMinSize(TabPane.USE_PREF_SIZE, TabPane.USE_PREF_SIZE);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
