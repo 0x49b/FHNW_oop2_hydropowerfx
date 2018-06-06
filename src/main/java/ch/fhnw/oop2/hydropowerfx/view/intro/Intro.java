@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
@@ -25,10 +26,10 @@ public class Intro extends Pane implements ViewMixin {
     private Shape rootOverlay;
     private Shape overlay;
     private Shape actualShape;
-    private List<IntroItem> introItems;
     private Label text = new Label();
     private ImageView arrow;
     private GridPane controls;
+    private StackPane controlPane;
     private Button forward;
     private Button backward;
     private Button close;
@@ -36,7 +37,6 @@ public class Intro extends Pane implements ViewMixin {
 
     public Intro(RootPM rootPM) {
         this.rootPM = rootPM;
-        this.introItems = rootPM.getIntroItems();
 
         setLayoutY(0);
         setLayoutY(0);
@@ -55,6 +55,9 @@ public class Intro extends Pane implements ViewMixin {
 
         controls = new GridPane();
         controls.getStyleClass().addAll("intro-controls");
+
+        controlPane = new StackPane();
+        controlPane.getStyleClass().addAll("intro-control-pane");
 
         forward = new Button();
         forward.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/ch/fhnw/oop2/hydropowerfx/view/assets/arrows/arrow_forward.png"))));
@@ -84,8 +87,6 @@ public class Intro extends Pane implements ViewMixin {
         cc.setMinWidth(100.0);
         cc.setHalignment(HPos.CENTER);
 
-        controls.setManaged(false);
-
         controls.setHgap(5);
         controls.setVgap(5);
 
@@ -95,11 +96,16 @@ public class Intro extends Pane implements ViewMixin {
         controls.add(forward, 3, 0,2,2);
 
         controls.getColumnConstraints().addAll(cc, cc, cc, cc);
+        controls.setLayoutX((boundsInScene.getMaxX()/2) - 265);
+        controls.setLayoutY(boundsInScene.getMaxY() - 90);
 
-        controls.setLayoutX((boundsInScene.getMaxX()/2) - 300);
-        controls.setLayoutY(boundsInScene.getMaxY() - 75);
 
-        this.getChildren().add(controls);
+        controlPane.setLayoutX((boundsInScene.getMaxX()/2) - 275);
+        controlPane.setLayoutY(boundsInScene.getMaxY() - 100);
+
+        controlPane.getChildren().addAll(controls);
+
+        this.getChildren().add(controlPane);
     }
 
     @Override
