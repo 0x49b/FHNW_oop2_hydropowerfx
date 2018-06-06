@@ -415,7 +415,7 @@ public class RootPM {
         rootPanel.getStyleClass().add("preference-paneroot");
         preferences.setScene(scene);
         preferences.setWidth(500);
-        preferences.setHeight(300);
+        preferences.setHeight(310);
         preferences.setResizable(false);
         preferences.initStyle(StageStyle.UNDECORATED);
         preferences.showAndWait();
