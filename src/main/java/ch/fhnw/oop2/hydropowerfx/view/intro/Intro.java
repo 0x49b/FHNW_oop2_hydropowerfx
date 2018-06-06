@@ -218,7 +218,8 @@ public class Intro extends Pane implements ViewMixin {
         Label textLabel = new Label();
         textLabel.getStyleClass().add("intro-text");
         textLabel.setText(item.getText());
-        textLabel.setFont(Font.loadFont(HydroPowerApp.class.getResource("view/assets/fonts/HandofSean.ttf").toExternalForm(), 10));
+        Font handOfSean = Font.loadFont( HydroPowerApp.class.getResourceAsStream( "/ch/fhnw/oop2/hydropowerfx/view/assets/fonts/HandofSean.ttf"), 36);
+        textLabel.setFont(handOfSean);
 
         if (item.getArrow() == IntroItem.ARROW.DOWMLEFT) {
             textLabel.setLayoutX(boundsInScene.getMinX() + 20);
