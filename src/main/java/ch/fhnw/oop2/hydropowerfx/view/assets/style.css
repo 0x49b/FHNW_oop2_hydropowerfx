@@ -175,12 +175,14 @@
     -fx-background-color: #2e5274;
     -fx-background-radius: 0, 0, 0, 0;
     -fx-border-radius: 0, 0, 0, 0;
+    -fx-text-fill:#E8F8FF;
 }
 
 .button:hover {
     -fx-background-color: #91C9E8;
     -fx-background-radius: 0, 0, 0, 0;
     -fx-border-radius: 0, 0, 0, 0;
+    -fx-text-fill: #161616;
 }
 
 .version {
@@ -401,6 +403,8 @@
  **********************************************************************************************************************/
 .preferences-panel {
     -fx-background-color: #67B8DE;
+    -fx-border-color: #2D5373;
+    -fx-border-width: 3;
 }
 
 .tab-pane {
@@ -586,3 +590,25 @@
     -fx-background-color: transparent;
 }
 
+/***********************************************************************************************************************
+    Dialogs
+ **********************************************************************************************************************/
+
+.alert-dialog{
+    -fx-background-color: #67B8DE;
+}
+.alert-dialog > *.button-bar > *.container{
+    -fx-background-color: #67B8DE;
+}
+.alert-dialog > *.label.content{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.alert-dialog:header *.header-panel{
+    -fx-background-color: #67B8DE;
+}
+.alert-dialog:header *.header-panel *.label{
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-fill: #292929;
+}

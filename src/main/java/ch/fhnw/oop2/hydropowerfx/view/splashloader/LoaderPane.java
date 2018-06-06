@@ -5,14 +5,10 @@ import ch.fhnw.oop2.hydropowerfx.view.ViewMixin;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 
@@ -22,7 +18,7 @@ public class LoaderPane extends StackPane implements ViewMixin {
     private HydroControl cc;
     private VBox inner;
     private Label loaderText;
-    private String[] texts = {"Staue Wasser...", "Berechne Turbinenflügel...", "Verlege Kabel...", "Öffne Schott...", "Wasser marsch!"};
+    private String[] texts = {"", "Staue Wasser...", "Berechne Turbinenflügel...", "Verlege Kabel...", "Öffne Schott...", "Wasser marsch!"};
     private int i = 0;
     private Timeline timeline;
 
@@ -45,7 +41,7 @@ public class LoaderPane extends StackPane implements ViewMixin {
 
         loaderText = new Label();
         loaderText.getStyleClass().add("splashloader-label");
-        loaderText.setPadding(new Insets(5,5,20,50));
+        loaderText.setPadding(new Insets(5, 0, 20, 50));
         cc = new HydroControl(rootPM);
 
     }
@@ -66,11 +62,11 @@ public class LoaderPane extends StackPane implements ViewMixin {
 
 
         timeline = new Timeline(new KeyFrame(Duration.seconds(0), actionEvent -> {
-            if (i < 5) {
+            if (i < texts.length) {
                 rootPM.setLoaderText(texts[i]);
                 i++;
             }
-        }), new KeyFrame(Duration.seconds(1.75)));
+        }), new KeyFrame(Duration.seconds(1.3)));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
