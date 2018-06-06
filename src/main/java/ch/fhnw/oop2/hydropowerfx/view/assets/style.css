@@ -466,6 +466,7 @@
 
 .preferences-cancel {
     -fx-background-color: #E8F8FF;
+    -fx-text-fill: #2D5373;
 }
 
 .preferences-cancel:hover {
