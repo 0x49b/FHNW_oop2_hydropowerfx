@@ -8,9 +8,7 @@ import ch.fhnw.oop2.hydropowerfx.view.intro.IntroItem;
 import ch.fhnw.oop2.hydropowerfx.view.notification.NotificationPanel;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -165,9 +163,25 @@ public class Menubar extends VBox implements ViewMixin {
 
 
         deletestation.setOnAction(ae -> {
+
             String name = rootPM.getActualPowerStation().getName();
-            rootPM.deletePowerStation();
-            new NotificationPanel(rootPanel, name + " gelöscht", NotificationPanel.Type.SUCCESS).show();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+            DialogPane dialogPane = alert.getDialogPane();
+            String stylesheet = getClass().getResource("../assets/style.css").toExternalForm();
+            dialogPane.getStylesheets().add(stylesheet);
+            dialogPane.getStyleClass().add("alert-dialog");
+
+            alert.setTitle("Löschen bestätigen");
+            alert.setHeaderText("Soll die Station " + name + " gelöscht werden?");
+            alert.showAndWait().ifPresent(result -> {
+                if (result.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+                    rootPM.deletePowerStation();
+                    new NotificationPanel(rootPanel, name + " gelöscht", NotificationPanel.Type.SUCCESS).show();
+                }
+            });
+
         });
 
 

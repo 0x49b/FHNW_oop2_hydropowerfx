@@ -21,6 +21,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -410,7 +411,8 @@ public class RootPM {
         Scene scene = new Scene(rootPanel);
         Stage preferences = new Stage();
         preferences.initModality(Modality.APPLICATION_MODAL);
-        rootPanel.setEffect(new DropShadow());
+        rootPanel.setEffect(new DropShadow(5.0d, Color.BLACK));
+        rootPanel.getStyleClass().add("preference-paneroot");
         preferences.setScene(scene);
         preferences.setWidth(500);
         preferences.setHeight(300);
